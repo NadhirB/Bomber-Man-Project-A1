@@ -35,7 +35,7 @@ parameter int INITIAL_Y = 185;
 //parameter int Y_ACCEL = -10;
 
 //const int MAX_Y_SPEED = 500;
-const int	FIXED_POINT_MULTIPLIER = 64; // note it must be 2^n 
+const int	FIXED_POINT_MULTIPLIER = 4096; // note it must be 2^n 
 // FIXED_POINT_MULTIPLIER is used to enable working with integers in high resolution so that 
 // we do all calculations with topLeftX_FixedPoint to get a resolution of 1/64 pixel in calcuatuions,
 // we devide at the end by FIXED_POINT_MULTIPLIER which must be 2^n, to return to the initial proportions
@@ -46,10 +46,10 @@ const int   OBJECT_WIDTH_X = 32;
 const int   OBJECT_HIGHT_Y = 32;
 const int	SafetyMargin   =	1;			//was =2
 
-const int	x_FRAME_LEFT	=	(SafetyMargin)* FIXED_POINT_MULTIPLIER; 
-const int	x_FRAME_RIGHT	=	(639 - SafetyMargin - OBJECT_WIDTH_X)* FIXED_POINT_MULTIPLIER; 
-const int	y_FRAME_TOP		=	(SafetyMargin) * FIXED_POINT_MULTIPLIER;
-const int	y_FRAME_BOTTOM	=	(479 -SafetyMargin - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //- OBJECT_HIGHT_Y
+const int	x_FRAME_LEFT	=	16 * FIXED_POINT_MULTIPLIER; 
+const int	x_FRAME_RIGHT	=	(623 - OBJECT_WIDTH_X)* FIXED_POINT_MULTIPLIER; 
+const int	y_FRAME_TOP		=	48 * FIXED_POINT_MULTIPLIER;
+const int	y_FRAME_BOTTOM	=	(463 - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //- OBJECT_HIGHT_Y
 
 //edges 
 	//------------
@@ -123,16 +123,16 @@ begin : fsm_sync_proc
 		//------------
 		// keys direction change 
 				if (up_direction_key)//  while moving down
-					Yposition <= Yposition - 10;//+1 ;
+					Yposition <= Yposition - 1;//+1 ;
 					
 				if (down_direction_key)//  while moving down
-					Yposition <= Yposition + 10;//+1 ;
+					Yposition <= Yposition + 1;//+1 ;
 					
 				if (left_direction_key)//  while moving down
-					Xposition <= Xposition - 10;//+1 ;		
+					Xposition <= Xposition - 1;//+1 ;		
 					
 				if (right_direction_key)//  while moving down
-					Xposition <= Xposition + 10;//+1 ;		
+					Xposition <= Xposition + 1;//+1 ;		
 					
 //				if (toggle_x_key & !toggle_x_key_D) //rizing edge 
 //					Xspeed <= -Xspeed ; // toggle direction 

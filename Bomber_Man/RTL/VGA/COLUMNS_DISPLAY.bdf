@@ -86,7 +86,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect 448 416 624 432)
+	(rect 456 416 632 432)
 	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
 	(text "topLeftX[10..0]" (rect 5 0 78 12)(font "Arial" ))
 	(pt 176 8)
@@ -332,11 +332,6 @@ agreement for further details.
 	(pt 624 360)
 )
 (connector
-	(pt 624 424)
-	(pt 776 424)
-	(bus)
-)
-(connector
 	(pt 776 440)
 	(pt 624 440)
 	(bus)
@@ -363,6 +358,11 @@ agreement for further details.
 (connector
 	(pt 1000 376)
 	(pt 1304 376)
+	(bus)
+)
+(connector
+	(pt 776 424)
+	(pt 632 424)
 	(bus)
 )
 (text "// (c) Technion IIT, Department of Electrical Engineering 2025" (rect 632 24 991 43)(font "Intel Clear" (font_size 8)))

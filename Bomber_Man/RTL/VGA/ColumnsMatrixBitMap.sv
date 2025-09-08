@@ -29,7 +29,7 @@ localparam  int MAZE_NUMBER_OF__Y_BITS = 3;  // 2^3 = 8
 
 localparam  int TILE_WIDTH_X = 1 << TILE_NUMBER_OF_X_BITS ;
 localparam  int TILE_HEIGHT_Y = 1 <<  TILE_NUMBER_OF_Y_BITS ;
-localparam  int MAZE_WIDTH_X = 1 << MAZE_NUMBER_OF__X_BITS ; //added comment to not confuse
+localparam  int MAZE_WIDTH_X = 1 << MAZE_NUMBER_OF__X_BITS ;
 localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
 
 
@@ -51,22 +51,37 @@ localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
 // all numbers here are hard coded to simplify the understanding 
 
 
-logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [3:0]  MazeBitMapMask ;  
+//logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [1:0]  MazeBitMapMask ;  
 
-logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [3:0]   MazeDefaultBitMapMask= // defult table to load on reset 
-{{68'h10101010101010101},
- {68'h00000000000000000},
- {68'h10101010101010101},
- {68'h00000000000000000},
- {68'h10101010101010101},
- {68'h00000000000000000},
- {68'h10101010101010101},
- {68'h00000000000000000},
- {68'h10101010101010101},
- {68'h00000000000000000},
- {68'h10101010101010101},};
+//logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [1:0]   MazeDefaultBitMapMask= // defult table to load on reset 
+//	{{17'b10101010101010101},
+//	 {17'b00000000000000000},
+//	 {17'b10101010101010101},
+//	 {17'b00000000000000000},
+//	 {17'b10101010101010101},
+//	 {17'b00000000000000000},
+//	 {17'b10101010101010101},
+//	 {17'b00000000000000000},
+//	 {17'b10101010101010101},
+//	 {17'b00000000000000000},
+//	 {17'b10101010101010101},};
 
+// This is a Test:
 
+logic [1:0] MazeBitMapMask [0:10] [0:16];
+
+logic [1:0] MazeDefaultBitMapMask [0:10] [0:16] = 
+	'{'{1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1},
+	  '{1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0},
+	  '{1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1},
+	  '{1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0},
+	  '{1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1},
+	  '{1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0},
+	  '{1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1},
+	  '{1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0},
+	  '{1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1},
+	  '{1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0, 1'b0},
+	  '{1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1, 1'b0, 1'b1}};
  
 
 logic [0:TILE_HEIGHT_Y-1] [0:TILE_WIDTH_X-1] [7:0] object_colors = {
