@@ -1,7 +1,7 @@
 # Git ignore for Quartus-generated directories and files that shouldnt be backed up
 
-/output_files/
-/db/
+Bomber_Man/output_files/
+Bomber_Man/db/
 *.bak
 *.qws
 *.pin
@@ -10,3 +10,4 @@
 *.jdi
 *.rpt
 *.sii
+*.qarlog
