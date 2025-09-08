@@ -2,6 +2,7 @@
 
 Bomber_Man/output_files/
 Bomber_Man/db/
+Bomber_Man/incremental_db/
 *.bak
 *.qws
 *.pin

@@ -305,18 +305,6 @@ agreement for further details.
 	(pt 1304 344)
 )
 (connector
-	(text "BoxHartTopLeftX[10..0]" (rect 1016 344 1126 361)(font "Intel Clear" ))
-	(pt 1000 360)
-	(pt 1304 360)
-	(bus)
-)
-(connector
-	(text "BoxHartTopLeftY[10..0]" (rect 1016 360 1126 377)(font "Intel Clear" ))
-	(pt 1000 376)
-	(pt 1304 376)
-	(bus)
-)
-(connector
 	(text "boxHartDrawingRequest" (rect 1016 376 1130 393)(font "Intel Clear" ))
 	(pt 1000 392)
 	(pt 1304 392)
@@ -365,6 +353,16 @@ agreement for further details.
 (connector
 	(pt 1528 344)
 	(pt 1600 344)
+	(bus)
+)
+(connector
+	(pt 1000 360)
+	(pt 1304 360)
+	(bus)
+)
+(connector
+	(pt 1000 376)
+	(pt 1304 376)
 	(bus)
 )
 (text "// (c) Technion IIT, Department of Electrical Engineering 2025" (rect 632 24 991 43)(font "Intel Clear" (font_size 8)))

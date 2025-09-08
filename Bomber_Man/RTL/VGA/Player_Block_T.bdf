@@ -224,7 +224,7 @@ agreement for further details.
 	(output)
 	(rect 1600 368 1776 384)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "smileyDR" (rect 90 0 136 17)(font "Intel Clear" ))
+	(text "playerDR" (rect 90 0 134 17)(font "Intel Clear" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -240,7 +240,7 @@ agreement for further details.
 	(output)
 	(rect 1600 384 1776 400)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "smileyRGB[7..0]" (rect 90 0 166 17)(font "Intel Clear" ))
+	(text "playerRGB[7..0]" (rect 90 0 165 17)(font "Intel Clear" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -639,20 +639,20 @@ agreement for further details.
 	(pt 1232 440)
 )
 (connector
-	(text "playerRecRGB" (rect 1161 440 1230 457)(font "Intel Clear" ))
-	(pt 1160 456)
-	(pt 1232 456)
-	(bus)
-)
-(connector
 	(text "playerRecDR" (rect 1536 360 1598 377)(font "Intel Clear" ))
 	(pt 1600 376)
 	(pt 1528 376)
 )
 (connector
-	(text "playerRecRGB" (rect 1532 376 1601 393)(font "Intel Clear" ))
+	(text "playerRecRGB[7..0]" (rect 1532 376 1625 393)(font "Intel Clear" ))
 	(pt 1600 392)
 	(pt 1528 392)
+	(bus)
+)
+(connector
+	(text "playerRecRGB[7..0]" (rect 1161 440 1254 457)(font "Intel Clear" ))
+	(pt 1264 456)
+	(pt 1160 456)
 	(bus)
 )
 (text "  " (rect 24 624 31 643)(font "Intel Clear" (font_size 8)))
