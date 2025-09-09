@@ -237,7 +237,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 40 488 264 600)
+	(rect -768 488 -544 600)
 	(text "back_ground_draw" (rect 5 0 95 12)(font "Arial" ))
 	(text "inst4" (rect 8 96 30 113)(font "Intel Clear" ))
 	(port
@@ -295,7 +295,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 208 96))
 	)
-	(annotation_block (parameter)(rect 16 408 259 465))
+	(annotation_block (parameter)(rect -792 408 -549 465))
 )
 (symbol
 	(rect 64 -16 224 128)
@@ -1093,112 +1093,6 @@ agreement for further details.
 	(annotation_block (parameter)(rect 816 16 992 80))
 )
 (symbol
-	(rect -736 272 -624 368)
-	(text "LPM_ROM" (rect 25 0 100 16)(font "Arial" (font_size 10)))
-	(text "inst5" (rect 3 85 30 99)(font "Arial" (font_size 8)))
-	(port
-		(pt 0 24)
-		(input)
-		(text "address[LPM_WIDTHAD-1..0]" (rect 20 17 186 31)(font "Arial" (font_size 8)))
-		(text "address[]" (rect 20 17 74 31)(font "Arial" (font_size 8)))
-		(line (pt 0 24)(pt 16 24)(line_width 3))
-	)
-	(port
-		(pt 0 40)
-		(input)
-		(text "inclock" (rect 20 33 58 47)(font "Arial" (font_size 8)))
-		(text "inclock" (rect 20 33 58 47)(font "Arial" (font_size 8)))
-		(line (pt 0 40)(pt 16 40))
-	)
-	(port
-		(pt 0 56)
-		(input)
-		(text "outclock" (rect 20 49 67 63)(font "Arial" (font_size 8)))
-		(text "outclock" (rect 20 49 67 63)(font "Arial" (font_size 8)))
-		(line (pt 0 56)(pt 16 56))
-	)
-	(port
-		(pt 0 72)
-		(input)
-		(text "memenab" (rect 20 65 74 79)(font "Arial" (font_size 8)))
-		(text "memenab" (rect 20 65 74 79)(font "Arial" (font_size 8)))
-		(line (pt 0 72)(pt 16 72))
-	)
-	(port
-		(pt 112 48)
-		(output)
-		(text "q[LPM_WIDTH-1..0]" (rect 80 41 188 55)(font "Arial" (font_size 8)))
-		(text "q[]" (rect 80 41 94 55)(font "Arial" (font_size 8)))
-		(line (pt 96 48)(pt 112 48)(line_width 3))
-	)
-	(parameter
-		"LPM_ADDRESS_CONTROL"
-		"REGISTERED"
-		"Should the address and control ports be registered?"
-		"\"REGISTERED\"" "\"UNREGISTERED\"" 
-		(type "PARAMETER_STRING")	)
-	(parameter
-		"LPM_FILE"
-		"RTL/initialBackground_MIF.mif"
-		"File containing initial contents of memory array"
-	)
-	(parameter
-		"LPM_NUMWORDS"
-		"307200"
-		"Number of memory words, default is 2^LPM_WIDTHAD"
-	)
-	(parameter
-		"LPM_OUTDATA"
-		"UNREGISTERED"
-		"Should the output data be registered?"
-		"\"REGISTERED\"" "\"UNREGISTERED\"" 
-		(type "PARAMETER_STRING")	)
-	(parameter
-		"LPM_WIDTH"
-		"8"
-		"Data width in bits, any integer > 0"
-		" 1" " 2" " 3" " 4" " 5" " 6" " 7" " 8" " 9" "10" "11" "12" "13" "14" "15" "16" "20" "24" "28" "32" "40" "48" "56" "64" 
-	)
-	(parameter
-		"LPM_WIDTHAD"
-		"19"
-		"Number of address lines, any integer > 0"
-		" 1" " 2" " 3" " 4" " 5" " 6" " 7" " 8" " 9" "10" "11" "12" 
-	)
-	(parameter
-		"DEVICE_FAMILY"
-		""
-		""
-	)
-	(parameter
-		"AUTO_CARRY_CHAINS"
-		"ON"
-		""
-	)
-	(parameter
-		"IGNORE_CARRY_BUFFERS"
-		"OFF"
-		""
-	)
-	(parameter
-		"AUTO_CASCADE_CHAINS"
-		"ON"
-		""
-	)
-	(parameter
-		"IGNORE_CASCADE_BUFFERS"
-		"OFF"
-		""
-	)
-	(drawing
-		(line (pt 16 16)(pt 96 16))
-		(line (pt 16 80)(pt 96 80))
-		(line (pt 96 80)(pt 96 16))
-		(line (pt 16 80)(pt 16 16))
-	)
-	(annotation_block (parameter)(rect -816 32 -462 260))
-)
-(symbol
 	(rect -248 680 40 840)
 	(text "COLUMNS_DISPLAY" (rect 5 0 127 19)(font "Intel Clear" (font_size 8)))
 	(text "inst9" (rect 8 139 30 156)(font "Intel Clear" ))
@@ -1261,32 +1155,6 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 272 144))
 	)
-)
-(symbol
-	(rect -648 656 -488 736)
-	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
-	(text "inst20" (rect 8 64 36 81)(font "Intel Clear" ))
-	(port
-		(pt 160 32)
-		(output)
-		(text "value[size-1..0]" (rect 0 0 75 12)(font "Arial" ))
-		(text "value[size-1..0]" (rect 76 27 151 39)(font "Arial" ))
-		(line (pt 160 32)(pt 144 32)(line_width 3))
-	)
-	(parameter
-		"size"
-		"11"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"MyValue"
-		"48"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(drawing
-		(rectangle (rect 16 16 144 64))
-	)
-	(annotation_block (parameter)(rect -832 632 -663 689))
 )
 (symbol
 	(rect -120 1248 104 1392)
@@ -1459,6 +1327,188 @@ agreement for further details.
 		(rectangle (rect 16 16 144 64))
 	)
 	(annotation_block (parameter)(rect -832 752 -663 809))
+)
+(symbol
+	(rect -208 480 24 608)
+	(text "Frame_Blocks" (rect 5 0 87 19)(font "Intel Clear" (font_size 8)))
+	(text "inst19" (rect 8 107 36 124)(font "Intel Clear" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 16 19)(font "Intel Clear" (font_size 8)))
+		(text "clk" (rect 21 27 37 46)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "resetN" (rect 0 0 38 19)(font "Intel Clear" (font_size 8)))
+		(text "resetN" (rect 21 43 59 62)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "pixelX[10..0]" (rect 0 0 75 19)(font "Intel Clear" (font_size 8)))
+		(text "pixelX[10..0]" (rect 21 59 96 78)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "pixelY[10..0]" (rect 0 0 75 19)(font "Intel Clear" (font_size 8)))
+		(text "pixelY[10..0]" (rect 21 75 96 94)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
+	)
+	(port
+		(pt 232 32)
+		(output)
+		(text "BordersRGB[7..0]" (rect 0 0 102 19)(font "Intel Clear" (font_size 8)))
+		(text "BordersRGB[7..0]" (rect 109 27 211 46)(font "Intel Clear" (font_size 8)))
+		(line (pt 232 32)(pt 216 32)(line_width 3))
+	)
+	(port
+		(pt 232 48)
+		(output)
+		(text "frame_DR" (rect 0 0 60 19)(font "Intel Clear" (font_size 8)))
+		(text "frame_DR" (rect 151 43 211 62)(font "Intel Clear" (font_size 8)))
+		(line (pt 232 48)(pt 216 48))
+	)
+	(drawing
+		(rectangle (rect 16 16 216 112))
+	)
+)
+(symbol
+	(rect -736 272 -624 368)
+	(text "LPM_ROM" (rect 25 0 100 16)(font "Arial" (font_size 10)))
+	(text "inst5" (rect 3 85 30 99)(font "Arial" (font_size 8)))
+	(port
+		(pt 0 24)
+		(input)
+		(text "address[LPM_WIDTHAD-1..0]" (rect 20 17 186 31)(font "Arial" (font_size 8)))
+		(text "address[]" (rect 20 17 74 31)(font "Arial" (font_size 8)))
+		(line (pt 0 24)(pt 16 24)(line_width 3))
+	)
+	(port
+		(pt 0 40)
+		(input)
+		(text "inclock" (rect 20 33 58 47)(font "Arial" (font_size 8)))
+		(text "inclock" (rect 20 33 58 47)(font "Arial" (font_size 8)))
+		(line (pt 0 40)(pt 16 40))
+	)
+	(port
+		(pt 0 56)
+		(input)
+		(text "outclock" (rect 20 49 67 63)(font "Arial" (font_size 8)))
+		(text "outclock" (rect 20 49 67 63)(font "Arial" (font_size 8)))
+		(line (pt 0 56)(pt 16 56))
+	)
+	(port
+		(pt 0 72)
+		(input)
+		(text "memenab" (rect 20 65 74 79)(font "Arial" (font_size 8)))
+		(text "memenab" (rect 20 65 74 79)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 16 72))
+	)
+	(port
+		(pt 112 48)
+		(output)
+		(text "q[LPM_WIDTH-1..0]" (rect 80 41 188 55)(font "Arial" (font_size 8)))
+		(text "q[]" (rect 80 41 94 55)(font "Arial" (font_size 8)))
+		(line (pt 96 48)(pt 112 48)(line_width 3))
+	)
+	(parameter
+		"LPM_ADDRESS_CONTROL"
+		"REGISTERED"
+		"Should the address and control ports be registered?"
+		"\"REGISTERED\"" "\"UNREGISTERED\"" 
+		(type "PARAMETER_STRING")	)
+	(parameter
+		"LPM_FILE"
+		"RTL/initialBackground_MIF.mif"
+		"File containing initial contents of memory array"
+	)
+	(parameter
+		"LPM_NUMWORDS"
+		"307200"
+		"Number of memory words, default is 2^LPM_WIDTHAD"
+	)
+	(parameter
+		"LPM_OUTDATA"
+		"UNREGISTERED"
+		"Should the output data be registered?"
+		"\"REGISTERED\"" "\"UNREGISTERED\"" 
+		(type "PARAMETER_STRING")	)
+	(parameter
+		"LPM_WIDTH"
+		"8"
+		"Data width in bits, any integer > 0"
+		" 1" " 2" " 3" " 4" " 5" " 6" " 7" " 8" " 9" "10" "11" "12" "13" "14" "15" "16" "20" "24" "28" "32" "40" "48" "56" "64" 
+	)
+	(parameter
+		"LPM_WIDTHAD"
+		"19"
+		"Number of address lines, any integer > 0"
+		" 1" " 2" " 3" " 4" " 5" " 6" " 7" " 8" " 9" "10" "11" "12" 
+	)
+	(parameter
+		"DEVICE_FAMILY"
+		""
+		""
+	)
+	(parameter
+		"AUTO_CARRY_CHAINS"
+		"ON"
+		""
+	)
+	(parameter
+		"IGNORE_CARRY_BUFFERS"
+		"OFF"
+		""
+	)
+	(parameter
+		"AUTO_CASCADE_CHAINS"
+		"ON"
+		""
+	)
+	(parameter
+		"IGNORE_CASCADE_BUFFERS"
+		"OFF"
+		""
+	)
+	(drawing
+		(line (pt 16 16)(pt 96 16))
+		(line (pt 16 80)(pt 96 80))
+		(line (pt 96 80)(pt 96 16))
+		(line (pt 16 80)(pt 16 16))
+	)
+	(annotation_block (parameter)(rect -816 32 -462 260))
+)
+(symbol
+	(rect -648 656 -488 736)
+	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
+	(text "inst20" (rect 8 64 36 81)(font "Intel Clear" ))
+	(port
+		(pt 160 32)
+		(output)
+		(text "value[size-1..0]" (rect 0 0 75 12)(font "Arial" ))
+		(text "value[size-1..0]" (rect 76 27 151 39)(font "Arial" ))
+		(line (pt 160 32)(pt 144 32)(line_width 3))
+	)
+	(parameter
+		"size"
+		"11"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"MyValue"
+		"47"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 144 64))
+	)
+	(annotation_block (parameter)(rect -832 632 -663 689))
 )
 (connector
 	(text "SQR_topLeftX[10..0]" (rect -190 1056 -93 1073)(font "Intel Clear" ))
@@ -1665,28 +1715,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "clk" (rect -336 696 -322 713)(font "Intel Clear" ))
-	(pt -248 712)
-	(pt -440 712)
-)
-(connector
-	(text "resetN" (rect -334 712 -304 729)(font "Intel Clear" ))
-	(pt -248 728)
-	(pt -440 728)
-)
-(connector
-	(text "pixelX[10..0]" (rect -334 728 -275 745)(font "Intel Clear" ))
-	(pt -248 744)
-	(pt -440 744)
-	(bus)
-)
-(connector
-	(text "pixelY[10..0]" (rect -334 744 -275 761)(font "Intel Clear" ))
-	(pt -248 760)
-	(pt -440 760)
-	(bus)
-)
-(connector
 	(pt -248 776)
 	(pt -464 776)
 	(bus)
@@ -1829,12 +1857,6 @@ agreement for further details.
 	(text "pixelY[10..0]" (rect -207 1312 -148 1329)(font "Intel Clear" ))
 	(pt -120 1328)
 	(pt -256 1328)
-	(bus)
-)
-(connector
-	(text "MIF_VGA[7..0]" (rect 410 528 478 545)(font "Intel Clear" ))
-	(pt 544 544)
-	(pt 392 544)
 	(bus)
 )
 (connector
@@ -2001,28 +2023,6 @@ agreement for further details.
 	(pt 464 240)
 )
 (connector
-	(text "clk" (rect 15 504 29 521)(font "Intel Clear" ))
-	(pt 8 520)
-	(pt 40 520)
-)
-(connector
-	(text "pixelX[10..0]" (rect -30 536 30 548)(font "Arial" ))
-	(pt -56 552)
-	(pt 40 552)
-	(bus)
-)
-(connector
-	(text "pixelY[10..0]" (rect -30 552 32 564)(font "Arial" ))
-	(pt -56 568)
-	(pt 40 568)
-	(bus)
-)
-(connector
-	(text "resetN" (rect -40 520 -10 537)(font "Intel Clear" ))
-	(pt 40 536)
-	(pt -56 536)
-)
-(connector
 	(text "ColumnsRGB[7..0]" (rect 50 712 137 729)(font "Intel Clear" ))
 	(pt 40 728)
 	(pt 144 728)
@@ -2032,17 +2032,6 @@ agreement for further details.
 	(text "ColumnsDR" (rect 50 696 106 713)(font "Intel Clear" ))
 	(pt 40 712)
 	(pt 144 712)
-)
-(connector
-	(text "ColumnsDR" (rect 418 464 474 481)(font "Intel Clear" ))
-	(pt 544 480)
-	(pt 400 480)
-)
-(connector
-	(text "ColumnsRGB[7..0]" (rect 426 480 513 497)(font "Intel Clear" ))
-	(pt 544 496)
-	(pt 408 496)
-	(bus)
 )
 (connector
 	(text "clk" (rect -672 1304 -658 1321)(font "Intel Clear" ))
@@ -2067,15 +2056,120 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "squareRGB[7..0]" (rect 434 448 510 465)(font "Intel Clear" ))
-	(pt 392 464)
-	(pt 544 464)
-	(bus)
-)
-(connector
 	(text "boxDrawingRequest" (rect 432 432 526 449)(font "Intel Clear" ))
 	(pt 544 448)
 	(pt 424 448)
+)
+(connector
+	(text "clk" (rect -793 504 -779 521)(font "Intel Clear" ))
+	(pt -800 520)
+	(pt -768 520)
+)
+(connector
+	(text "resetN" (rect -848 520 -818 537)(font "Intel Clear" ))
+	(pt -864 536)
+	(pt -768 536)
+)
+(connector
+	(text "pixelX[10..0]" (rect -838 536 -778 548)(font "Arial" ))
+	(pt -864 552)
+	(pt -768 552)
+	(bus)
+)
+(connector
+	(text "pixelY[10..0]" (rect -838 552 -776 564)(font "Arial" ))
+	(pt -864 568)
+	(pt -768 568)
+	(bus)
+)
+(connector
+	(text "clk" (rect -336 696 -322 713)(font "Intel Clear" ))
+	(pt -360 712)
+	(pt -248 712)
+)
+(connector
+	(text "resetN" (rect -334 712 -304 729)(font "Intel Clear" ))
+	(pt -360 728)
+	(pt -248 728)
+)
+(connector
+	(text "pixelX[10..0]" (rect -334 728 -275 745)(font "Intel Clear" ))
+	(pt -360 744)
+	(pt -248 744)
+	(bus)
+)
+(connector
+	(text "pixelY[10..0]" (rect -334 744 -275 761)(font "Intel Clear" ))
+	(pt -360 760)
+	(pt -248 760)
+	(bus)
+)
+(connector
+	(text "clk" (rect -288 496 -274 513)(font "Intel Clear" ))
+	(pt -312 512)
+	(pt -208 512)
+)
+(connector
+	(text "resetN" (rect -286 512 -256 529)(font "Intel Clear" ))
+	(pt -312 528)
+	(pt -208 528)
+)
+(connector
+	(text "pixelX[10..0]" (rect -286 528 -227 545)(font "Intel Clear" ))
+	(pt -312 544)
+	(pt -208 544)
+	(bus)
+)
+(connector
+	(text "pixelY[10..0]" (rect -286 544 -227 561)(font "Intel Clear" ))
+	(pt -312 560)
+	(pt -208 560)
+	(bus)
+)
+(connector
+	(text "BordersRGB[7..0]" (rect 32 496 113 513)(font "Intel Clear" ))
+	(pt 24 512)
+	(pt 120 512)
+	(bus)
+)
+(connector
+	(text "squareRGB[7..0]" (rect 434 448 510 465)(font "Intel Clear" ))
+	(pt 544 464)
+	(pt 424 464)
+	(bus)
+)
+(connector
+	(text "ColumnsDR" (rect 434 464 490 481)(font "Intel Clear" ))
+	(pt 424 480)
+	(pt 544 480)
+)
+(connector
+	(text "ColumnsRGB[7..0]" (rect 434 480 521 497)(font "Intel Clear" ))
+	(pt 544 496)
+	(pt 424 496)
+	(bus)
+)
+(connector
+	(text "MIF_VGA[7..0]" (rect 434 528 502 545)(font "Intel Clear" ))
+	(pt 544 544)
+	(pt 424 544)
+	(bus)
+)
+(connector
+	(text "BordersDR" (rect 55 512 105 529)(font "Intel Clear" ))
+	(pt 24 528)
+	(pt 120 528)
+)
+(connector
+	(text "BordersRGB[7..0]" (rect 437 496 518 513)(font "Intel Clear" ))
+	(pt 544 512)
+	(pt 424 512)
+	(bus)
+)
+(connector
+	(text "BordersDR" (rect 434 512 484 529)(font "Intel Clear" ))
+	(pt 544 528)
+	(pt 424 528)
 )
 (junction (pt 1296 1232))
 (junction (pt 1296 1248))
@@ -2091,7 +2185,11 @@ agreement for further details.
 (text "The MIF Background" (rect -736 0 -591 20)(font "Intel Clear" (font_size 10)(bold)))
 (text "Sound Unit" (rect 400 776 481 796)(font "Intel Clear" (font_size 10)(bold)))
 (text "Numbers display bitmaps" (rect 432 1008 614 1028)(font "Intel Clear" (font_size 10)(bold)))
-(text "The Columns and Walls" (rect -536 424 -368 444)(font "Intel Clear" (font_size 10)(bold)))
+(text "The Columns and Walls" (rect -480 424 -312 444)(font "Intel Clear" (font_size 10)(bold)))
+(text "clk" (rect -288 496 -274 513)(font "Intel Clear" ))
+(text "resetN" (rect -286 512 -256 529)(font "Intel Clear" ))
+(text "pixelX[10..0]" (rect -286 528 -227 545)(font "Intel Clear" ))
+(text "pixelY[10..0]" (rect -286 544 -227 561)(font "Intel Clear" ))
 (rectangle (rect 320 776 1824 992)(color 0 0 0)(line_width 3))
 (rectangle (rect 448 -16 984 336)(color 0 0 0)(line_width 3))
 (rectangle (rect -376 136 280 376)(color 0 0 0)(line_width 3))
