@@ -97,8 +97,8 @@ agreement for further details.
 	(port
 		(pt 0 192)
 		(input)
-		(text "collision " (rect 0 0 50 19)(font "Intel Clear" (font_size 8)))
-		(text "collision " (rect 21 187 71 206)(font "Intel Clear" (font_size 8)))
+		(text "column_collision" (rect 0 0 96 19)(font "Intel Clear" (font_size 8)))
+		(text "column_collision" (rect 21 187 117 206)(font "Intel Clear" (font_size 8)))
 		(line (pt 0 192)(pt 16 192))
 	)
 	(port

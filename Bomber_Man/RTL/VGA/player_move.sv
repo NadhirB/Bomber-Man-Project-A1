@@ -10,32 +10,30 @@
 
 module	player_move	(	
  
-					input	 logic clk,
-					input	 logic resetN,
-					input	 logic startOfFrame,       	//short pulse every start of frame 30Hz 
-					input	 logic up_direction_key,   	//move Up   
-					input	 logic down_direction_key,   	//move Down
-					input	 logic left_direction_key,   	//move Left
-					input	 logic right_direction_key,   //move Right
-					input	 logic drop_bomb,       		//drop bomb   
-					input  logic collision,          	//collision if player hits an object
-					input  logic [2:0] HitEdgeCode, 
+					input	logic clk,
+					input logic resetN,
+					input	logic startOfFrame,       	//short pulse every start of frame 30Hz 
+					input	logic up_direction_key,   	//move Up   
+					input	logic down_direction_key,   	//move Down
+					input	logic left_direction_key,   	//move Left
+					input	logic right_direction_key,   //move Right
+					input	logic drop_bomb,       		//drop bomb   
+					input logic column_collision,        //collision if player hits a column
+					input logic [2:0] HitEdgeCode, 
 					output logic signed 	[10:0] topLeftX, // output the top left corner 
 					output logic signed	[10:0] topLeftY  // can be negative , if the object is partliy outside 
 					
 );
 
 
-// a module used to generate the ball trajectory.  
+// a module used to generate the player's movement.  
 
-parameter int INITIAL_X = 280;
-parameter int INITIAL_Y = 185;
-//parameter int INITIAL_X_SPEED = 40;
-//parameter int INITIAL_Y_SPEED = 20;
-//parameter int Y_ACCEL = -10;
+parameter int INITIAL_X = 15;
+parameter int INITIAL_Y = 48;
+parameter int Speed = 70;
 
-//const int MAX_Y_SPEED = 500;
-const int	FIXED_POINT_MULTIPLIER = 4096; // note it must be 2^n 
+
+const int	FIXED_POINT_MULTIPLIER = 64; // note it must be 2^n 
 // FIXED_POINT_MULTIPLIER is used to enable working with integers in high resolution so that 
 // we do all calculations with topLeftX_FixedPoint to get a resolution of 1/64 pixel in calcuatuions,
 // we devide at the end by FIXED_POINT_MULTIPLIER which must be 2^n, to return to the initial proportions
@@ -44,10 +42,9 @@ const int	FIXED_POINT_MULTIPLIER = 4096; // note it must be 2^n
 // movement limits 
 const int   OBJECT_WIDTH_X = 32;
 const int   OBJECT_HIGHT_Y = 32;
-const int	SafetyMargin   =	1;			//was =2
 
-const int	x_FRAME_LEFT	=	16 * FIXED_POINT_MULTIPLIER; 
-const int	x_FRAME_RIGHT	=	(624 - OBJECT_WIDTH_X)* FIXED_POINT_MULTIPLIER; 
+const int	x_FRAME_LEFT	=	15 * FIXED_POINT_MULTIPLIER; 
+const int	x_FRAME_RIGHT	=	(623 - OBJECT_WIDTH_X)* FIXED_POINT_MULTIPLIER; 
 const int	y_FRAME_TOP		=	48 * FIXED_POINT_MULTIPLIER;
 const int	y_FRAME_BOTTOM	=	(464 - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //- OBJECT_HIGHT_Y
 
@@ -57,12 +54,11 @@ const int	y_FRAME_BOTTOM	=	(464 - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //-
 	//			 1x2
 	//			 404
 	//
-
-//const logic [4:0] CORNER =	5'b10000; 
-//const logic [3:0] TOP =		 4'b1000; 
-//const logic [3:0] RIGHT =   4'b0100; 
-//const logic [3:0] LEFT =	 4'b0010; 
-//const logic [3:0] BOTTOM =  4'b0001; 
+ 
+const logic [3:0] TOP =		 4'b1000; 
+const logic [3:0] RIGHT =   4'b0100; 
+const logic [3:0] LEFT =	 4'b0010; 
+const logic [3:0] BOTTOM =  4'b0001; 
 
 
 enum  logic [2:0] {IDLE_ST,         	// initial state
@@ -72,15 +68,15 @@ enum  logic [2:0] {IDLE_ST,         	// initial state
 						 POSITION_LIMITS_ST  // check if inside the frame  
 						}  SM_Motion ;
 
-//int Xspeed  ; // speed    
-//int Yspeed  ; 
+
 int Xposition ; //position   
 int Yposition ;  
 
 //logic toggle_x_key_D ;
  
 
-  logic [4:0] hit_reg = 5'b00000;
+  logic [3:0] hit_reg = 4'b0000;
+  logic move_flag;
  //---------
  
 always_ff @(posedge clk or negedge resetN)
@@ -88,12 +84,11 @@ begin : fsm_sync_proc
 
 	if (resetN == 1'b0) begin 
 		SM_Motion <= IDLE_ST ; 
-//		Xspeed <= 0   ; 
-//		Yspeed <= 0  ; 
 		Xposition <= 0  ; 
 		Yposition <= 0   ; 
 //		toggle_x_key_D <= 0 ;
-//		hit_reg <= 5'b0 ;	
+		hit_reg <= 4'b0 ;
+		move_flag <= 0;
 	
 	end 	
 	
@@ -108,8 +103,6 @@ begin : fsm_sync_proc
 			IDLE_ST: begin
 		//------------
 		
-//				Xspeed  <= INITIAL_X_SPEED ; 
-//				Yspeed  <= INITIAL_Y_SPEED  ; 
 				Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER; 
 				Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER; 
 
@@ -122,26 +115,34 @@ begin : fsm_sync_proc
 			MOVE_ST:  begin     // moving collecting colisions 
 		//------------
 		// keys direction change 
-				if (up_direction_key)//  while moving down
-					Yposition <= Yposition - 1;//+1 ;
+				if (up_direction_key && move_flag == 0) begin
+					Yposition <= Yposition - Speed;
+					move_flag <= 1;
+					end
 					
-				if (down_direction_key)//  while moving down
-					Yposition <= Yposition + 1;//+1 ;
+				if (down_direction_key && move_flag == 0) begin
+					Yposition <= Yposition + Speed;
+					move_flag <= 1;
+					end
 					
-				if (left_direction_key)//  while moving down
-					Xposition <= Xposition - 1;//+1 ;		
+				if (left_direction_key && move_flag == 0) begin
+					Xposition <= Xposition - Speed;
+					move_flag <= 1;
+					end
 					
-				if (right_direction_key)//  while moving down
-					Xposition <= Xposition + 1;//+1 ;		
+				if (right_direction_key && move_flag == 0) begin
+					Xposition <= Xposition + Speed;
+					move_flag <= 1;
+					end
 					
 //				if (toggle_x_key & !toggle_x_key_D) //rizing edge 
 //					Xspeed <= -Xspeed ; // toggle direction 
 	
        // collcting collisions 	
-//				if (collision) begin
-//					hit_reg[HitEdgeCode]<=1'b1;
-//
-//				end
+				if (column_collision) begin
+					hit_reg[HitEdgeCode]<=1'b1;
+
+				end
 				
 
 				if (startOfFrame )
@@ -155,52 +156,33 @@ begin : fsm_sync_proc
 			START_OF_FRAME_ST:  begin      //check if any colisin was detected 
 		//------------
 
+				case (hit_reg[3:0] )  // test sides 
 	
-//			if (hit_reg == CORNER)   // pure corner 
-//					begin
-////							Yspeed <= 0-Xspeed ;
-////							Xspeed <= 0-Yspeed ;
-//              Yspeed <= 0-Yspeed ;
-//				  Xspeed <= 0-Xspeed ;
-//					end
-//			else begin 
-//				case (hit_reg[3:0] )  // test sides 
-//	
-//					TOP+RIGHT, LEFT+BOTTOM, TOP+LEFT, BOTTOM+RIGHT :  // two sides - corner 
-//					begin
-//							 Yspeed <= 0-Yspeed ;
-//				          Xspeed <= 0-Xspeed ;
-//					end
-//					LEFT, TOP+RIGHT+BOTTOM : // left side or cavity  
-//					begin
-//						if (Xspeed < 0) // left 
-//							  Xspeed <= 0-Xspeed ;
-//					end
-//	
-//					RIGHT, LEFT+BOTTOM +TOP :   // right side or cavity  
-//					begin
-//						if (Xspeed > 0) // right 
-//							  Xspeed <= 0-Xspeed ;
-//					end
-//					
-//					TOP, RIGHT+LEFT+BOTTOM :  // top side or cavity  
-//					begin
-//						if (Yspeed < 0) // up 
-//							  Yspeed <= 0-Yspeed ;
-//					end
-//				
-//				BOTTOM, TOP+LEFT+RIGHT :  // bottom side or cavity  
-//					begin
-//						if (Yspeed > 0) // doun 
-//							  Yspeed <= -Yspeed ;
-//					end
-//					
-//					default: ; 
-//	
-//			  endcase
-//			end // else 
-//	
-//			hit_reg <= 5'b00000;						
+					TOP:  // two sides - corner 
+					begin
+						Yposition <= Yposition + Speed ;
+					end
+					BOTTOM: // left side or cavity  
+					begin
+						Yposition <= Yposition - Speed;
+					end
+	
+					RIGHT:   // right side or cavity  
+					begin
+						Xposition <= Xposition - Speed;
+					end
+					
+					LEFT:  // top side or cavity  
+					begin
+						Xposition <= Xposition + Speed;
+					end
+					
+					default: ; 
+	
+			  endcase
+			  
+			move_flag <= 0;
+			hit_reg <= 4'b0000;						
 			SM_Motion <= POSITION_CHANGE_ST ; 
 		end 
 
