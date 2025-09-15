@@ -33,7 +33,7 @@ module	player_move	(
 
 parameter int INITIAL_X = 15;
 parameter int INITIAL_Y = 48;
-parameter int Speed_default = 70;
+parameter int Speed_default = 64;
 
 
 const int	FIXED_POINT_MULTIPLIER = 64; // note it must be 2^n 
@@ -78,7 +78,7 @@ int Xposition ; //position
 int Yposition ;  
 
 logic [7:0] Speed;
-logic [7:0] speed_levels [0:2] = '{70, 105, 140};
+logic [7:0] speed_levels [0:2] = '{64, 112, 160};
 
 
 logic [3:0] hit_reg = 4'b0000;
@@ -147,14 +147,15 @@ begin : fsm_sync_proc
 	
        // collcting collisions 	
 				if (column_collision) begin
-					hit_reg[HitEdgeCode]<=1'b1;
+					hit_reg[HitEdgeCode] <= 1'b1;
 
 				end
 				
 
-				if (startOfFrame )
+				if (startOfFrame) begin
+					move_flag <= 0;
 					SM_Motion <= START_OF_FRAME_ST ; 
-					
+				end	
 					
 				
 		end 
@@ -164,31 +165,49 @@ begin : fsm_sync_proc
 		//------------
 
 				case (hit_reg[3:0] )  // test sides 
+				
+					TOP + LEFT: 	// collision with top left corner
+					begin
+						Yspeed <= 64;
+						Xspeed <= 64;
+					end
+					TOP + RIGHT:	// collision with top right corner
+					begin
+						Yspeed <= 64;
+						Xspeed <= - 64;
+					end
+					BOTTOM + LEFT: // collision with bottom left corner
+					begin
+						Yspeed <= - 64;
+						Xspeed <= 64;
+					end
+					BOTTOM + LEFT: // collision with bottom left corner
+					begin
+						Yspeed <= - 64;
+						Xspeed <= - 64;
+					end
 	
-					TOP:  // two sides - corner 
+					TOP:  			// collision with top side
 					begin
-						Yspeed <= Speed ;
+						Yspeed <= 64 ;
 					end
-					BOTTOM: // left side or cavity  
+					BOTTOM: 			// collision with bottom side
 					begin
-						Yspeed <= - Speed;
+						Yspeed <= - 64;
 					end
-	
-					RIGHT:   // right side or cavity  
+					RIGHT:   		// collision with right side
 					begin
-						Xspeed <= - Speed;
+						Xspeed <= - 64;
 					end
-					
-					LEFT:  // top side or cavity  
+					LEFT:				// collision with left side
 					begin
-						Xspeed <= Speed;
+						Xspeed <= 64;
 					end
 					
 					default: ; 
 	
 			  endcase
 			  
-			move_flag <= 0;
 			hit_reg <= 4'b0000;						
 			SM_Motion <= POSITION_CHANGE_ST ; 
 		end 
@@ -203,11 +222,6 @@ begin : fsm_sync_proc
 				Yspeed <= 0;
 
 				Speed <= speed_levels[speed_level];
-//				// accelerate 
-//			
-//				if (Yspeed < MAX_Y_SPEED ) //  limit the speed while going down 
-//   				Yspeed <= Yspeed - Y_ACCEL ; // deAccelerate : slow the speed down every clock tick 
-//	
 				
 				SM_Motion <= POSITION_LIMITS_ST ; 
 			end
