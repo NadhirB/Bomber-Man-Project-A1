@@ -14,14 +14,17 @@ module	player_move	(
 					input logic resetN,
 					input	logic startOfFrame,       	//short pulse every start of frame 30Hz 
 					input	logic up_direction_key,   	//move Up   
-					input	logic down_direction_key,   	//move Down
-					input	logic left_direction_key,   	//move Left
-					input	logic right_direction_key,   //move Right
+					input	logic down_direction_key,  //move Down
+					input	logic left_direction_key,  //move Left
+					input	logic right_direction_key, //move Right
 					input	logic drop_bomb,       		//drop bomb   
-					input logic column_collision,        //collision if player hits a column
-					input logic [2:0] HitEdgeCode, 
+					input logic column_collision,    //collision if player hits a column or wall?
+					input logic [1:0] speed_level,	//Used to set the different speed levels that will changed with powerup	
+					input logic [3:0] HitEdgeCode,
+					
 					output logic signed 	[10:0] topLeftX, // output the top left corner 
-					output logic signed	[10:0] topLeftY  // can be negative , if the object is partliy outside 
+					output logic signed	[10:0] topLeftY,  // can be negative , if the object is partliy outside 
+					output logic [1:0] current_speed_level
 					
 );
 
@@ -30,7 +33,7 @@ module	player_move	(
 
 parameter int INITIAL_X = 15;
 parameter int INITIAL_Y = 48;
-parameter int Speed = 70;
+parameter int Speed_default = 70;
 
 
 const int	FIXED_POINT_MULTIPLIER = 64; // note it must be 2^n 
@@ -63,33 +66,37 @@ const logic [3:0] BOTTOM =  4'b0001;
 
 enum  logic [2:0] {IDLE_ST,         	// initial state
 						 MOVE_ST, 				// moving no colision 
-						 START_OF_FRAME_ST, 	          // startOfFrame activity-after all data collected 
+						 START_OF_FRAME_ST, 	// startOfFrame activity-after all data collected 
 						 POSITION_CHANGE_ST, // position interpolate 
 						 POSITION_LIMITS_ST  // check if inside the frame  
 						}  SM_Motion ;
 
 
+int Xspeed;		 //Speed changes before position
+int Yspeed;
 int Xposition ; //position   
 int Yposition ;  
 
-//logic toggle_x_key_D ;
- 
+logic [7:0] Speed;
+logic [7:0] speed_levels [0:2] = '{70, 105, 140};
 
-  logic [3:0] hit_reg = 4'b0000;
-  logic move_flag;
+
+logic [3:0] hit_reg = 4'b0000;
+logic move_flag;
  //---------
  
 always_ff @(posedge clk or negedge resetN)
 begin : fsm_sync_proc
 
 	if (resetN == 1'b0) begin 
-		SM_Motion <= IDLE_ST ; 
-		Xposition <= 0  ; 
-		Yposition <= 0   ; 
-//		toggle_x_key_D <= 0 ;
-		hit_reg <= 4'b0 ;
+		SM_Motion <= IDLE_ST; 
+		Xposition <= 0; 
+		Yposition <= 0;
+		Xspeed <= 0;
+		Yspeed <= 0;
+		hit_reg <= 4'b0;
 		move_flag <= 0;
-	
+		Speed <= Speed_default;
 	end 	
 	
 	else begin
@@ -114,29 +121,29 @@ begin : fsm_sync_proc
 		//------------
 			MOVE_ST:  begin     // moving collecting colisions 
 		//------------
+		
+				
+		
 		// keys direction change 
 				if (up_direction_key && move_flag == 0) begin
-					Yposition <= Yposition - Speed;
+					Yspeed <= - Speed;
 					move_flag <= 1;
 					end
 					
 				if (down_direction_key && move_flag == 0) begin
-					Yposition <= Yposition + Speed;
+					Yspeed <= Speed;
 					move_flag <= 1;
 					end
 					
 				if (left_direction_key && move_flag == 0) begin
-					Xposition <= Xposition - Speed;
+					Xspeed <= - Speed;
 					move_flag <= 1;
 					end
 					
 				if (right_direction_key && move_flag == 0) begin
-					Xposition <= Xposition + Speed;
+					Xspeed <= Speed;
 					move_flag <= 1;
 					end
-					
-//				if (toggle_x_key & !toggle_x_key_D) //rizing edge 
-//					Xspeed <= -Xspeed ; // toggle direction 
 	
        // collcting collisions 	
 				if (column_collision) begin
@@ -160,21 +167,21 @@ begin : fsm_sync_proc
 	
 					TOP:  // two sides - corner 
 					begin
-						Yposition <= Yposition + Speed ;
+						Yspeed <= Speed ;
 					end
 					BOTTOM: // left side or cavity  
 					begin
-						Yposition <= Yposition - Speed;
+						Yspeed <= - Speed;
 					end
 	
 					RIGHT:   // right side or cavity  
 					begin
-						Xposition <= Xposition - Speed;
+						Xspeed <= - Speed;
 					end
 					
 					LEFT:  // top side or cavity  
 					begin
-						Xposition <= Xposition + Speed;
+						Xspeed <= Speed;
 					end
 					
 					default: ; 
@@ -190,9 +197,12 @@ begin : fsm_sync_proc
 			POSITION_CHANGE_ST : begin  // position interpolate 
 		//------------------------
 	
-//				Xposition <= Xposition + Xspeed ; 
-//				Yposition <= Yposition + Yspeed ;
-//			 
+				Xposition <= Xposition + Xspeed; 
+				Yposition <= Yposition + Yspeed;
+				Xspeed <= 0;
+				Yspeed <= 0;
+
+				Speed <= speed_levels[speed_level];
 //				// accelerate 
 //			
 //				if (Yspeed < MAX_Y_SPEED ) //  limit the speed while going down 
@@ -229,9 +239,9 @@ end // end fsm_sync
 //return from FIXED point trunc back to prame size parameters 
   
 assign 	topLeftX = Xposition / FIXED_POINT_MULTIPLIER ;   // note it must be 2^n 
-assign 	topLeftY = Yposition / FIXED_POINT_MULTIPLIER ;    
-	
+assign 	topLeftY = Yposition / FIXED_POINT_MULTIPLIER ;  
 
+	
 endmodule	
 //---------------
  

@@ -13,7 +13,7 @@ module	playerBitMap	(
 
 					output	logic	drawingRequest, //output that the pixel should be dispalyed 
 					output	logic	[7:0] RGBout,  //rgb value from the bitmap 
-				   output   logic	[2:0] HitEdgeCode 
+				   output   logic	[3:0] HitEdgeCode 
  ) ;
 
 // this is the devider used to acess the right pixel 
@@ -87,6 +87,12 @@ logic [0:15] [0:15] [2:0] hit_colors =
 			48'o1444000000004442,
 			48'o4440000000000444,
 			48'o4400000000000044};
+
+//logic [0:3] [0:3] [3:0] hit_colors = 
+//			{16'hc446,
+//			 16'h8c62,
+//			 16'h8932,
+//			 16'h9113};
  
  
 // pipeline (ff) to get the pixel color from the array 	 

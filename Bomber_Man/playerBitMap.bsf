@@ -76,8 +76,8 @@ agreement for further details.
 	(port
 		(pt 240 64)
 		(output)
-		(text "HitEdgeCode[2..0]" (rect 0 0 73 12)(font "Arial" ))
-		(text "HitEdgeCode[2..0]" (rect 146 59 219 71)(font "Arial" ))
+		(text "HitEdgeCode[3..0]" (rect 0 0 73 12)(font "Arial" ))
+		(text "HitEdgeCode[3..0]" (rect 146 59 219 71)(font "Arial" ))
 		(line (pt 240 64)(pt 224 64)(line_width 3))
 	)
 	(drawing

@@ -118,6 +118,38 @@ agreement for further details.
 	(text "VCC" (rect 136 7 156 17)(font "Arial" (font_size 6)))
 )
 (pin
+	(input)
+	(rect 376 280 544 296)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "SW[0]" (rect 5 0 36 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 376 296 544 312)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "SW[1]" (rect 5 0 35 17)(font "Intel Clear" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+)
+(pin
 	(output)
 	(rect 1536 872 1712 888)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
@@ -1191,112 +1223,6 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect -736 272 -624 368)
-	(text "LPM_ROM" (rect 25 0 100 16)(font "Arial" (font_size 10)))
-	(text "inst5" (rect 3 85 30 99)(font "Arial" (font_size 8)))
-	(port
-		(pt 0 24)
-		(input)
-		(text "address[LPM_WIDTHAD-1..0]" (rect 20 17 186 31)(font "Arial" (font_size 8)))
-		(text "address[]" (rect 20 17 74 31)(font "Arial" (font_size 8)))
-		(line (pt 0 24)(pt 16 24)(line_width 3))
-	)
-	(port
-		(pt 0 40)
-		(input)
-		(text "inclock" (rect 20 33 58 47)(font "Arial" (font_size 8)))
-		(text "inclock" (rect 20 33 58 47)(font "Arial" (font_size 8)))
-		(line (pt 0 40)(pt 16 40))
-	)
-	(port
-		(pt 0 56)
-		(input)
-		(text "outclock" (rect 20 49 67 63)(font "Arial" (font_size 8)))
-		(text "outclock" (rect 20 49 67 63)(font "Arial" (font_size 8)))
-		(line (pt 0 56)(pt 16 56))
-	)
-	(port
-		(pt 0 72)
-		(input)
-		(text "memenab" (rect 20 65 74 79)(font "Arial" (font_size 8)))
-		(text "memenab" (rect 20 65 74 79)(font "Arial" (font_size 8)))
-		(line (pt 0 72)(pt 16 72))
-	)
-	(port
-		(pt 112 48)
-		(output)
-		(text "q[LPM_WIDTH-1..0]" (rect 80 41 188 55)(font "Arial" (font_size 8)))
-		(text "q[]" (rect 80 41 94 55)(font "Arial" (font_size 8)))
-		(line (pt 96 48)(pt 112 48)(line_width 3))
-	)
-	(parameter
-		"LPM_ADDRESS_CONTROL"
-		"REGISTERED"
-		"Should the address and control ports be registered?"
-		"\"REGISTERED\"" "\"UNREGISTERED\"" 
-		(type "PARAMETER_STRING")	)
-	(parameter
-		"LPM_FILE"
-		"RTL/initialBackground_MIF.mif"
-		"File containing initial contents of memory array"
-	)
-	(parameter
-		"LPM_NUMWORDS"
-		"307200"
-		"Number of memory words, default is 2^LPM_WIDTHAD"
-	)
-	(parameter
-		"LPM_OUTDATA"
-		"UNREGISTERED"
-		"Should the output data be registered?"
-		"\"REGISTERED\"" "\"UNREGISTERED\"" 
-		(type "PARAMETER_STRING")	)
-	(parameter
-		"LPM_WIDTH"
-		"8"
-		"Data width in bits, any integer > 0"
-		" 1" " 2" " 3" " 4" " 5" " 6" " 7" " 8" " 9" "10" "11" "12" "13" "14" "15" "16" "20" "24" "28" "32" "40" "48" "56" "64" 
-	)
-	(parameter
-		"LPM_WIDTHAD"
-		"19"
-		"Number of address lines, any integer > 0"
-		" 1" " 2" " 3" " 4" " 5" " 6" " 7" " 8" " 9" "10" "11" "12" 
-	)
-	(parameter
-		"DEVICE_FAMILY"
-		""
-		""
-	)
-	(parameter
-		"AUTO_CARRY_CHAINS"
-		"ON"
-		""
-	)
-	(parameter
-		"IGNORE_CARRY_BUFFERS"
-		"OFF"
-		""
-	)
-	(parameter
-		"AUTO_CASCADE_CHAINS"
-		"ON"
-		""
-	)
-	(parameter
-		"IGNORE_CASCADE_BUFFERS"
-		"OFF"
-		""
-	)
-	(drawing
-		(line (pt 16 16)(pt 96 16))
-		(line (pt 16 80)(pt 96 80))
-		(line (pt 96 80)(pt 96 16))
-		(line (pt 16 80)(pt 16 16))
-	)
-	(annotation_block (parameter)(rect -816 32 -462 260))
-)
-(symbol
 	(rect -648 656 -488 736)
 	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
 	(text "inst20" (rect 8 64 36 81)(font "Intel Clear" ))
@@ -1408,9 +1334,115 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 568 80 816 304)
+	(rect -736 272 -624 368)
+	(text "LPM_ROM" (rect 25 0 100 16)(font "Arial" (font_size 10)))
+	(text "inst5" (rect 3 85 30 99)(font "Arial" (font_size 8)))
+	(port
+		(pt 0 24)
+		(input)
+		(text "address[LPM_WIDTHAD-1..0]" (rect 20 17 186 31)(font "Arial" (font_size 8)))
+		(text "address[]" (rect 20 17 74 31)(font "Arial" (font_size 8)))
+		(line (pt 0 24)(pt 16 24)(line_width 3))
+	)
+	(port
+		(pt 0 40)
+		(input)
+		(text "inclock" (rect 20 33 58 47)(font "Arial" (font_size 8)))
+		(text "inclock" (rect 20 33 58 47)(font "Arial" (font_size 8)))
+		(line (pt 0 40)(pt 16 40))
+	)
+	(port
+		(pt 0 56)
+		(input)
+		(text "outclock" (rect 20 49 67 63)(font "Arial" (font_size 8)))
+		(text "outclock" (rect 20 49 67 63)(font "Arial" (font_size 8)))
+		(line (pt 0 56)(pt 16 56))
+	)
+	(port
+		(pt 0 72)
+		(input)
+		(text "memenab" (rect 20 65 74 79)(font "Arial" (font_size 8)))
+		(text "memenab" (rect 20 65 74 79)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 16 72))
+	)
+	(port
+		(pt 112 48)
+		(output)
+		(text "q[LPM_WIDTH-1..0]" (rect 80 41 188 55)(font "Arial" (font_size 8)))
+		(text "q[]" (rect 80 41 94 55)(font "Arial" (font_size 8)))
+		(line (pt 96 48)(pt 112 48)(line_width 3))
+	)
+	(parameter
+		"LPM_ADDRESS_CONTROL"
+		"REGISTERED"
+		"Should the address and control ports be registered?"
+		"\"REGISTERED\"" "\"UNREGISTERED\"" 
+		(type "PARAMETER_STRING")	)
+	(parameter
+		"LPM_FILE"
+		"RTL/blank-white-background_MIF.mif"
+		"File containing initial contents of memory array"
+	)
+	(parameter
+		"LPM_NUMWORDS"
+		"307200"
+		"Number of memory words, default is 2^LPM_WIDTHAD"
+	)
+	(parameter
+		"LPM_OUTDATA"
+		"UNREGISTERED"
+		"Should the output data be registered?"
+		"\"REGISTERED\"" "\"UNREGISTERED\"" 
+		(type "PARAMETER_STRING")	)
+	(parameter
+		"LPM_WIDTH"
+		"8"
+		"Data width in bits, any integer > 0"
+		" 1" " 2" " 3" " 4" " 5" " 6" " 7" " 8" " 9" "10" "11" "12" "13" "14" "15" "16" "20" "24" "28" "32" "40" "48" "56" "64" 
+	)
+	(parameter
+		"LPM_WIDTHAD"
+		"19"
+		"Number of address lines, any integer > 0"
+		" 1" " 2" " 3" " 4" " 5" " 6" " 7" " 8" " 9" "10" "11" "12" 
+	)
+	(parameter
+		"DEVICE_FAMILY"
+		""
+		""
+	)
+	(parameter
+		"AUTO_CARRY_CHAINS"
+		"ON"
+		""
+	)
+	(parameter
+		"IGNORE_CARRY_BUFFERS"
+		"OFF"
+		""
+	)
+	(parameter
+		"AUTO_CASCADE_CHAINS"
+		"ON"
+		""
+	)
+	(parameter
+		"IGNORE_CASCADE_BUFFERS"
+		"OFF"
+		""
+	)
+	(drawing
+		(line (pt 16 16)(pt 96 16))
+		(line (pt 16 80)(pt 96 80))
+		(line (pt 96 80)(pt 96 16))
+		(line (pt 16 80)(pt 16 16))
+	)
+	(annotation_block (parameter)(rect -816 32 -425 260))
+)
+(symbol
+	(rect 568 -8 816 248)
 	(text "Player_Block_T" (rect 5 0 97 19)(font "Intel Clear" (font_size 8)))
-	(text "inst11" (rect 8 203 36 220)(font "Intel Clear" ))
+	(text "inst1" (rect 8 235 30 252)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -1489,6 +1521,13 @@ agreement for further details.
 		(line (pt 0 192)(pt 16 192))
 	)
 	(port
+		(pt 0 208)
+		(input)
+		(text "speed_level[1..0]" (rect 0 0 102 19)(font "Intel Clear" (font_size 8)))
+		(text "speed_level[1..0]" (rect 21 203 123 222)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 208)(pt 16 208)(line_width 3))
+	)
+	(port
 		(pt 248 32)
 		(output)
 		(text "playerDR" (rect 0 0 55 19)(font "Intel Clear" (font_size 8)))
@@ -1513,9 +1552,9 @@ agreement for further details.
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 232 208))
+		(rectangle (rect 16 16 232 240))
 	)
-	(annotation_block (parameter)(rect 600 8 776 72))
+	(annotation_block (parameter)(rect 648 -80 824 -16))
 )
 (connector
 	(text "SQR_topLeftX[10..0]" (rect -190 1056 -93 1073)(font "Intel Clear" ))
@@ -1917,55 +1956,8 @@ agreement for further details.
 	(pt 128 256)
 )
 (connector
-	(text "pixelX[10..0]" (rect 498 96 558 108)(font "Arial" ))
-	(pt 464 112)
-	(pt 568 112)
-	(bus)
-)
-(connector
-	(text "pixelY[10..0]" (rect 498 112 560 124)(font "Arial" ))
-	(pt 464 128)
-	(pt 568 128)
-	(bus)
-)
-(connector
-	(text "clk" (rect 474 128 488 145)(font "Intel Clear" ))
-	(pt 464 144)
-	(pt 568 144)
-)
-(connector
-	(text "resetN" (rect 474 144 504 161)(font "Intel Clear" ))
-	(pt 464 160)
-	(pt 568 160)
-)
-(connector
-	(text "startOfFrame" (rect 474 160 537 177)(font "Intel Clear" ))
-	(pt 464 176)
-	(pt 568 176)
-)
-(connector
-	(text "keyIsPressed[8]" (rect 476 176 551 193)(font "Intel Clear" ))
-	(pt 568 192)
-	(pt 464 192)
-)
-(connector
 	(pt 120 208)
 	(pt 128 208)
-)
-(connector
-	(text "keyIsPressed[5]" (rect 475 192 550 209)(font "Intel Clear" ))
-	(pt 568 208)
-	(pt 464 208)
-)
-(connector
-	(text "keyIsPressed[4]" (rect 475 208 550 225)(font "Intel Clear" ))
-	(pt 568 224)
-	(pt 464 224)
-)
-(connector
-	(text "keyIsPressed[6]" (rect 474 224 549 241)(font "Intel Clear" ))
-	(pt 568 240)
-	(pt 464 240)
 )
 (connector
 	(text "ColumnsRGB[7..0]" (rect 50 712 137 729)(font "Intel Clear" ))
@@ -2117,17 +2109,6 @@ agreement for further details.
 	(pt 424 528)
 )
 (connector
-	(text "playerDR" (rect 834 96 878 113)(font "Intel Clear" ))
-	(pt 816 112)
-	(pt 888 112)
-)
-(connector
-	(text "playerRGB[7..0]" (rect 834 112 909 129)(font "Intel Clear" ))
-	(pt 816 128)
-	(pt 936 128)
-	(bus)
-)
-(connector
 	(text "playerDR" (rect 434 400 478 417)(font "Intel Clear" ))
 	(pt 424 416)
 	(pt 544 416)
@@ -2149,20 +2130,94 @@ agreement for further details.
 	(pt 432 688)
 )
 (connector
-	(text "player_column_hit" (rect 466 256 555 273)(font "Intel Clear" ))
-	(pt 568 272)
-	(pt 456 272)
-)
-(connector
 	(text "player_column_hit" (rect 848 608 937 625)(font "Intel Clear" ))
 	(pt 840 624)
 	(pt 936 624)
+)
+(connector
+	(text "pixelX[10..0]" (rect 498 8 558 20)(font "Arial" ))
+	(pt 464 24)
+	(pt 568 24)
+	(bus)
+)
+(connector
+	(text "pixelY[10..0]" (rect 498 24 560 36)(font "Arial" ))
+	(pt 464 40)
+	(pt 568 40)
+	(bus)
+)
+(connector
+	(text "clk" (rect 474 40 488 57)(font "Intel Clear" ))
+	(pt 464 56)
+	(pt 568 56)
+)
+(connector
+	(text "resetN" (rect 474 56 504 73)(font "Intel Clear" ))
+	(pt 464 72)
+	(pt 568 72)
+)
+(connector
+	(text "startOfFrame" (rect 474 72 537 89)(font "Intel Clear" ))
+	(pt 464 88)
+	(pt 568 88)
+)
+(connector
+	(text "keyIsPressed[8]" (rect 476 88 551 105)(font "Intel Clear" ))
+	(pt 568 104)
+	(pt 464 104)
+)
+(connector
+	(text "keyIsPressed[5]" (rect 475 104 550 121)(font "Intel Clear" ))
+	(pt 568 120)
+	(pt 464 120)
+)
+(connector
+	(text "keyIsPressed[4]" (rect 475 120 550 137)(font "Intel Clear" ))
+	(pt 568 136)
+	(pt 464 136)
+)
+(connector
+	(text "keyIsPressed[6]" (rect 474 136 549 153)(font "Intel Clear" ))
+	(pt 568 152)
+	(pt 464 152)
+)
+(connector
+	(text "playerDR" (rect 834 8 878 25)(font "Intel Clear" ))
+	(pt 816 24)
+	(pt 888 24)
+)
+(connector
+	(text "playerRGB[7..0]" (rect 834 24 909 41)(font "Intel Clear" ))
+	(pt 816 40)
+	(pt 936 40)
+	(bus)
+)
+(connector
+	(text "speed_level[1..0]" (rect 470 184 552 201)(font "Intel Clear" ))
+	(pt 464 200)
+	(pt 568 200)
+	(bus)
+)
+(connector
+	(text "player_column_hit" (rect 474 168 563 185)(font "Intel Clear" ))
+	(pt 568 184)
+	(pt 464 184)
+)
+(connector
+	(text "speed_level[0]" (rect 556 272 627 289)(font "Intel Clear" ))
+	(pt 544 288)
+	(pt 592 288)
+)
+(connector
+	(text "speed_level[1]" (rect 560 288 631 305)(font "Intel Clear" ))
+	(pt 544 304)
+	(pt 592 304)
 )
 (junction (pt 1296 1232))
 (junction (pt 1296 1248))
 (junction (pt 464 960))
 (text "Output to 7Seg" (rect 1368 936 1458 955)(font "Intel Clear" (font_size 8)))
-(text "Smileyface moving and drawing" (rect 464 -8 659 11)(font "Intel Clear" (font_size 8)(bold)))
+(text "Smileyface moving and drawing" (rect 464 -96 659 -77)(font "Intel Clear" (font_size 8)(bold)))
 (text "Add here the \"square_object\" and  \"random\" modules" (rect -424 1008 -43 1028)(font "Intel Clear" (font_size 10)(bold)))
 (text "Update the objects_mux" (rect 376 352 550 372)(font "Intel Clear" (font_size 10)(bold)))
 (text "Update the game_controller" (rect 360 592 560 612)(font "Intel Clear" (font_size 10)(bold)))
@@ -2178,7 +2233,7 @@ agreement for further details.
 (text "pixelX[10..0]" (rect -286 528 -227 545)(font "Intel Clear" ))
 (text "pixelY[10..0]" (rect -286 544 -227 561)(font "Intel Clear" ))
 (rectangle (rect 320 776 1824 992)(color 0 0 0)(line_width 3))
-(rectangle (rect 448 -16 984 336)(color 0 0 0)(line_width 3))
+(rectangle (rect 448 -104 984 264)(color 0 0 0)(line_width 3))
 (rectangle (rect -376 136 280 376)(color 0 0 0)(line_width 3))
 (rectangle (rect -896 400 280 888)(color 0 0 0)(line_width 3))
 (rectangle (rect -688 992 960 1432)(color 0 0 0)(line_width 3))
