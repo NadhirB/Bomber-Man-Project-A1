@@ -112,7 +112,7 @@ begin
 
 		if (InsideRectangle == 1'b1 ) 
 		begin // inside an external bracket 
-			RGBout <= object_colors[offsetY>>2][offsetX>>2];
+			RGBout <= object_colors[offsetY][offsetX];
 			HitEdgeCode <= hit_colors[HitCodeY][HitCodeX];	//get hitting edge code from the colors table  
 		
 		end  	

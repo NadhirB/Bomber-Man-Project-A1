@@ -237,8 +237,9 @@ begin : fsm_sync_proc
 						Yposition <= y_FRAME_TOP ; 
 		if (Yposition > y_FRAME_BOTTOM) 
 						Yposition <= y_FRAME_BOTTOM ; 
+				
 
-				SM_Motion <= MOVE_ST ; 
+					SM_Motion <= MOVE_ST ; 
 			
 			end
 		
