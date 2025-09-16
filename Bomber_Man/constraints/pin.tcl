@@ -46,7 +46,7 @@ set_location_assignment PIN_AA30 -to SW[9] ;#ENABLE_SOF --if want to stop smiley
 #============================================================
 # LED
 #============================================================ 
-set_location_assignment PIN_AA24 -to ball_toggle ;#LEDR[0]
+set_location_assignment PIN_AA24 -to valid ;#LEDR[0]
 set_location_assignment PIN_AB23 -to ir_write
 set_location_assignment PIN_AC23 -to sound_on
 set_location_assignment PIN_AD24 -to LEDR[3]

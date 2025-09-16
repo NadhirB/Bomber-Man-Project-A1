@@ -76,8 +76,8 @@ agreement for further details.
 	(port
 		(pt 0 144)
 		(input)
-		(text "drop_bomb" (rect 0 0 46 12)(font "Arial" ))
-		(text "drop_bomb" (rect 21 139 67 151)(font "Arial" ))
+		(text "valid_player_pos" (rect 0 0 68 12)(font "Arial" ))
+		(text "valid_player_pos" (rect 21 139 89 151)(font "Arial" ))
 		(line (pt 0 144)(pt 16 144)(line_width 1))
 	)
 	(port
@@ -118,9 +118,23 @@ agreement for further details.
 	(port
 		(pt 280 64)
 		(output)
-		(text "current_speed_level[1..0]" (rect 0 0 100 12)(font "Arial" ))
-		(text "current_speed_level[1..0]" (rect 159 59 259 71)(font "Arial" ))
+		(text "topLeftX_valid[10..0]" (rect 0 0 81 12)(font "Arial" ))
+		(text "topLeftX_valid[10..0]" (rect 178 59 259 71)(font "Arial" ))
 		(line (pt 280 64)(pt 264 64)(line_width 3))
+	)
+	(port
+		(pt 280 80)
+		(output)
+		(text "topLeftY_valid[10..0]" (rect 0 0 82 12)(font "Arial" ))
+		(text "topLeftY_valid[10..0]" (rect 177 75 259 87)(font "Arial" ))
+		(line (pt 280 80)(pt 264 80)(line_width 3))
+	)
+	(port
+		(pt 280 96)
+		(output)
+		(text "current_speed_level[1..0]" (rect 0 0 100 12)(font "Arial" ))
+		(text "current_speed_level[1..0]" (rect 159 91 259 103)(font "Arial" ))
+		(line (pt 280 96)(pt 264 96)(line_width 3))
 	)
 	(parameter
 		"INITIAL_X"
@@ -134,7 +148,7 @@ agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"Speed_default"
-		"70"
+		"64"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing

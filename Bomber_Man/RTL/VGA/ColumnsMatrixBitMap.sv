@@ -51,20 +51,6 @@ localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
 // all numbers here are hard coded to simplify the understanding 
 
 
-//logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [1:0]  MazeBitMapMask ;  
-
-//logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [1:0]   MazeDefaultBitMapMask= // defult table to load on reset 
-//	{{17'b10101010101010101},
-//	 {17'b00000000000000000},
-//	 {17'b10101010101010101},
-//	 {17'b00000000000000000},
-//	 {17'b10101010101010101},
-//	 {17'b00000000000000000},
-//	 {17'b10101010101010101},
-//	 {17'b00000000000000000},
-//	 {17'b10101010101010101},
-//	 {17'b00000000000000000},
-//	 {17'b10101010101010101},};
 
 // This is a Test:
 

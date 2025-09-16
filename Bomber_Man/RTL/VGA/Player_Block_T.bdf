@@ -190,22 +190,6 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect 216 576 392 592)
-	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
-	(text "drop_bomb_key" (rect 5 0 82 17)(font "Intel Clear" ))
-	(pt 176 8)
-	(drawing
-		(line (pt 92 12)(pt 117 12))
-		(line (pt 92 4)(pt 117 4))
-		(line (pt 121 8)(pt 176 8))
-		(line (pt 92 12)(pt 92 4))
-		(line (pt 117 4)(pt 121 8))
-		(line (pt 117 12)(pt 121 8))
-	)
-	(text "VCC" (rect 136 7 156 17)(font "Arial" (font_size 6)))
-)
-(pin
-	(input)
 	(rect 216 592 392 608)
 	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
 	(text "column_collision" (rect 5 0 85 17)(font "Intel Clear" ))
@@ -224,7 +208,7 @@ agreement for further details.
 	(input)
 	(rect 208 608 392 624)
 	(text "INPUT" (rect 141 0 169 10)(font "Arial" (font_size 6)))
-	(text "speed_level[1..0]" (rect 5 0 90 12)(font "Arial" ))
+	(text "speed_level[1..0]" (rect 5 0 89 12)(font "Arial" ))
 	(pt 184 8)
 	(drawing
 		(line (pt 100 12)(pt 125 12))
@@ -235,6 +219,22 @@ agreement for further details.
 		(line (pt 125 12)(pt 129 8))
 	)
 	(text "VCC" (rect 144 7 164 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 216 576 392 592)
+	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
+	(text "valid_player_pos" (rect 5 0 88 17)(font "Intel Clear" ))
+	(pt 176 8)
+	(drawing
+		(line (pt 92 12)(pt 117 12))
+		(line (pt 92 4)(pt 117 4))
+		(line (pt 121 8)(pt 176 8))
+		(line (pt 92 12)(pt 92 4))
+		(line (pt 117 4)(pt 121 8))
+		(line (pt 117 12)(pt 121 8))
+	)
+	(text "VCC" (rect 136 7 156 17)(font "Arial" (font_size 6)))
 )
 (pin
 	(output)
@@ -257,6 +257,70 @@ agreement for further details.
 	(rect 1640 384 1816 400)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
 	(text "playerRGB[7..0]" (rect 90 0 165 17)(font "Intel Clear" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+)
+(pin
+	(output)
+	(rect 976 200 1181 216)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "player_topLeftX[10..0]" (rect 90 0 199 12)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+)
+(pin
+	(output)
+	(rect 976 216 1179 232)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "player_topLeftY[10..0]" (rect 90 0 197 17)(font "Intel Clear" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+)
+(pin
+	(output)
+	(rect 888 632 1120 648)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "player_valid_topLeftX[10..0]" (rect 90 0 226 17)(font "Intel Clear" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+)
+(pin
+	(output)
+	(rect 888 648 1120 664)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "player_valid_topLeftY[10..0]" (rect 90 0 226 17)(font "Intel Clear" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -482,8 +546,8 @@ agreement for further details.
 	(port
 		(pt 0 144)
 		(input)
-		(text "drop_bomb" (rect 0 0 54 12)(font "Arial" ))
-		(text "drop_bomb" (rect 21 139 75 151)(font "Arial" ))
+		(text "valid_player_pos" (rect 0 0 83 12)(font "Arial" ))
+		(text "valid_player_pos" (rect 21 139 104 151)(font "Arial" ))
 		(line (pt 0 144)(pt 16 144))
 	)
 	(port
@@ -524,9 +588,23 @@ agreement for further details.
 	(port
 		(pt 280 64)
 		(output)
-		(text "current_speed_level[1..0]" (rect 0 0 125 12)(font "Arial" ))
-		(text "current_speed_level[1..0]" (rect 154 59 279 71)(font "Arial" ))
+		(text "topLeftX_valid[10..0]" (rect 0 0 102 12)(font "Arial" ))
+		(text "topLeftX_valid[10..0]" (rect 173 59 275 71)(font "Arial" ))
 		(line (pt 280 64)(pt 264 64)(line_width 3))
+	)
+	(port
+		(pt 280 80)
+		(output)
+		(text "topLeftY_valid[10..0]" (rect 0 0 105 12)(font "Arial" ))
+		(text "topLeftY_valid[10..0]" (rect 171 75 276 87)(font "Arial" ))
+		(line (pt 280 80)(pt 264 80)(line_width 3))
+	)
+	(port
+		(pt 280 96)
+		(output)
+		(text "current_speed_level[1..0]" (rect 0 0 125 12)(font "Arial" ))
+		(text "current_speed_level[1..0]" (rect 154 91 279 103)(font "Arial" ))
+		(line (pt 280 96)(pt 264 96)(line_width 3))
 	)
 	(parameter
 		"INITIAL_X"
@@ -540,13 +618,13 @@ agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"Speed_default"
-		"70"
+		"64"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
 		(rectangle (rect 16 16 264 224))
 	)
-	(annotation_block (parameter)(rect 584 344 776 424))
+	(annotation_block (parameter)(rect 568 336 760 416))
 )
 (connector
 	(text "pixelY[10..0]" (rect 402 392 461 409)(font "Intel Clear" ))
@@ -670,18 +748,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "SmileyTLX[10..0]" (rect 836 456 917 473)(font "Intel Clear" ))
-	(pt 816 472)
-	(pt 976 472)
-	(bus)
-)
-(connector
-	(text "SmileyTLY[10..0]" (rect 818 472 899 489)(font "Intel Clear" ))
-	(pt 816 488)
-	(pt 976 488)
-	(bus)
-)
-(connector
 	(pt 1200 408)
 	(pt 1328 408)
 	(bus)
@@ -697,11 +763,83 @@ agreement for further details.
 	(pt 1328 440)
 )
 (connector
-	(text "speed_level_out[1..0]" (rect 818 488 921 505)(font "Intel Clear" ))
-	(pt 816 504)
-	(pt 920 504)
+	(pt 976 208)
+	(pt 840 208)
 	(bus)
 )
+(connector
+	(pt 840 208)
+	(pt 840 472)
+	(bus)
+)
+(connector
+	(pt 816 472)
+	(pt 840 472)
+	(bus)
+)
+(connector
+	(pt 840 472)
+	(pt 976 472)
+	(bus)
+)
+(connector
+	(pt 976 224)
+	(pt 856 224)
+	(bus)
+)
+(connector
+	(pt 856 224)
+	(pt 856 488)
+	(bus)
+)
+(connector
+	(pt 816 488)
+	(pt 856 488)
+	(bus)
+)
+(connector
+	(pt 856 488)
+	(pt 976 488)
+	(bus)
+)
+(connector
+	(text "speed_level_out[1..0]" (rect 818 520 921 537)(font "Intel Clear" ))
+	(pt 816 536)
+	(pt 920 536)
+	(bus)
+)
+(connector
+	(pt 872 640)
+	(pt 888 640)
+	(bus)
+)
+(connector
+	(pt 816 504)
+	(pt 872 504)
+	(bus)
+)
+(connector
+	(pt 872 504)
+	(pt 872 640)
+	(bus)
+)
+(connector
+	(pt 816 520)
+	(pt 856 520)
+	(bus)
+)
+(connector
+	(pt 856 520)
+	(pt 856 656)
+	(bus)
+)
+(connector
+	(pt 856 656)
+	(pt 888 656)
+	(bus)
+)
+(junction (pt 840 472))
+(junction (pt 856 488))
 (text "  " (rect 24 624 31 643)(font "Intel Clear" (font_size 8)))
 (text "   " (rect 144 664 154 683)(font "Intel Clear" (font_size 8)))
 (text "            " (rect 504 608 546 627)(font "Intel Clear" (font_size 8)))

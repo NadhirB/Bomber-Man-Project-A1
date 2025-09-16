@@ -1,31 +1,24 @@
 
 // (c) Technion IIT, Department of Electrical Engineering 2025 
-//-- Alex Grinshpun Apr 2017
-//-- Dudy Nov 13 2017
-// SystemVerilog version Alex Grinshpun May 2018
-// coding convention dudy December 2018
 
-//-- Eyal Lev 31 Jan 2021
 
 module	objects_mux	(	
 //		--------	Clock Input	 	
 					input		logic	clk,
 					input		logic	resetN,
-		   // smiley 
-					input		logic	smileyDrawingRequest, // two set of inputs per unit
-					input		logic	[7:0] smileyRGB, 
+		   // player 
+					input		logic	playerDR, // two set of inputs per unit
+					input		logic	[7:0] playerRGB, 
 					     
-		  // add the box here 
-					input		logic	squareDrawingRequest, // two set of inputs per unit
-					input		logic	[7:0] squareRGB,  
+		  // bomb
+					input		logic	bombDR, // two set of inputs per unit
+					input		logic	[7:0] bombRGB,  
 			  
-			  
-		  ////////////////////////
 		  // background 
-					input    logic HartDrawingRequest, // box of numbers
-					input		logic	[7:0] hartRGB,   
-					input		logic	[7:0] backGroundRGB, 
-					input		logic	BGDrawingRequest, 
+					input    logic columnsDR,
+					input		logic	[7:0] columnsRGB,   
+					input		logic	[7:0] bordersRGB, 
+					input		logic	bordersDR, 
 					input		logic	[7:0] RGB_MIF, 
 			  
 				   output	logic	[7:0] RGBOut
@@ -38,19 +31,14 @@ begin
 	end
 	
 	else begin
-		if (smileyDrawingRequest == 1'b1 )   
-			RGBOut <= smileyRGB;  //first priority 
-		 
-//--- add logic for box here ------------------------------------------------------		
-
-		else if (squareDrawingRequest == 1'b1)
-				RGBOut <= squareRGB;
-
-//---------------------------------------------------------------------------------		
- 		else if (HartDrawingRequest == 1'b1)
-				RGBOut <= hartRGB;
-		else if (BGDrawingRequest == 1'b1)
-				RGBOut <= backGroundRGB ;
+		if (playerDR == 1'b1 )   
+			RGBOut <= playerRGB;  //first priority 
+		else if (bombDR == 1'b1)
+				RGBOut <= bombRGB;	
+ 		else if (columnsDR == 1'b1)
+				RGBOut <= columnsRGB;
+		else if (bordersDR == 1'b1)
+				RGBOut <= bordersRGB;
 		else RGBOut <= RGB_MIF ;// last priority 
 		end ; 
 	end
