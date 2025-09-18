@@ -22,8 +22,8 @@ localparam logic [7:0] TRANSPARENT_ENCODING = 8'hFF ;// RGB value in the bitmap 
 localparam  int TILE_NUMBER_OF_X_BITS = 5;  // 2^5 = 32  everu object 
 localparam  int TILE_NUMBER_OF_Y_BITS = 5;  // 2^5 = 32 
 
-localparam  int MAZE_NUMBER_OF__X_BITS = 4;  // 2^4 = 16 / /the maze of the objects 
-localparam  int MAZE_NUMBER_OF__Y_BITS = 3;  // 2^3 = 8 
+localparam  int MAZE_NUMBER_OF__X_BITS = 5;  // 2^4 = 16 / /the maze of the objects 
+localparam  int MAZE_NUMBER_OF__Y_BITS = 4;  // 2^3 = 8 
 
 //-----
 

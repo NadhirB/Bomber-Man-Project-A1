@@ -5,10 +5,10 @@ module columns_walls_mux (
 	input	logic	clk,
 	input	logic	resetN,
 	
-	//Enemy 1
+	//Columns
 	input	logic	columnsDR,
 	input	logic	[7:0] columnsRGB, 
-	//Enemy 2
+	//Walls
 	input	logic	wallsDR,
 	input	logic	[7:0] wallsRGB,  
 	//Outputs
@@ -16,21 +16,24 @@ module columns_walls_mux (
 	output logic [7:0] col_wal_RGB
 );
 
-always_ff@(posedge clk or negedge resetN)
+always_comb
 begin
 	if(!resetN) begin
-			col_wal_RGB	<= 8'b0;
+			col_wal_RGB	= 8'b0;
 	end
 	
 	else begin
 		if (columnsDR)
-			col_wal_RGB <= columnsRGB;
+			col_wal_RGB = columnsRGB;
 		else if (wallsDR)   
-			col_wal_RGB <= wallsRGB;
+			col_wal_RGB = wallsRGB;
+		else 
+			col_wal_RGB = 8'b0;
 		end
-	end
+end
 	
 assign col_wal_DR = columnsDR || wallsDR;
+//assign col_wal_RGB = (wallsDR) ? wallsRGB : columnsRGB;
 
 endmodule
 
