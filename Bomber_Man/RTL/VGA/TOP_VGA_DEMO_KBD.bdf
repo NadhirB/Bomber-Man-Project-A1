@@ -1774,7 +1774,7 @@ agreement for further details.
 	(annotation_block (parameter)(rect -840 1296 -670 1372))
 )
 (symbol
-	(rect -760 608 -488 736)
+	(rect -768 600 -496 728)
 	(text "COLUMNS_DISPLAY" (rect 5 0 127 19)(font "Intel Clear" (font_size 8)))
 	(text "inst2" (rect 8 107 30 124)(font "Intel Clear" ))
 	(port
@@ -1821,56 +1821,6 @@ agreement for further details.
 	)
 	(drawing
 		(rectangle (rect 16 16 256 112))
-	)
-)
-(symbol
-	(rect -760 752 -504 880)
-	(text "WALLS_DISPLAY" (rect 5 0 107 19)(font "Intel Clear" (font_size 8)))
-	(text "inst9" (rect 8 107 30 124)(font "Intel Clear" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clk" (rect 0 0 16 19)(font "Intel Clear" (font_size 8)))
-		(text "clk" (rect 21 27 37 46)(font "Intel Clear" (font_size 8)))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "resetN" (rect 0 0 38 19)(font "Intel Clear" (font_size 8)))
-		(text "resetN" (rect 21 43 59 62)(font "Intel Clear" (font_size 8)))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "pixelX[10..0]" (rect 0 0 75 19)(font "Intel Clear" (font_size 8)))
-		(text "pixelX[10..0]" (rect 21 59 96 78)(font "Intel Clear" (font_size 8)))
-		(line (pt 0 64)(pt 16 64)(line_width 3))
-	)
-	(port
-		(pt 0 80)
-		(input)
-		(text "pixelY[10..0]" (rect 0 0 75 19)(font "Intel Clear" (font_size 8)))
-		(text "pixelY[10..0]" (rect 21 75 96 94)(font "Intel Clear" (font_size 8)))
-		(line (pt 0 80)(pt 16 80)(line_width 3))
-	)
-	(port
-		(pt 256 32)
-		(output)
-		(text "WallsDrawingRequest" (rect 0 0 128 19)(font "Intel Clear" (font_size 8)))
-		(text "WallsDrawingRequest" (rect 107 27 235 46)(font "Intel Clear" (font_size 8)))
-		(line (pt 256 32)(pt 240 32))
-	)
-	(port
-		(pt 256 48)
-		(output)
-		(text "WallsRGB[7..0]" (rect 0 0 88 19)(font "Intel Clear" (font_size 8)))
-		(text "WallsRGB[7..0]" (rect 147 43 235 62)(font "Intel Clear" (font_size 8)))
-		(line (pt 256 48)(pt 240 48)(line_width 3))
-	)
-	(drawing
-		(rectangle (rect 16 16 240 112))
 	)
 )
 (symbol
@@ -1940,7 +1890,7 @@ agreement for further details.
 (symbol
 	(rect 1544 368 1832 576)
 	(text "game_controller" (rect 5 0 82 12)(font "Arial" ))
-	(text "inst20" (rect 8 192 36 209)(font "Intel Clear" ))
+	(text "inst12" (rect 8 192 36 209)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -2035,12 +1985,69 @@ agreement for further details.
 	(port
 		(pt 288 96)
 		(output)
-		(text "collision_Smiley_Hart" (rect 0 0 106 12)(font "Arial" ))
-		(text "collision_Smiley_Hart" (rect 178 91 284 103)(font "Arial" ))
+		(text "collision_blast_wall" (rect 0 0 92 12)(font "Arial" ))
+		(text "collision_blast_wall" (rect 190 91 282 103)(font "Arial" ))
 		(line (pt 288 96)(pt 272 96))
 	)
 	(drawing
 		(rectangle (rect 16 16 272 192))
+	)
+)
+(symbol
+	(rect -760 752 -464 880)
+	(text "WALLS_DISPLAY" (rect 5 0 107 19)(font "Intel Clear" (font_size 8)))
+	(text "inst21" (rect 8 107 36 124)(font "Intel Clear" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 16 19)(font "Intel Clear" (font_size 8)))
+		(text "clk" (rect 21 27 37 46)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "resetN" (rect 0 0 38 19)(font "Intel Clear" (font_size 8)))
+		(text "resetN" (rect 21 43 59 62)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "pixelX[10..0]" (rect 0 0 75 19)(font "Intel Clear" (font_size 8)))
+		(text "pixelX[10..0]" (rect 21 59 96 78)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "pixelY[10..0]" (rect 0 0 75 19)(font "Intel Clear" (font_size 8)))
+		(text "pixelY[10..0]" (rect 21 75 96 94)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "collision_blast_wall" (rect 0 0 114 19)(font "Intel Clear" (font_size 8)))
+		(text "collision_blast_wall" (rect 21 91 135 110)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 96)(pt 16 96))
+	)
+	(port
+		(pt 296 32)
+		(output)
+		(text "WallsDrawingRequest" (rect 0 0 128 19)(font "Intel Clear" (font_size 8)))
+		(text "WallsDrawingRequest" (rect 147 27 275 46)(font "Intel Clear" (font_size 8)))
+		(line (pt 296 32)(pt 280 32))
+	)
+	(port
+		(pt 296 48)
+		(output)
+		(text "WallsRGB[7..0]" (rect 0 0 88 19)(font "Intel Clear" (font_size 8)))
+		(text "WallsRGB[7..0]" (rect 187 43 275 62)(font "Intel Clear" (font_size 8)))
+		(line (pt 296 48)(pt 280 48)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 280 112))
 	)
 )
 (connector
@@ -2889,28 +2896,6 @@ agreement for further details.
 	(pt -432 504)
 )
 (connector
-	(text "clk" (rect -848 624 -834 641)(font "Intel Clear" ))
-	(pt -872 640)
-	(pt -760 640)
-)
-(connector
-	(text "resetN" (rect -846 640 -816 657)(font "Intel Clear" ))
-	(pt -872 656)
-	(pt -760 656)
-)
-(connector
-	(text "pixelX[10..0]" (rect -846 656 -787 673)(font "Intel Clear" ))
-	(pt -872 672)
-	(pt -760 672)
-	(bus)
-)
-(connector
-	(text "pixelY[10..0]" (rect -846 672 -787 689)(font "Intel Clear" ))
-	(pt -872 688)
-	(pt -760 688)
-	(bus)
-)
-(connector
 	(text "clk" (rect -848 768 -834 785)(font "Intel Clear" ))
 	(pt -872 784)
 	(pt -760 784)
@@ -2933,46 +2918,9 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(pt -432 728)
-	(pt -432 784)
-)
-(connector
-	(pt -432 728)
-	(pt -256 728)
-)
-(connector
-	(pt -504 800)
-	(pt -416 800)
-	(bus)
-)
-(connector
-	(pt -416 800)
-	(pt -416 744)
-	(bus)
-)
-(connector
-	(pt -416 744)
-	(pt -256 744)
-	(bus)
-)
-(connector
-	(pt -488 656)
-	(pt -432 656)
-	(bus)
-)
-(connector
-	(pt -432 656)
-	(pt -432 712)
-	(bus)
-)
-(connector
 	(pt -432 712)
 	(pt -256 712)
 	(bus)
-)
-(connector
-	(pt -416 696)
-	(pt -416 640)
 )
 (connector
 	(pt -256 696)
@@ -3071,16 +3019,6 @@ agreement for further details.
 	(pt 1424 528)
 )
 (connector
-	(text "columnDR" (rect -435 624 -386 641)(font "Intel Clear" ))
-	(pt -488 640)
-	(pt -416 640)
-)
-(connector
-	(text "wallDR" (rect -487 768 -452 785)(font "Intel Clear" ))
-	(pt -504 784)
-	(pt -432 784)
-)
-(connector
 	(text "enemy1DR" (rect -1303 16 -1250 33)(font "Intel Clear" ))
 	(pt -1320 32)
 	(pt -1296 32)
@@ -3099,6 +3037,85 @@ agreement for further details.
 	(text "enemy2_column_hit" (rect -1657 360 -1560 377)(font "Intel Clear" ))
 	(pt -1672 376)
 	(pt -1568 376)
+)
+(connector
+	(text "pixelX[10..0]" (rect -854 648 -795 665)(font "Intel Clear" ))
+	(pt -880 664)
+	(pt -768 664)
+	(bus)
+)
+(connector
+	(text "pixelY[10..0]" (rect -854 664 -795 681)(font "Intel Clear" ))
+	(pt -880 680)
+	(pt -768 680)
+	(bus)
+)
+(connector
+	(pt -432 712)
+	(pt -432 648)
+	(bus)
+)
+(connector
+	(pt -416 696)
+	(pt -416 632)
+)
+(connector
+	(text "columnDR" (rect -443 616 -394 633)(font "Intel Clear" ))
+	(pt -416 632)
+	(pt -496 632)
+)
+(connector
+	(text "clk" (rect -856 616 -842 633)(font "Intel Clear" ))
+	(pt -880 632)
+	(pt -768 632)
+)
+(connector
+	(text "resetN" (rect -854 632 -824 649)(font "Intel Clear" ))
+	(pt -880 648)
+	(pt -768 648)
+)
+(connector
+	(pt -496 648)
+	(pt -432 648)
+	(bus)
+)
+(connector
+	(pt -392 728)
+	(pt -392 784)
+)
+(connector
+	(pt -256 728)
+	(pt -392 728)
+)
+(connector
+	(pt -376 744)
+	(pt -376 800)
+	(bus)
+)
+(connector
+	(pt -256 744)
+	(pt -376 744)
+	(bus)
+)
+(connector
+	(text "wallDR" (rect -447 768 -412 785)(font "Intel Clear" ))
+	(pt -464 784)
+	(pt -392 784)
+)
+(connector
+	(pt -464 800)
+	(pt -376 800)
+	(bus)
+)
+(connector
+	(text "collision_blast_wall" (rect -859 832 -764 849)(font "Intel Clear" ))
+	(pt -760 848)
+	(pt -872 848)
+)
+(connector
+	(text "collision_blast_wall" (rect 1840 448 1935 465)(font "Intel Clear" ))
+	(pt 1832 464)
+	(pt 1928 464)
 )
 (junction (pt 464 960))
 (junction (pt 448 1560))
