@@ -67,7 +67,6 @@ localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
 
 
 
-// This is a Test:
 
 logic [1:0] MazeBitMapMask [0:12] [0:18];
 

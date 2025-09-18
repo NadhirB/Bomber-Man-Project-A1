@@ -11,26 +11,27 @@ module	game_controller	(
 			input	logic	drawing_request_columns,
 			input logic drawing_request_wall,
 			input	logic	drawing_request_blast,
-			input logic drawing_request_enemy,
+			input logic drawing_request_enemy1,
+			input logic drawing_request_enemy2,
 
-			output logic player_culomn, // active in case of collision player and columns
+			output logic player_culomn_wall, // active in case of collision player and columns
+			output logic enemy1_column_wall,
+			output logic enemy2_column_wall,
 			output logic SingleHitPulse, // critical code, generating A single pulse in a frame 
 			output logic collision_Smiley_Hart // active in case of collision between Smiley and hart
 
 );
 
-// drawing_request_smiley   -->  smiley
-// drawing_request_boarders -->  brackets
-// drawing_request_number   -->  number/box 
 
-assign player_culomn = (drawing_request_player && drawing_request_columns);// any collision --> comment after updating with #4 or #5 
-
-
+assign player_culomn_wall = (drawing_request_player && (drawing_request_columns || drawing_request_wall));// any collision --> comment after updating with #4 or #5 
+assign enemy1_column_wall = (drawing_request_enemy1 && (drawing_request_columns || drawing_request_wall));
+assign enemy2_column_wall = (drawing_request_enemy2 && (drawing_request_columns || drawing_request_wall));
 
 
 
 logic flag ; // a semaphore to set the output only once per frame regardless of number of collisions 
 logic collision_player_column; // collision between Smiley and number - is not output
+logic collision_enemy_column;
 
 
 always_ff@(posedge clk or negedge resetN)
@@ -44,8 +45,13 @@ begin
 	else begin 
 
 		collision_player_column <= 1'b0; // default
+		collision_enemy_column <= 1'b0;
+		
 		if (drawing_request_player && drawing_request_columns)
-			collision_player_column <= 1'b1;		
+			collision_player_column <= 1'b1;
+		
+		if ((drawing_request_enemy1 || drawing_request_enemy2) && drawing_request_columns)
+			collision_enemy_column <= 1'b1;
 		
 		SingleHitPulse <= 1'b0 ; // default 
 		if(startOfFrame) 
@@ -54,6 +60,10 @@ begin
 //	---#7 - change the condition below to collision between Smiley and number ---------
 
 if ( collision_player_column  && (flag == 1'b0)) begin 
+			flag	<= 1'b1; // to enter only once 
+			SingleHitPulse <= 1'b1 ; 
+		end ; 
+if ( collision_enemy_column  && (flag == 1'b0)) begin 
 			flag	<= 1'b1; // to enter only once 
 			SingleHitPulse <= 1'b1 ; 
 		end ; 

@@ -13,6 +13,9 @@ module	objects_mux	(
 		  // bomb
 					input		logic	bombDR, // two set of inputs per unit
 					input		logic	[7:0] bombRGB,  
+		  //blast
+					input logic blastDR,
+					input logic [7:0] blastRGB,
 			  
 		  // background 
 					input    logic columnsDR,
@@ -21,7 +24,11 @@ module	objects_mux	(
 					input		logic	bordersDR, 
 					input		logic	[7:0] RGB_MIF, 
 			  
-				   output	logic	[7:0] RGBOut
+				   output	logic	[7:0] RGBOut,
+					
+			// enemy
+					input logic enemyDR,
+					input logic [7:0] enemyRGB
 );
 
 always_ff@(posedge clk or negedge resetN)
@@ -31,14 +38,18 @@ begin
 	end
 	
 	else begin
-		if (playerDR == 1'b1 )   
-			RGBOut <= playerRGB;  //first priority 
-		else if (bombDR == 1'b1)
-				RGBOut <= bombRGB;	
- 		else if (columnsDR == 1'b1)
-				RGBOut <= columnsRGB;
-		else if (bordersDR == 1'b1)
+		if (columnsDR) //first priority
+			RGBOut <= columnsRGB;
+		else if (bordersDR)
 				RGBOut <= bordersRGB;
+		else if (blastDR) 
+			RGBOut <= blastRGB;
+		else if (playerDR)   
+			RGBOut <= playerRGB;
+		else if (enemyDR)
+				RGBOut <= enemyRGB;
+		else if (bombDR)
+				RGBOut <= bombRGB;
 		else RGBOut <= RGB_MIF ;// last priority 
 		end ; 
 	end

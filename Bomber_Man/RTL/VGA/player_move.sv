@@ -181,13 +181,14 @@ begin : fsm_sync_proc
 					valid_flag <=0;
 					SM_Motion <= START_OF_FRAME_ST ; 
 				end
-				else if (move_flag) begin
-					SM_Motion <= VALID_ST;
-					if (!valid_flag) begin
-						valid_Xposition <= Xposition + Xmove;
-						valid_Yposition <= Yposition + Ymove;
-					end
-				end
+//				else if (move_flag) begin
+//					SM_Motion <= VALID_ST;
+//					if (!valid_flag) begin
+//						valid_Xposition <= Xposition + Xmove;
+//						valid_Yposition <= Yposition + Ymove;
+//						valid_flag <= 1;
+//					end
+//				end
 					
 				
 		end 
@@ -197,15 +198,17 @@ begin : fsm_sync_proc
 		//------------
 		
 			if (!valid_player_pos) begin
-				if (last_key == RIGHT || last_key == LEFT)
+				if (last_key == RIGHT || last_key == LEFT) begin
 					Xmove <= 0;
-				if (last_key == TOP || last_key == BOTTOM)
+//					move_flag <= 0;
+				end
+				if (last_key == TOP || last_key == BOTTOM) begin
 					Ymove <= 0;
+//					move_flag <= 0;
+				end
 			end
 			
 				SM_Motion <= MOVE_ST ; 
-			
-				
 		
 		end
 		
@@ -217,40 +220,40 @@ begin : fsm_sync_proc
 				
 					TOP + LEFT: 	// collision with top left corner
 					begin
-						Ymove <= 64;
-						Xmove <= 64;
+						Ymove <= Speed;
+						Xmove <= Speed;
 					end
 					TOP + RIGHT:	// collision with top right corner
 					begin
-						Ymove <= 64;
-						Xmove <= - 64;
+						Ymove <= Speed;
+						Xmove <= - Speed;
 					end
 					BOTTOM + LEFT: // collision with bottom left corner
 					begin
-						Ymove <= - 64;
-						Xmove <= 64;
+						Ymove <= - Speed;
+						Xmove <= Speed;
 					end
 					BOTTOM + LEFT: // collision with bottom left corner
 					begin
-						Ymove <= - 64;
-						Xmove <= - 64;
+						Ymove <= - Speed;
+						Xmove <= - Speed;
 					end
 	
 					TOP:  			// collision with top side
 					begin
-						Ymove <= 64 ;
+						Ymove <= Speed ;
 					end
 					BOTTOM: 			// collision with bottom side
 					begin
-						Ymove <= - 64;
+						Ymove <= - Speed;
 					end
 					RIGHT:   		// collision with right side
 					begin
-						Xmove <= - 64;
+						Xmove <= - Speed;
 					end
 					LEFT:				// collision with left side
 					begin
-						Xmove <= 64;
+						Xmove <= Speed;
 					end
 					
 					default: ; 
@@ -264,8 +267,8 @@ begin : fsm_sync_proc
 		//------------------------
 			POSITION_CHANGE_ST : begin  // position interpolate 
 		//------------------------
-				prev_Xposition <= Xposition;
-				prev_Yposition <= Yposition;
+//				prev_Xposition <= Xposition;
+//				prev_Yposition <= Yposition;
 				Xposition <= Xposition + Xmove; 
 				Yposition <= Yposition + Ymove;
 				Xmove <= 0;
