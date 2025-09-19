@@ -27,31 +27,34 @@ module	borders_mux	(
 					input	logic	bottom_DR,
 					input	logic	[7:0] bottom_RGB,					
 		 
-			  
-				   output logic	[7:0] RGBOut
+		  // Outputs 
+				   output logic	[7:0] RGBOut,
+					output logic frame_DR
 );
 
-always_ff@(posedge clk or negedge resetN)
+always_comb
 begin
 	if(!resetN) begin
-			RGBOut	<= 8'b0;
+			RGBOut = 8'b0;
 	end
 	
 	else begin
-		if (top_DR == 1'b1 )   
-			RGBOut <= top_RGB;  //first priority 
+		if (top_DR)   
+			RGBOut = top_RGB;  //first priority 
 
-		else if (left_DR == 1'b1)
-				RGBOut <= left_RGB;
+		else if (left_DR)
+				RGBOut = left_RGB;
 		
-		else if (right_DR == 1'b1)
-				RGBOut <= right_RGB;
+		else if (right_DR)
+				RGBOut = right_RGB;
 				
-		else if (bottom_DR == 1'b1)
-				RGBOut <= bottom_RGB;		
+		else if (bottom_DR)
+				RGBOut = bottom_RGB;		
  		
-		else RGBOut <= 8'b0 ;// last priority 
+		else RGBOut = 8'b0 ;// last priority 
 		end ; 
 	end
 
+assign frame_DR = (left_DR || right_DR || bottom_DR || top_DR);
+	
 endmodule

@@ -18,8 +18,9 @@ module	game_controller	(
 			output logic player_culomn_wall, // active in case of collision player and columns
 			output logic enemy1_column_wall_bomb,
 			output logic enemy2_column_wall_bomb,
-			output logic SingleHitPulse, // critical code, generating A single pulse in a frame 
-			output logic collision_blast_wall // active in case of collision between blast and wall
+			output logic SingleHitPulse_enemies, // critical code, generating A single pulse in a frame 
+			output logic collision_blast_wall, // active in case of collision between blast and wall
+			output logic SingleHitPulse_player
 
 );
 
@@ -42,7 +43,8 @@ begin
 	if(!resetN)
 	begin 
 		flag	<= 1'b0;
-		SingleHitPulse <= 1'b0;	
+		SingleHitPulse_enemies <= 1'b0;
+		SingleHitPulse_player <= 1'b0;	
 		
 	end 
 	else begin 
@@ -53,10 +55,11 @@ begin
 		if (drawing_request_player && drawing_request_columns)
 			collision_player_column <= 1'b1;
 		
-		if ((drawing_request_enemy1 || drawing_request_enemy2) && drawing_request_columns)
+		if ((drawing_request_enemy1 || drawing_request_enemy2) && (drawing_request_columns || drawing_request_wall || drawing_request_bomb))
 			collision_enemy_column <= 1'b1;
 		
-		SingleHitPulse <= 1'b0 ; // default 
+		SingleHitPulse_enemies <= 1'b0 ; // default
+		SingleHitPulse_player <= 1'b0;
 		if(startOfFrame) 
 				flag <= 1'b0 ; // reset for next time 
 				
@@ -64,11 +67,11 @@ begin
 
 if ( collision_player_column  && (flag == 1'b0)) begin 
 			flag	<= 1'b1; // to enter only once 
-			SingleHitPulse <= 1'b1 ; 
+			SingleHitPulse_player <= 1'b1 ; 
 		end ; 
 if ( collision_enemy_column  && (flag == 1'b0)) begin 
 			flag	<= 1'b1; // to enter only once 
-			SingleHitPulse <= 1'b1 ; 
+			SingleHitPulse_enemies <= 1'b1 ; 
 		end ; 
  
 	end 
