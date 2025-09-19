@@ -13,7 +13,7 @@ module	enemy	(
 					input	 logic clk,
 					input	 logic resetN,
 					input	 logic startOfFrame,      //short pulse every start of frame 30Hz 
-					input	 logic random,   // if 1, then enemy moves vertically, otherwise moves horizonatally      
+					input	 logic [2:0] random_num,   // if 1 enemy moves down, 2 enemy moves up, 3 enemy moves left, 4 enemy moves right
 					input  logic collision,         //collision if enemy hits an object
 					input  logic [3:0] HitEdgeCode, 
 					output logic signed 	[10:0] topLeftX, // output the top left corner 
@@ -25,6 +25,7 @@ module	enemy	(
 parameter int INITIAL_X = 15;
 parameter int INITIAL_Y = 48;
 parameter int Speed_default = 64;
+parameter logic [3:0] default_start_dir = 4'b0001; //the direction the enemy moves at the start of the game should be like the const logic
 
 
 const int	FIXED_POINT_MULTIPLIER = 64; // note it must be 2^n 
@@ -52,7 +53,7 @@ const int	y_FRAME_BOTTOM	=	(464 - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //-
 const logic [3:0] TOP =		 4'b0100; 
 const logic [3:0] RIGHT =   4'b0010; 
 const logic [3:0] LEFT =	 4'b1000; 
-const logic [3:0] BOTTOM =  4'b0001;  
+const logic [3:0] BOTTOM =  4'b0001;
 
 
 enum  logic [2:0] {IDLE_ST,         	// initial state
@@ -70,6 +71,7 @@ int Yposition ;
 
 logic [3:0] hit_reg = 4'b0;
 logic [3:0] move = 4'b0;
+logic hit_flag = 0;
  //---------
  
 always_ff @(posedge clk or negedge resetN)
@@ -80,8 +82,9 @@ begin : fsm_sync_proc
 		Xspeed <= Speed_default   ; 
 		Yspeed <= 0  ; 
 		Xposition <= 0  ; 
-		Yposition <= 0   ; 
-		hit_reg <= 4'b0 ;	
+		Yposition <= 0  ; 
+		hit_reg <= 4'b0 ;
+		move <= default_start_dir;
 	
 	end 	
 	
@@ -93,9 +96,7 @@ begin : fsm_sync_proc
 		//------------
 			IDLE_ST: begin
 		//------------
-				move <= BOTTOM;
-//				Xspeed  <= Speed_default ; 
-//				Yspeed  <= Speed_default ; 
+				move <= default_start_dir;
 				Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER; 
 				Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER; 
 
@@ -131,8 +132,9 @@ begin : fsm_sync_proc
 				
 				
        // collcting collisions 	
-				if (collision) begin
+				if (collision && hit_flag == 0) begin
 					hit_reg <= HitEdgeCode;
+					hit_flag <= 1;
 				end
 				
 				if (startOfFrame )
@@ -147,59 +149,54 @@ begin : fsm_sync_proc
 	
 					RIGHT: 
 					begin
-						move <= LEFT;
+						Xposition <= Xposition - Speed_default;
+						case (random_num[2:0])
+							3'b001 : move <= BOTTOM;
+							3'b010 : move <= TOP;
+							3'b011 : move <= LEFT;
+							3'b100 : move <= LEFT;
+						endcase
 					end
 					
 					LEFT: 
 					begin
-						move <= RIGHT;
+						Xposition <= Xposition + Speed_default;
+						case (random_num[2:0])
+							3'b001 : move <= BOTTOM;
+							3'b010 : move <= TOP;
+							3'b011 : move <= RIGHT;
+							3'b111 : move <= RIGHT;
+						endcase
 					end
 					
 					TOP: 
 					begin
-						move <= BOTTOM;
+						Yposition <= Yposition + Speed_default;
+						case (random_num[2:0])
+							3'b001 : move <= BOTTOM;
+							3'b010 : move <= BOTTOM;
+							3'b011 : move <= LEFT;
+							3'b111 : move <= RIGHT;
+						endcase
 					end
 					
 					BOTTOM: 
 					begin
-						move <= TOP;
-					end
-	
-					LEFT, RIGHT :
-					begin
-// by Yoav					
-//						if (Xspeed != 0) begin
-//							if (random) begin
-//								Xspeed <= 0;
-//								Yspeed <= Speed_default;
-//							end else
-//								Xspeed <= !Xspeed;
-//						end
-//end							if (random)
-//								Xspeed <= 0-Xspeed ;
-//							 else if (!Yspeed) begin
-//								Yspeed <= Speed_default;
-//								Xspeed <= 0;
-//							 end
-					end
-	
-					TOP, BOTTOM : 
-					begin
-					
-// 					if (Yspeed) begin
-//							if (!random) begin
-//								Yspeed <= 0;
-//								Xspeed <= Speed_default;
-//							end else
-//								Yspeed <= 0-Yspeed;
-//						end
+						Yposition <= Yposition - Speed_default;
+						case (random_num[2:0])
+							3'b001 : move <= TOP;
+							3'b010 : move <= TOP;
+							3'b011 : move <= LEFT;
+							3'b111 : move <= RIGHT;
+						endcase
 					end
 					
 					default: ; 
 	
 			  endcase 
 	
-			hit_reg <= 5'b00000;						
+			hit_reg <= 4'b0;
+			hit_flag <= 0;
 			SM_Motion <= POSITION_CHANGE_ST ; 
 		end 
 
@@ -216,44 +213,46 @@ begin : fsm_sync_proc
 			POSITION_LIMITS_ST : begin  //check if still inside the frame 
 		//------------------------
 		if (Xposition < x_FRAME_LEFT) begin
-						Xposition <= x_FRAME_LEFT ;
-						if (Xspeed) begin
-							if (random) begin
-								Xspeed <= 0;
-								Yspeed <= Speed_default;
-							end else
-								move <= RIGHT;
-						end
+						Xposition <= x_FRAME_LEFT;
+						move <= RIGHT;
+//						case (random_num[2:0])
+//							3'b001 : move <= BOTTOM;
+//							3'b010 : move <= TOP;
+//							3'b011 : move <= RIGHT;
+//							3'b111 : move <= RIGHT;
+//						endcase
 			end
 		if (Xposition > x_FRAME_RIGHT) begin
-						Xposition <= x_FRAME_RIGHT ; 
-						if (Xspeed) begin
-							if (random) begin
-								Xspeed <= 0;
-								Yspeed <= Speed_default;
-							end else
-								move <= LEFT;
-						end
+						Xposition <= x_FRAME_RIGHT;
+						move <= LEFT;
+//						case (random_num[2:0])
+//							3'b001 : move <= BOTTOM;
+//							3'b010 : move <= TOP;
+//							3'b011 : move <= LEFT;
+//							3'b111 : move <= LEFT;
+//						endcase
 			end
 		if (Yposition < y_FRAME_TOP) begin
-						Yposition <= y_FRAME_TOP ; 
-						if (Yspeed) begin
-							if (!random) begin
-								Yspeed <= 0;
-								Xspeed <= Speed_default;
-							end else
-								move <= BOTTOM;
-						end
+						Yposition <= y_FRAME_TOP;
+						move <= BOTTOM;
+//						case (random_num[2:0])
+//							3'b001 : move <= BOTTOM;
+//							3'b010 : move <= BOTTOM;
+//							3'b011 : move <= LEFT;
+//							3'b111 : move <= RIGHT;
+//						endcase
+						
 			end
 		if (Yposition > y_FRAME_BOTTOM) begin
-						Yposition <= y_FRAME_BOTTOM ; 
-						if (Yspeed) begin
-							if (!random) begin
-								Yspeed <= 0;
-								Xspeed <= Speed_default;
-							end else
-								move <= TOP;
-						end
+						Yposition <= y_FRAME_BOTTOM;
+						move <= TOP;	
+//						case (random_num[2:0])
+//							3'b001 : move <= TOP;
+//							3'b010 : move <= TOP;
+//							3'b011 : move <= LEFT;
+//							3'b111 : move <= RIGHT;
+//						endcase
+						
 			end
 
 				SM_Motion <= MOVE_ST ; 

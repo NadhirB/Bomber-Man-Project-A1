@@ -118,8 +118,8 @@ agreement for further details.
 	(port
 		(pt 320 80)
 		(output)
-		(text "SingleHitPulse" (rect 0 0 54 12)(font "Arial" ))
-		(text "SingleHitPulse" (rect 245 75 299 87)(font "Arial" ))
+		(text "SingleHitPulse_enemies" (rect 0 0 93 12)(font "Arial" ))
+		(text "SingleHitPulse_enemies" (rect 206 75 299 87)(font "Arial" ))
 		(line (pt 320 80)(pt 304 80)(line_width 1))
 	)
 	(port
@@ -128,6 +128,13 @@ agreement for further details.
 		(text "collision_blast_wall" (rect 0 0 70 12)(font "Arial" ))
 		(text "collision_blast_wall" (rect 229 91 299 103)(font "Arial" ))
 		(line (pt 320 96)(pt 304 96)(line_width 1))
+	)
+	(port
+		(pt 320 112)
+		(output)
+		(text "SingleHitPulse_player" (rect 0 0 84 12)(font "Arial" ))
+		(text "SingleHitPulse_player" (rect 215 107 299 119)(font "Arial" ))
+		(line (pt 320 112)(pt 304 112)(line_width 1))
 	)
 	(drawing
 		(rectangle (rect 16 16 304 192)(line_width 1))
