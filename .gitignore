@@ -13,3 +13,5 @@ Bomber_Man/incremental_db/
 *.sii
 *.qarlog
 *.qsf
+*.vwf
+/Bomber_Man/simulation

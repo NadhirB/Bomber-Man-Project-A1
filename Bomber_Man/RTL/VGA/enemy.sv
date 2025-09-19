@@ -49,9 +49,9 @@ const int	y_FRAME_BOTTOM	=	(464 - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //-
 	//			 404
 	//
  
-const logic [3:0] TOP =		 4'b1000; 
-const logic [3:0] RIGHT =   4'b0100; 
-const logic [3:0] LEFT =	 4'b0010; 
+const logic [3:0] TOP =		 4'b0100; 
+const logic [3:0] RIGHT =   4'b0010; 
+const logic [3:0] LEFT =	 4'b1000; 
 const logic [3:0] BOTTOM =  4'b0001;  
 
 
@@ -68,7 +68,8 @@ int Xposition ; //position
 int Yposition ;  
  
 
-  logic [3:0] hit_reg = 4'b00000;
+logic [3:0] hit_reg = 4'b0;
+logic [3:0] move = 4'b0;
  //---------
  
 always_ff @(posedge clk or negedge resetN)
@@ -92,7 +93,7 @@ begin : fsm_sync_proc
 		//------------
 			IDLE_ST: begin
 		//------------
-		
+				move <= BOTTOM;
 //				Xspeed  <= Speed_default ; 
 //				Yspeed  <= Speed_default ; 
 				Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER; 
@@ -106,45 +107,92 @@ begin : fsm_sync_proc
 		//------------
 			MOVE_ST:  begin     // moving collecting colisions 
 		//------------
-	
-       // collcting collisions 	
-				if (collision) begin
-					hit_reg[HitEdgeCode] <= 1'b1;
-
+				
+				if (move == TOP) begin
+					Xspeed <= 0;
+					Yspeed <= - Speed_default;
 				end
 				
-
-				if (startOfFrame )
-					SM_Motion <= START_OF_FRAME_ST ; 
-					
+				if (move == BOTTOM) begin
+					Xspeed <= 0;
+					Yspeed <= Speed_default;
+				end
+				
+				if (move == LEFT) begin
+					Xspeed <= - Speed_default;
+					Yspeed <= 0;
+				end
+				
+				if (move == RIGHT) begin
+					Xspeed <= Speed_default;
+					Yspeed <= 0;
+				end
 					
 				
+				
+       // collcting collisions 	
+				if (collision) begin
+					hit_reg <= HitEdgeCode;
+				end
+				
+				if (startOfFrame )
+					SM_Motion <= START_OF_FRAME_ST;
 		end 
 		
 		//------------
 			START_OF_FRAME_ST:  begin      //check if any colisin was detected 
 		//------------
  
-				case (hit_reg[3:0] )  // test sides 
+				case (hit_reg[3:0])  // test sides 
+	
+					RIGHT: 
+					begin
+						move <= LEFT;
+					end
+					
+					LEFT: 
+					begin
+						move <= RIGHT;
+					end
+					
+					TOP: 
+					begin
+						move <= BOTTOM;
+					end
+					
+					BOTTOM: 
+					begin
+						move <= TOP;
+					end
 	
 					LEFT, RIGHT :
 					begin
-							if (random)
-								Xspeed <= 0-Xspeed ;
-							 else if (!Yspeed) begin
-								Yspeed <= Speed_default;
-								Xspeed <= 0;
-							 end
+// by Yoav					
+//						if (Xspeed != 0) begin
+//							if (random) begin
+//								Xspeed <= 0;
+//								Yspeed <= Speed_default;
+//							end else
+//								Xspeed <= !Xspeed;
+//						end
+//end							if (random)
+//								Xspeed <= 0-Xspeed ;
+//							 else if (!Yspeed) begin
+//								Yspeed <= Speed_default;
+//								Xspeed <= 0;
+//							 end
 					end
 	
 					TOP, BOTTOM : 
 					begin
-						if (random)
-								Yspeed <= 0-Yspeed ;
-							 else if (!Xspeed) begin
-								Xspeed <= Speed_default;
-								Yspeed <= 0;
-							 end
+					
+// 					if (Yspeed) begin
+//							if (!random) begin
+//								Yspeed <= 0;
+//								Xspeed <= Speed_default;
+//							end else
+//								Yspeed <= 0-Yspeed;
+//						end
 					end
 					
 					default: ; 
@@ -169,39 +217,43 @@ begin : fsm_sync_proc
 		//------------------------
 		if (Xposition < x_FRAME_LEFT) begin
 						Xposition <= x_FRAME_LEFT ;
-						if (random)
-								Xspeed <= 0-Xspeed ;
-							 else if (Xspeed) begin
-								Yspeed <= Speed_default;
+						if (Xspeed) begin
+							if (random) begin
 								Xspeed <= 0;
-							 end
+								Yspeed <= Speed_default;
+							end else
+								move <= RIGHT;
+						end
 			end
 		if (Xposition > x_FRAME_RIGHT) begin
 						Xposition <= x_FRAME_RIGHT ; 
-						if (random)
-								Xspeed <= 0-Xspeed ;
-							 else if (Xspeed) begin
-								Yspeed <= Speed_default;
+						if (Xspeed) begin
+							if (random) begin
 								Xspeed <= 0;
-							 end
+								Yspeed <= Speed_default;
+							end else
+								move <= LEFT;
+						end
 			end
 		if (Yposition < y_FRAME_TOP) begin
 						Yposition <= y_FRAME_TOP ; 
-						if (random)
-								Yspeed <= 0-Yspeed ;
-							 else if (Yspeed) begin
-								Xspeed <= Speed_default;
+						if (Yspeed) begin
+							if (!random) begin
 								Yspeed <= 0;
-							 end
+								Xspeed <= Speed_default;
+							end else
+								move <= BOTTOM;
+						end
 			end
 		if (Yposition > y_FRAME_BOTTOM) begin
 						Yposition <= y_FRAME_BOTTOM ; 
-						if (random)
-								Yspeed <= 0-Yspeed ;
-							 else if (Yspeed) begin
-								Xspeed <= Speed_default;
+						if (Yspeed) begin
+							if (!random) begin
 								Yspeed <= 0;
-							 end
+								Xspeed <= Speed_default;
+							end else
+								move <= TOP;
+						end
 			end
 
 				SM_Motion <= MOVE_ST ; 
