@@ -149,7 +149,7 @@ begin : fsm_sync_proc
 	
 					RIGHT: 
 					begin
-						Xposition <= Xposition - Speed_default;
+//						Xposition <= Xposition - Speed_default;
 						case (random_num[2:0])
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= TOP;
@@ -160,7 +160,7 @@ begin : fsm_sync_proc
 					
 					LEFT: 
 					begin
-						Xposition <= Xposition + Speed_default;
+//						Xposition <= Xposition + Speed_default;
 						case (random_num[2:0])
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= TOP;
@@ -171,7 +171,7 @@ begin : fsm_sync_proc
 					
 					TOP: 
 					begin
-						Yposition <= Yposition + Speed_default;
+//						Yposition <= Yposition + Speed_default;
 						case (random_num[2:0])
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= BOTTOM;
@@ -182,7 +182,7 @@ begin : fsm_sync_proc
 					
 					BOTTOM: 
 					begin
-						Yposition <= Yposition - Speed_default;
+//						Yposition <= Yposition - Speed_default;
 						case (random_num[2:0])
 							3'b001 : move <= TOP;
 							3'b010 : move <= TOP;

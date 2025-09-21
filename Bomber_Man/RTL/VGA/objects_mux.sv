@@ -15,7 +15,13 @@ module	objects_mux	(
 					input		logic	[7:0] bombRGB,  
 		  //blast
 					input logic blastDR,
-					input logic [7:0] blastRGB,
+					input logic [7:0] blastRGB,		
+			// enemy
+					input logic enemyDR,
+					input logic [7:0] enemyRGB,
+			// metadata
+					input logic metadataDR,
+					input logic [7:0] metadataRGB,
 			  
 		  // background 
 					input    logic columnsDR,
@@ -24,11 +30,10 @@ module	objects_mux	(
 					input		logic	bordersDR, 
 					input		logic	[7:0] RGB_MIF, 
 			  
-				   output	logic	[7:0] RGBOut,
+		  // Output	   
+					output	logic	[7:0] RGBOut
 					
-			// enemy
-					input logic enemyDR,
-					input logic [7:0] enemyRGB
+			
 );
 
 always_ff@(posedge clk or negedge resetN)
@@ -40,6 +45,8 @@ begin
 	else begin
 		if (columnsDR) //first priority
 			RGBOut <= columnsRGB;
+		else if (metadataDR)
+				RGBOut <= metadataRGB;
 		else if (bordersDR)
 				RGBOut <= bordersRGB;
 		else if (blastDR) 

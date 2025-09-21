@@ -33,7 +33,6 @@ begin
 end
 	
 assign col_wal_DR = columnsDR || wallsDR;
-//assign col_wal_RGB = (wallsDR) ? wallsRGB : columnsRGB;
 
 endmodule
 

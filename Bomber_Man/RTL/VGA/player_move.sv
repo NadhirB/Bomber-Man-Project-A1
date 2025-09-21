@@ -95,6 +95,7 @@ logic [3:0] key_on_hit = 4'b0;
 
 logic move_flag = 0;
 logic valid_flag = 0;
+logic hit_flag = 0;
  //---------
  
 always_ff @(posedge clk or negedge resetN)
@@ -111,6 +112,7 @@ begin : fsm_sync_proc
 		key_on_hit <= 4'b0;
 		move_flag <= 0;
 		valid_flag <= 0;
+		hit_flag <= 0;
 		Speed <= Speed_default;
 	end 	
 	
@@ -171,8 +173,9 @@ begin : fsm_sync_proc
 				
 	
        // collcting collisions 	
-				if (column_collision) begin
+				if (column_collision && hit_flag == 0) begin
 					hit_reg[HitEdgeCode] <= 1'b1;
+					hit_flag <= 1;
 //					key_on_hit <= last_key;
 				end
 
@@ -260,7 +263,8 @@ begin : fsm_sync_proc
 	
 			  endcase
 			  
-			hit_reg <= 4'b0000;						
+			hit_reg <= 4'b0;
+			hit_flag <= 0;
 			SM_Motion <= POSITION_CHANGE_ST ; 
 		end 
 
