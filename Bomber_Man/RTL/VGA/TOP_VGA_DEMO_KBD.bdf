@@ -2799,11 +2799,6 @@ agreement for further details.
 	(pt 480 1576)
 )
 (connector
-	(text "clk" (rect -870 1144 -856 1161)(font "Intel Clear" ))
-	(pt -808 1160)
-	(pt -888 1160)
-)
-(connector
 	(text "resetN" (rect -875 1160 -845 1177)(font "Intel Clear" ))
 	(pt -808 1176)
 	(pt -888 1176)
@@ -3768,6 +3763,11 @@ agreement for further details.
 	(pt 544 560)
 	(pt 424 560)
 	(bus)
+)
+(connector
+	(text "CLOCK_50" (rect -870 1144 -817 1161)(font "Intel Clear" ))
+	(pt -808 1160)
+	(pt -888 1160)
 )
 (junction (pt 448 1560))
 (junction (pt -1728 304))
