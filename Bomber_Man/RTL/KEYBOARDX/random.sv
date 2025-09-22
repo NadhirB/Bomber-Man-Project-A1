@@ -1,9 +1,10 @@
 // (c) Technion IIT, Department of Electrical Engineering 2025 
 module random 	
  ( 
-	input	logic  clk,
-	input	logic  resetN, 
-	input	logic	 rise,
+	input	logic clk,
+	input	logic resetN, 
+	input	logic	rise,
+	input logic startOfFrame,
 	output logic unsigned [SIZE_BITS-1:0] dout	
   ) ;
 
@@ -27,8 +28,9 @@ always_ff @(posedge clk or negedge resetN) begin
 		else begin
 			counter <= counter+1;
 			if ( counter >= MAX_VAL ) // the +1 is done on the next clock 
-				counter <=  MIN_VAL ; // set min and max mvalues 
-			rise_d <= rise;
+				counter <=  MIN_VAL; // set min and max mvalues
+			if (startOfFrame)
+				rise_d <= rise;
 			if (rise && !rise_d) // rising edge 
 				dout <= counter;
 		end

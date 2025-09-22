@@ -149,7 +149,7 @@ begin : fsm_sync_proc
 	
 					RIGHT: 
 					begin
-//						Xposition <= Xposition - Speed_default;
+						Xposition <= Xposition - Speed_default;
 						case (random_num[2:0])
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= TOP;
@@ -160,7 +160,7 @@ begin : fsm_sync_proc
 					
 					LEFT: 
 					begin
-//						Xposition <= Xposition + Speed_default;
+						Xposition <= Xposition + Speed_default;
 						case (random_num[2:0])
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= TOP;
@@ -171,7 +171,7 @@ begin : fsm_sync_proc
 					
 					TOP: 
 					begin
-//						Yposition <= Yposition + Speed_default;
+						Yposition <= Yposition + Speed_default;
 						case (random_num[2:0])
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= BOTTOM;
@@ -182,7 +182,7 @@ begin : fsm_sync_proc
 					
 					BOTTOM: 
 					begin
-//						Yposition <= Yposition - Speed_default;
+						Yposition <= Yposition - Speed_default;
 						case (random_num[2:0])
 							3'b001 : move <= TOP;
 							3'b010 : move <= TOP;
@@ -214,44 +214,44 @@ begin : fsm_sync_proc
 		//------------------------
 		if (Xposition < x_FRAME_LEFT) begin
 						Xposition <= x_FRAME_LEFT;
-						move <= RIGHT;
-//						case (random_num[2:0])
-//							3'b001 : move <= BOTTOM;
-//							3'b010 : move <= TOP;
-//							3'b011 : move <= RIGHT;
-//							3'b111 : move <= RIGHT;
-//						endcase
+//						move <= RIGHT;
+						case (random_num[2:0])
+							3'b001 : move <= BOTTOM;
+							3'b010 : move <= TOP;
+							3'b011 : move <= RIGHT;
+							3'b111 : move <= RIGHT;
+						endcase
 			end
 		if (Xposition > x_FRAME_RIGHT) begin
 						Xposition <= x_FRAME_RIGHT;
-						move <= LEFT;
-//						case (random_num[2:0])
-//							3'b001 : move <= BOTTOM;
-//							3'b010 : move <= TOP;
-//							3'b011 : move <= LEFT;
-//							3'b111 : move <= LEFT;
-//						endcase
+//						move <= LEFT;
+						case (random_num[2:0])
+							3'b001 : move <= BOTTOM;
+							3'b010 : move <= TOP;
+							3'b011 : move <= LEFT;
+							3'b111 : move <= LEFT;
+						endcase
 			end
 		if (Yposition < y_FRAME_TOP) begin
 						Yposition <= y_FRAME_TOP;
-						move <= BOTTOM;
-//						case (random_num[2:0])
-//							3'b001 : move <= BOTTOM;
-//							3'b010 : move <= BOTTOM;
-//							3'b011 : move <= LEFT;
-//							3'b111 : move <= RIGHT;
-//						endcase
+//						move <= BOTTOM;
+						case (random_num[2:0])
+							3'b001 : move <= BOTTOM;
+							3'b010 : move <= BOTTOM;
+							3'b011 : move <= LEFT;
+							3'b111 : move <= RIGHT;
+						endcase
 						
 			end
 		if (Yposition > y_FRAME_BOTTOM) begin
 						Yposition <= y_FRAME_BOTTOM;
-						move <= TOP;	
-//						case (random_num[2:0])
-//							3'b001 : move <= TOP;
-//							3'b010 : move <= TOP;
-//							3'b011 : move <= LEFT;
-//							3'b111 : move <= RIGHT;
-//						endcase
+//						move <= TOP;	
+						case (random_num[2:0])
+							3'b001 : move <= TOP;
+							3'b010 : move <= TOP;
+							3'b011 : move <= LEFT;
+							3'b111 : move <= RIGHT;
+						endcase
 						
 			end
 

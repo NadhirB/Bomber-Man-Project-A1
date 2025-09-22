@@ -21,7 +21,7 @@
 parameter logic SIMULATION_MODE  = 1 ; 
 	
 //       ----------------------------------------------	counter limit setting
-	localparam oneSecVal_REAL = 32'd50_000_000; // for DE10 board un-comment this line 
+	localparam oneSecVal_REAL = 32'd31_500_000; // for DE10 board un-comment this line 
 	localparam oneSecVal_SIM = 32'd20; // for quartus simulation un-comment this line 
 	localparam oneSecVal= SIMULATION_MODE ? oneSecVal_SIM : oneSecVal_REAL ; //select what to use 
 //       ----------------------------------------------	

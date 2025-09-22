@@ -34,10 +34,10 @@ localparam  int MAZE_WIDTH_X = 1 << MAZE_NUMBER_OF__X_BITS ;
 localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
 
 
- logic [10:0] offsetX_LSB  ;
- logic [10:0] offsetY_LSB  ; 
+ logic [10:0] offsetX_LSB ;
+ logic [10:0] offsetY_LSB ; 
  logic [10:0] offsetX_MSB ;
- logic [10:0] offsetY_MSB  ;
+ logic [10:0] offsetY_MSB ;
 
  assign offsetX_LSB  = offsetX[(TILE_NUMBER_OF_X_BITS-1):0] ; // get lower bits 
  assign offsetY_LSB  = offsetY[(TILE_NUMBER_OF_Y_BITS-1):0] ; // get lower bits 
@@ -66,10 +66,10 @@ logic [1:0] MazeDefaultBitMapMask [0:12] [0:18] =
 	  '{0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1}, //col
 	  '{0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
 	  '{0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1}, //col
-	  '{0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0},
-	  '{0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1}, //col
+	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0},
+	  '{0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1}, //col
 	  '{0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
-	  '{1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1}, //col
+	  '{1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1}, //col
 	  '{0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}};
  
 // logic [1:0] MazeDefaultBitMapMask [0:12] [0:18] = 

@@ -88,7 +88,7 @@ logic [7:0] Speed;
 logic [7:0] speed_levels [0:2] = '{64, 112, 160};
 
 
-logic [3:0] hit_reg = 4'b0000;
+logic [3:0] hit_reg = 4'b0;
 logic [3:0] last_key = 4'b0;
 logic [3:0] key_on_hit = 4'b0;
 
