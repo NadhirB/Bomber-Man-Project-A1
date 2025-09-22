@@ -7,7 +7,9 @@ module DebugLivesBitMap (
     input  logic        clk,
     input  logic        resetN,
     input  logic        sw_inc,     
-    input  logic        sw_dec,     
+    input  logic        sw_dec,
+		
+	 output logic player_died,
     output logic [1:0]  lives       
 );
 
@@ -30,6 +32,8 @@ module DebugLivesBitMap (
             sw_dec_prev <= sw_dec;
         end
     end
+	 
+	 assign player_died = (lives > 1) ? 1'b0 : 1'b1;
 
 endmodule
 

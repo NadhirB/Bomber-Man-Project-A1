@@ -85,6 +85,11 @@ agreement for further details.
 		"10"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"letters_size"
+		"0"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
 		(rectangle (rect 16 16 216 128)(line_width 1))
 	)

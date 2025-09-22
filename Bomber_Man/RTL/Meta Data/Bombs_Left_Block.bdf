@@ -701,12 +701,12 @@ agreement for further details.
 		(type "PARAMETER_UNSIGNED_BIN")	)
 	(parameter
 		"letter_2"
-		"00001"
+		"01100"
 		""
 		(type "PARAMETER_UNSIGNED_BIN")	)
 	(parameter
 		"letter_3"
-		"01100"
+		"00001"
 		""
 		(type "PARAMETER_UNSIGNED_BIN")	)
 	(parameter
