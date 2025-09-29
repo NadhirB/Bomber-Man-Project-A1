@@ -14,3 +14,4 @@ Bomber_Man/incremental_db/
 *.qarlog
 *.vwf
 /Bomber_Man/simulation
+*.stp

@@ -19,19 +19,21 @@ module down_counter
    );
 
 // Down counter
+
 always_ff @(posedge clk or negedge resetN)
    begin
 	      
       if ( !resetN )	begin// Asynchronic reset
 			
-			count <= 4'h0;
+			count <= 4'h9;
 			
 		end
 				
       else 	begin		// Synchronic logic	
 //--------------------------------------------------------------------------------------------------------------------
 // &&&&&&&&&&&&&&  fill your code and paste to the report #1 
-//--------------------------------------------------------------------------------------------------------------------			
+//--------------------------------------------------------------------------------------------------------------------
+			
 		if (!loadN) begin
 			count <= datain;
 		end 

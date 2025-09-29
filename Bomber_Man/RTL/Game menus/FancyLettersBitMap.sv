@@ -10,14 +10,14 @@ module	FancyLettersBitMap	(
 					input logic	[10:0] offsetX,// offset from top left  position 
 					input logic	[10:0] offsetY,
 					input	logic	InsideRectangle, //input that the pixel is within a bracket
-					input logic [4:0] letters [9:0],
+					input logic [4:0] letters [15:0],
 
 					output	logic	drawingRequest, //output that the pixel should be dispalyed 
 					output	logic	[7:0] RGBout  //rgb value from the bitmap 
  ) ;
 
  
-parameter int num_of_letters = 10;
+parameter int num_of_letters = 16;
 parameter int letters_size = 0;
  
 // this is the devider used to acess the right pixel 
@@ -52,7 +52,7 @@ assign offsetX_MSB  = offsetX[(TILE_NUMBER_OF_X_BITS + letters_size + MAZE_NUMBE
 logic [4:0] MazeBitMapMask [0:num_of_letters-1];
 
 logic [4:0] MazeDefaultBitMapMask [0:num_of_letters - 1] = 
-	'{5'd0, 5'd1, 5'd2, 5'd3, 5'd4, 5'd5, 5'd6, 5'd7, 5'd8, 5'd9};
+	'{5'd0, 5'd1, 5'd2, 5'd3, 5'd4, 5'd5, 5'd6, 5'd7, 5'd8, 5'd9, 5'd0, 5'd0, 5'd0, 5'd0, 5'd0, 5'd0};
  
 
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'h11;// RGB value in the bitmap representing a transparent pixel 

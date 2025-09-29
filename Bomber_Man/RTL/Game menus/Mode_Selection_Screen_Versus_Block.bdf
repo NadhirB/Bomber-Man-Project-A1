@@ -1328,7 +1328,7 @@ agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"MyValue"
-		"243"
+		"267"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
@@ -1354,7 +1354,7 @@ agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"MyValue"
-		"191"
+		"183"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
@@ -1365,7 +1365,7 @@ agreement for further details.
 (symbol
 	(rect 808 0 1032 144)
 	(text "SelectHandBitMap" (rect 5 0 94 12)(font "Arial" ))
-	(text "selectinst" (rect 8 128 55 140)(font "Arial" ))
+	(text "sinst" (rect 8 128 31 140)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)

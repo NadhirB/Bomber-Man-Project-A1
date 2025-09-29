@@ -20,14 +20,17 @@ module game_timer
 	output logic tc
    );
 
-// Parameters defined as external, here with a default value - to be updated 
+// Parameters defined as external, here with a default value - to be updated
 // in the upper hierarchy file with the actial bomb down counting values
 // -----------------------------------------------------------
-	parameter  logic [3:0] datainL = 4'h7 ; 
-	parameter  logic [3:0] datainH = 4'h1 ;
+	parameter  logic [3:0] datainL = 4'h9 ; 
+	parameter  logic [3:0] datainH = 4'h9 ;
 // -----------------------------------------------------------
 	
-	logic  tclow, tchigh;// internal variables terminal count 
+logic  tclow, tchigh;// internal variables terminal count 
+logic start_seen;
+
+
 	
 // Low counter instantiation
 	down_counter lowc(.clk(clk), 
