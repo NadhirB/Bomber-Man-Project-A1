@@ -65,13 +65,13 @@ begin
 				
 //	---#7 - change the condition below to collision between Smiley and number ---------
 
-if ( collision_player_column  && (flag == 1'b0)) begin 
+//if ( collision_player_column  && (flag == 1'b0)) begin 
+//			flag	<= 1'b1; // to enter only once 
+//			SingleHitPulse_player <= 1'b1 ; 
+//		end ; 
+if ( collision_blast_wall  && (flag == 1'b0)) begin 
 			flag	<= 1'b1; // to enter only once 
 			SingleHitPulse_player <= 1'b1 ; 
-		end ; 
-if ( collision_enemy_column  && (flag == 1'b0)) begin 
-			flag	<= 1'b1; // to enter only once 
-			SingleHitPulse_enemies <= 1'b1 ; 
 		end ; 
  
 	end 

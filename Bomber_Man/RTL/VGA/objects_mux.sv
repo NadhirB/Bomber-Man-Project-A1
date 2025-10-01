@@ -28,7 +28,10 @@ module	objects_mux	(
 					input		logic	[7:0] columnsRGB,   
 					input		logic	[7:0] bordersRGB, 
 					input		logic	bordersDR, 
-					input		logic	[7:0] RGB_MIF, 
+					input		logic	[7:0] RGB_MIF,
+			//game over title
+					input		logic	game_over_DR, 
+					input		logic	[7:0] game_over_RGB,					
 			  
 		  // Output	   
 					output	logic	[7:0] RGBOut
@@ -43,7 +46,9 @@ begin
 	end
 	
 	else begin
-		if (columnsDR) //first priority
+		if (game_over_DR)					//first priority
+			RGBOut <= game_over_RGB;
+		else if (columnsDR) 
 			RGBOut <= columnsRGB;
 		else if (metadataDR)
 				RGBOut <= metadataRGB;

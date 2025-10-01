@@ -10,30 +10,37 @@ module DebugLivesBitMap (
     input  logic        sw_dec,
 		
 	 output logic player_died,
-    output logic [1:0]  lives       
+    output logic [3:0] lives       
 );
 
-    logic sw_inc_prev, sw_dec_prev;  
+	 logic flag_inc = 0;
+	 logic flag_dec = 0;
 
     always_ff @(posedge clk or negedge resetN) begin
         if (!resetN) begin
             lives <= 2'b11;   
-            sw_inc_prev <= 1'b0;
-            sw_dec_prev <= 1'b0;
+				flag_inc <= 0;
+				flag_dec <= 0;
         end
         else begin
 
-            if (sw_inc && !sw_inc_prev && lives < 2'b11)
+            if (sw_inc && lives < 2'b11 && flag_inc == 0) begin
                 lives <= lives + 1;
-            if (sw_dec && !sw_dec_prev && lives > 2'b00)
+					 flag_inc <= 1;
+				end
+            if (sw_dec && lives > 2'b00 && flag_dec == 0) begin
                 lives <= lives - 1;
-
-            sw_inc_prev <= sw_inc;
-            sw_dec_prev <= sw_dec;
+					 flag_dec <= 1;
+				end
+				
+				if (!sw_inc)
+					flag_inc <= 0;
+				if (!sw_dec)
+					flag_dec <= 0;
         end
     end
 	 
-	 assign player_died = (lives > 1) ? 1'b0 : 1'b1;
+	 assign player_died = (lives == 0) ? 1'b1 : 1'b0;
 
 endmodule
 

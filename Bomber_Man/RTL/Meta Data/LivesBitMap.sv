@@ -16,7 +16,7 @@ module	LivesBitMap	(
 					input logic	[10:0] offsetX,// o00set from top left  position 
 					input logic	[10:0] offsetY,
 					input	logic	InsideRectangle, //input that the pixel is within a bracket
-					input logic [1:0] lives,
+					input logic [3:0] lives,
 					input logic startOfFrame,
 
 					output logic drawingRequest, //output that the pixel should be dispalyed 
@@ -51,7 +51,7 @@ localparam  int TILE_HEIGHT_Y = 1 <<  TILE_NUMBER_OF_Y_BITS ;
  assign offsetX_MSB  = offsetX[10:TILE_NUMBER_OF_X_BITS] ; // get higher bits 
  assign offsetY_MSB  = offsetY[10:TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
  
-logic [1:0] heart_counter;
+logic [3:0] heart_counter;
  
 // the screen is 640*480  or  20 * 15 squares of 32*32  bits ,  we wiil round up to 8 *16 
 // this is the bitmap  of the maze , if there is a specific value  the  whole 32*32 rectange will be drawn on the screen
@@ -152,7 +152,7 @@ begin
 	if(!resetN) begin
 		RGBout <=	8'h00;
 //		MazeBitMapMask  <=  MazeDefaultBitMapMask ;  //  copy default tabel 
-		heart_counter <= 2'b11;
+		heart_counter <= 4'b0011;
 	end
 	else begin
 
@@ -161,23 +161,28 @@ begin
 							
 		RGBout <= TRANSPARENT_ENCODING ; // default 
 		if (InsideRectangle == 1'b1 )	
-			begin 
-		   	case (offsetX_MSB)
-					 0 : if (heart_counter >= 2'b01) 
-								RGBout <= object_colors[0][offsetY_LSB][offsetX_LSB] ;
-							else
-								RGBout <= object_colors[1][offsetY_LSB][offsetX_LSB] ;
-					 1 : if (heart_counter >= 2'b10) 
-								RGBout <= object_colors[0][offsetY_LSB][offsetX_LSB] ;
-							else
-								RGBout <= object_colors[1][offsetY_LSB][offsetX_LSB] ; 
-					 2 : if (heart_counter >= 2'b11) 
-								RGBout <= object_colors[0][offsetY_LSB][offsetX_LSB] ;
-							else
-								RGBout <= object_colors[1][offsetY_LSB][offsetX_LSB] ; 
-					 default:  RGBout <= TRANSPARENT_ENCODING ; 
-				endcase
-			end 
+		
+			RGBout <= object_colors[0][offsetY_LSB][offsetX_LSB];
+		
+		else
+			RGBout <= TRANSPARENT_ENCODING ;
+//			begin 
+//		   	case (offsetX_MSB)
+//					 0 : if (heart_counter >= 2'b01) 
+//								RGBout <= object_colors[0][offsetY_LSB][offsetX_LSB] ;
+//							else
+//								RGBout <= object_colors[1][offsetY_LSB][offsetX_LSB] ;
+//					 1 : if (heart_counter >= 2'b10) 
+//								RGBout <= object_colors[0][offsetY_LSB][offsetX_LSB] ;
+//							else
+//								RGBout <= object_colors[1][offsetY_LSB][offsetX_LSB] ; 
+//					 2 : if (heart_counter >= 2'b11) 
+//								RGBout <= object_colors[0][offsetY_LSB][offsetX_LSB] ;
+//							else
+//								RGBout <= object_colors[1][offsetY_LSB][offsetX_LSB] ; 
+//					 default:  RGBout <= TRANSPARENT_ENCODING ; 
+//				endcase
+//			end 
 		
 
 	end 

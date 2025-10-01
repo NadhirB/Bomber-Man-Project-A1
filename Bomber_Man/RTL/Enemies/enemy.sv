@@ -15,7 +15,10 @@ module	enemy	(
 					input	 logic startOfFrame,      //short pulse every start of frame 30Hz 
 					input	 logic [2:0] random_num,   // if 1 enemy moves down, 2 enemy moves up, 3 enemy moves left, 4 enemy moves right
 					input  logic collision,         //collision if enemy hits an object
-					input  logic [3:0] HitEdgeCode, 
+					input  logic game_on,
+					input  logic [3:0] HitEdgeCode,
+					
+					
 					output logic signed 	[10:0] topLeftX, // output the top left corner 
 					output logic signed	[10:0] topLeftY  // can be negative , if the object is partliy outside 
 					
@@ -100,7 +103,7 @@ begin : fsm_sync_proc
 				Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER; 
 				Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER; 
 
-				if (startOfFrame) 
+				if (game_on) 
 					SM_Motion <= MOVE_ST ;
  	
 			end
@@ -255,7 +258,10 @@ begin : fsm_sync_proc
 						
 			end
 
-				SM_Motion <= MOVE_ST ; 
+				if (!game_on)
+						SM_Motion <= IDLE_ST;
+					else
+						SM_Motion <= MOVE_ST; 
 			
 			end
 		

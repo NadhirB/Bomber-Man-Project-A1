@@ -144,7 +144,23 @@ agreement for further details.
 	(input)
 	(rect 224 512 392 528)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "random[2..0]" (rect 5 0 68 12)(font "Arial" ))
+	(text "random[2..0]" (rect 5 0 67 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 224 544 392 560)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "game_on" (rect 5 0 50 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -347,9 +363,9 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 536 440 768 584)
+	(rect 536 440 768 616)
 	(text "enemy" (rect 5 0 39 12)(font "Arial" ))
-	(text "inst" (rect 8 128 25 140)(font "Arial" ))
+	(text "inst" (rect 8 160 25 172)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -388,9 +404,16 @@ agreement for further details.
 	(port
 		(pt 0 112)
 		(input)
+		(text "game_on" (rect 0 0 44 12)(font "Arial" ))
+		(text "game_on" (rect 21 107 65 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112))
+	)
+	(port
+		(pt 0 128)
+		(input)
 		(text "HitEdgeCode[3..0]" (rect 0 0 90 12)(font "Arial" ))
-		(text "HitEdgeCode[3..0]" (rect 21 107 111 119)(font "Arial" ))
-		(line (pt 0 112)(pt 16 112)(line_width 3))
+		(text "HitEdgeCode[3..0]" (rect 21 123 111 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 3))
 	)
 	(port
 		(pt 232 32)
@@ -427,9 +450,9 @@ agreement for further details.
 		""
 		(type "PARAMETER_UNSIGNED_BIN")	)
 	(drawing
-		(rectangle (rect 16 16 216 128))
+		(rectangle (rect 16 16 216 160))
 	)
-	(annotation_block (parameter)(rect 552 328 768 424))
+	(annotation_block (parameter)(rect 768 344 984 440))
 )
 (connector
 	(text "pixelY[10..0]" (rect 402 392 461 409)(font "Intel Clear" ))
@@ -538,16 +561,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(pt 536 552)
-	(pt 504 552)
-	(bus)
-)
-(connector
-	(pt 504 552)
-	(pt 504 696)
-	(bus)
-)
-(connector
 	(pt 1200 440)
 	(pt 1328 440)
 )
@@ -555,6 +568,20 @@ agreement for further details.
 	(pt 392 520)
 	(pt 536 520)
 	(bus)
+)
+(connector
+	(pt 504 568)
+	(pt 536 568)
+	(bus)
+)
+(connector
+	(pt 504 696)
+	(pt 504 568)
+	(bus)
+)
+(connector
+	(pt 392 552)
+	(pt 536 552)
 )
 (text "  " (rect 24 624 31 643)(font "Intel Clear" (font_size 8)))
 (text "   " (rect 144 664 154 683)(font "Intel Clear" (font_size 8)))

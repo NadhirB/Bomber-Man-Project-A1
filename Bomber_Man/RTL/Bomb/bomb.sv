@@ -18,7 +18,7 @@ module bomb
 
 // state machine declaration 
    enum logic [2:0] {s_idle, s_run, s_explode} SMbomb;
-	logic [2:0] timer = 2;
+	logic [2:0] timer = 3;
 	logic bomb_flag = 0;
 	logic [10:0] player_topLeftX_MSB = 11'd15;
 	logic [10:0] player_topLeftY_MSB = 11'd16;
@@ -31,7 +31,7 @@ always_ff @(posedge clk or negedge resetN)
    if ( !resetN ) begin // Asynchronic reset
 		SMbomb <= s_idle;
 		bomb_flag <= 0;
-		timer <= 2;
+		timer <= 3;
 		blast <= 0;
 		topLeftX <= 640;
 		topLeftY <= 480;
@@ -56,7 +56,7 @@ always_ff @(posedge clk or negedge resetN)
 //      ======
 
 				if (!timer) begin
-					timer <= 2;
+					timer <= 3;
 					SMbomb <= s_explode;
 					blast <= 1;
 					end

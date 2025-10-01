@@ -88,7 +88,7 @@ agreement for further details.
 	(input)
 	(rect 1056 488 1248 504)
 	(text "INPUT" (rect 149 0 177 10)(font "Arial" (font_size 6)))
-	(text "collision_blast_wall" (rect 5 0 98 12)(font "Arial" ))
+	(text "collision_blast_wall" (rect 5 0 97 12)(font "Arial" ))
 	(pt 192 8)
 	(drawing
 		(line (pt 108 12)(pt 133 12))
@@ -99,6 +99,22 @@ agreement for further details.
 		(line (pt 133 12)(pt 137 8))
 	)
 	(text "VCC" (rect 152 7 172 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 1080 512 1248 528)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "explosion" (rect 5 0 52 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
 )
 (pin
 	(output)
@@ -279,9 +295,9 @@ agreement for further details.
 	(annotation_block (parameter)(rect 904 208 1159 284))
 )
 (symbol
-	(rect 1304 296 1528 440)
+	(rect 1304 296 1528 472)
 	(text "WallsMatrixBitMap" (rect 5 0 94 12)(font "Arial" ))
-	(text "inst" (rect 8 128 25 140)(font "Arial" ))
+	(text "inst" (rect 8 160 25 172)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -325,6 +341,13 @@ agreement for further details.
 		(line (pt 0 112)(pt 16 112))
 	)
 	(port
+		(pt 0 128)
+		(input)
+		(text "explosion" (rect 0 0 46 12)(font "Arial" ))
+		(text "explosion" (rect 21 123 67 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128))
+	)
+	(port
 		(pt 224 32)
 		(output)
 		(text "drawingRequest" (rect 0 0 77 12)(font "Arial" ))
@@ -339,7 +362,7 @@ agreement for further details.
 		(line (pt 224 48)(pt 208 48)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 208 128))
+		(rectangle (rect 16 16 208 160))
 	)
 )
 (connector
@@ -429,6 +452,18 @@ agreement for further details.
 (connector
 	(pt 1280 496)
 	(pt 1280 408)
+)
+(connector
+	(pt 1304 424)
+	(pt 1296 424)
+)
+(connector
+	(pt 1296 424)
+	(pt 1296 520)
+)
+(connector
+	(pt 1296 520)
+	(pt 1248 520)
 )
 (text "// (c) Technion IIT, Department of Electrical Engineering 2025" (rect 632 24 991 43)(font "Intel Clear" (font_size 8)))
 (rectangle (rect 344 184 1824 568)(color 0 0 0)(line_width 3))

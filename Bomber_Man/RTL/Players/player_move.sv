@@ -21,6 +21,7 @@ module	player_move	(
 					input logic column_collision,    //collision if player hits a column or wall?
 					input logic [1:0] speed_level,	//Used to set the different speed levels that will changed with powerup	
 					input logic [3:0] HitEdgeCode,
+					input logic game_on,
 					
 					output logic signed [10:0] topLeftX, // output the top left corner 
 					output logic signed [10:0] topLeftY,  // can be negative , if the object is partliy outside 
@@ -130,7 +131,7 @@ begin : fsm_sync_proc
 				Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER; 
 				Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER; 
 
-				if (startOfFrame) 
+				if (game_on) 
 					SM_Motion <= MOVE_ST ;
  	
 			end
@@ -295,8 +296,10 @@ begin : fsm_sync_proc
 		if (Yposition > y_FRAME_BOTTOM) 
 						Yposition <= y_FRAME_BOTTOM ; 
 				
-
-					SM_Motion <= MOVE_ST ; 
+					if (!game_on)
+						SM_Motion <= IDLE_ST;
+					else
+						SM_Motion <= MOVE_ST; 
 			
 			end
 		

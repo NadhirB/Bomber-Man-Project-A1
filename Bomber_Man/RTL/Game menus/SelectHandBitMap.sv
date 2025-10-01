@@ -21,7 +21,7 @@ localparam  int OBJECT_NUMBER_OF_X_BITS =31;
 
 // generating a smiley bitmap
 
-localparam logic [7:0] TRANSPARENT_ENCODING = 8'h11;// RGB value in the bitmap representing a transparent pixel 
+localparam logic [7:0] TRANSPARENT_ENCODING = 8'hff;// RGB value in the bitmap representing a transparent pixel 
 
 logic [0:OBJECT_NUMBER_OF_Y_BITS] [0:OBJECT_NUMBER_OF_X_BITS] [7:0] object_colors = {
 	{8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff,8'hff},
