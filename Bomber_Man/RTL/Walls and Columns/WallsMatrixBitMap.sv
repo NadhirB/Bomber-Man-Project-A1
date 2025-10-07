@@ -12,12 +12,9 @@ module	WallsMatrixBitMap	(
 					input	logic	InsideRectangle, //input that the pixel is within a bracket 
 					input logic col_blast_wall,
 					input logic explosion,
-					input logic [10:0] enemy_topLeftX,
-					input logic [10:0] enemy_topLeftY,
 
 					output	logic	drawingRequest, //output that the pixel should be dispalyed 
-					output	logic	[7:0] RGBout,  //rgb value from the bitmap
-					output logic enemy_valid_pos
+					output	logic	[7:0] RGBout    //rgb value from the bitmap
  ) ;
  
 
@@ -42,35 +39,12 @@ localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
  logic [10:0] offsetY_LSB ; 
  logic [10:0] offsetX_MSB ;
  logic [10:0] offsetY_MSB ;
- logic blast_flag; 
 
  assign offsetX_LSB  = offsetX[(TILE_NUMBER_OF_X_BITS-1):0] ; // get lower bits 
  assign offsetY_LSB  = offsetY[(TILE_NUMBER_OF_Y_BITS-1):0] ; // get lower bits 
  assign offsetX_MSB  = offsetX[(TILE_NUMBER_OF_X_BITS + MAZE_NUMBER_OF__X_BITS -1 ):TILE_NUMBER_OF_X_BITS] ; // get higher bits 
  assign offsetY_MSB  = offsetY[(TILE_NUMBER_OF_Y_BITS + MAZE_NUMBER_OF__Y_BITS -1 ):TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
- 
- 
- 
- // Enemy Valid Position Calc
- 
- logic [10:0] offsetX_enemy;
- logic [10:0] offsetY_enemy;
- logic [10:0] offsetX_enemy_width;
- logic [10:0] offsetY_enemy_hight;
- logic maze_object;
 
- assign offsetX_enemy = enemy_topLeftX - 15;
- assign offsetY_enemy = enemy_topLeftY - 48;
- assign offsetX_enemy_width = offsetX_enemy + TILE_WIDTH_X - 1;
- assign offsetY_enemy_hight = offsetY_enemy + TILE_HEIGHT_Y - 1;
-
- assign offsetX_enemy_MSB  = offsetX_enemy[(TILE_NUMBER_OF_X_BITS + MAZE_NUMBER_OF__X_BITS -1 ):TILE_NUMBER_OF_X_BITS] ; // get higher bits 
- assign offsetY_enemy_MSB  = offsetY_enemy[(TILE_NUMBER_OF_Y_BITS + MAZE_NUMBER_OF__Y_BITS -1 ):TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
- 
- assign offsetX_enemy_MSB_WIDTH  = offsetX_enemy_MSB + 31;// offsetX_enemy_width[(TILE_NUMBER_OF_X_BITS + MAZE_NUMBER_OF__X_BITS -1 ):TILE_NUMBER_OF_X_BITS] ; // get higher bits 
- assign offsetY_enemy_MSB_HIGHT  = offsetY_enemy_MSB + 31;// offsetY_enemy_hight[(TILE_NUMBER_OF_Y_BITS + MAZE_NUMBER_OF__Y_BITS -1 ):TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
- 
- 
 
  
 // the screen is 640*480  or  20 * 15 squares of 32*32  bits ,  we wiil round up to 8 *16 
@@ -231,8 +205,6 @@ begin
 		RGBout <=	8'h00;
 		MazeBitMapMask  <=  MazeDefaultBitMapMask ;  //  copy default tabel
 		MazeBitMapMask_exploding <= MazeDefaultBitMapMask_exploding;
-		blast_flag <= 0;
-		maze_object <= 0;
 	end
 	else begin
 		RGBout <= TRANSPARENT_ENCODING ; // default
@@ -255,12 +227,6 @@ begin
 				default:  RGBout <= TRANSPARENT_ENCODING ; 
 				endcase
 				
-				
-				if (MazeBitMapMask[offsetY_enemy_MSB][offsetX_enemy_MSB] != 0 || MazeBitMapMask[offsetY_enemy_MSB_HIGHT][offsetX_enemy_MSB] != 0 ||
-					 MazeBitMapMask[offsetY_enemy_MSB][offsetX_enemy_MSB_WIDTH] != 0 || MazeBitMapMask[offsetY_enemy_MSB_HIGHT][offsetX_enemy_MSB_WIDTH] != 0)
-					maze_object <= 1;
-				else
-					maze_object <= 0;
 			end
 		
 
@@ -270,6 +236,5 @@ end
 //==----------------------------------------------------------------------------------------------------------------=
 // decide if to draw the pixel or not 
 assign drawingRequest = (RGBout != TRANSPARENT_ENCODING ) ? 1'b1 : 1'b0 ; // get optional transparent command from the bitmpap 
-assign enemy_valid_pos = (maze_object == 0) ? 1 : 0;  
 endmodule
 

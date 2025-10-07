@@ -142,7 +142,7 @@ begin : fsm_sync_proc
 				
 				
        // collcting collisions 	
-				if (collision && hit_flag == 0) begin
+				if (collision && hit_flag == 0 && HitEdgeCode != 0) begin
 					hit_reg <= HitEdgeCode;
 					hit_flag <= 1;
 				end
@@ -179,7 +179,7 @@ begin : fsm_sync_proc
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= TOP;
 							3'b011 : move <= RIGHT;
-							3'b111 : move <= RIGHT;
+							3'b100 : move <= RIGHT;
 						endcase
 					end
 					
@@ -190,7 +190,7 @@ begin : fsm_sync_proc
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= BOTTOM;
 							3'b011 : move <= LEFT;
-							3'b111 : move <= RIGHT;
+							3'b100 : move <= RIGHT;
 						endcase
 					end
 					
@@ -201,7 +201,7 @@ begin : fsm_sync_proc
 							3'b001 : move <= TOP;
 							3'b010 : move <= TOP;
 							3'b011 : move <= LEFT;
-							3'b111 : move <= RIGHT;
+							3'b100 : move <= RIGHT;
 						endcase
 					end
 					
@@ -233,7 +233,7 @@ begin : fsm_sync_proc
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= TOP;
 							3'b011 : move <= RIGHT;
-							3'b111 : move <= RIGHT;
+							3'b100 : move <= RIGHT;
 						endcase
 			end
 		if (Xposition > x_FRAME_RIGHT) begin
@@ -243,7 +243,7 @@ begin : fsm_sync_proc
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= TOP;
 							3'b011 : move <= LEFT;
-							3'b111 : move <= LEFT;
+							3'b100 : move <= LEFT;
 						endcase
 			end
 		if (Yposition < y_FRAME_TOP) begin
@@ -253,7 +253,7 @@ begin : fsm_sync_proc
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= BOTTOM;
 							3'b011 : move <= LEFT;
-							3'b111 : move <= RIGHT;
+							3'b100 : move <= RIGHT;
 						endcase
 						
 			end
@@ -264,7 +264,7 @@ begin : fsm_sync_proc
 							3'b001 : move <= TOP;
 							3'b010 : move <= TOP;
 							3'b011 : move <= LEFT;
-							3'b111 : move <= RIGHT;
+							3'b100 : move <= RIGHT;
 						endcase
 						
 			end
