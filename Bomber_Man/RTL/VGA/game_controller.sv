@@ -29,7 +29,7 @@ assign player_culomn_wall = (drawing_request_player && (drawing_request_columns 
 assign enemy1_column_wall_bomb = (drawing_request_enemy1 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb));
 assign enemy2_column_wall_bomb = (drawing_request_enemy2 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb));
 
-assign collision_blast_wall = (drawing_request_blast && drawing_request_wall);
+assign collision_blast_wall = (drawing_request_blast && drawing_request_wall && !drawing_request_columns);
 
 
 

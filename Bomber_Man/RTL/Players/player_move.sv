@@ -182,7 +182,7 @@ begin : fsm_sync_proc
 
 				if (startOfFrame) begin
 					move_flag <= 0;
-					valid_flag <=0;
+					valid_flag <= 0;
 					SM_Motion <= START_OF_FRAME_ST ; 
 				end
 //				else if (move_flag) begin

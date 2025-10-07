@@ -17,10 +17,13 @@ module	enemy	(
 					input  logic collision,         //collision if enemy hits an object
 					input  logic game_on,
 					input  logic [3:0] HitEdgeCode,
+					input  logic valid_enemy_pos,
 					
 					
 					output logic signed 	[10:0] topLeftX, // output the top left corner 
-					output logic signed	[10:0] topLeftY  // can be negative , if the object is partliy outside 
+					output logic signed	[10:0] topLeftY,  // can be negative , if the object is partliy outside
+					
+					output logic [3:0] direction
 					
 );
 
@@ -56,7 +59,7 @@ const int	y_FRAME_BOTTOM	=	(464 - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //-
 const logic [3:0] TOP =		 4'b0100; 
 const logic [3:0] RIGHT =   4'b0010; 
 const logic [3:0] LEFT =	 4'b1000; 
-const logic [3:0] BOTTOM =  4'b0001;
+const logic [3:0] BOTTOM =  4'b0001; 
 
 
 enum  logic [2:0] {IDLE_ST,         	// initial state
@@ -69,7 +72,7 @@ enum  logic [2:0] {IDLE_ST,         	// initial state
 int Xspeed  ; // speed    
 int Yspeed  ; 
 int Xposition ; //position   
-int Yposition ;  
+int Yposition ;
  
 
 logic [3:0] hit_reg = 4'b0;
@@ -88,7 +91,6 @@ begin : fsm_sync_proc
 		Yposition <= 0  ; 
 		hit_reg <= 4'b0 ;
 		move <= default_start_dir;
-	
 	end 	
 	
 	else begin
@@ -114,22 +116,27 @@ begin : fsm_sync_proc
 				
 				if (move == TOP) begin
 					Xspeed <= 0;
+					Xposition[10:0] <= 11'b01111000000;
 					Yspeed <= - Speed_default;
 				end
 				
 				if (move == BOTTOM) begin
 					Xspeed <= 0;
+					Xposition[10:0] <= 11'b01111000000;
 					Yspeed <= Speed_default;
 				end
 				
 				if (move == LEFT) begin
 					Xspeed <= - Speed_default;
 					Yspeed <= 0;
+					Yposition[10:0] <= 11'b10000000000;
+
 				end
 				
 				if (move == RIGHT) begin
 					Xspeed <= Speed_default;
 					Yspeed <= 0;
+					Yposition[10:0] <= 11'b10000000000;
 				end
 					
 				
@@ -140,10 +147,14 @@ begin : fsm_sync_proc
 					hit_flag <= 1;
 				end
 				
-				if (startOfFrame )
-					SM_Motion <= START_OF_FRAME_ST;
-		end 
+				
+				
+				if (startOfFrame) begin
+					SM_Motion <= START_OF_FRAME_ST ; 
+				end
+		end
 		
+	
 		//------------
 			START_OF_FRAME_ST:  begin      //check if any colisin was detected 
 		//------------
@@ -217,7 +228,7 @@ begin : fsm_sync_proc
 		//------------------------
 		if (Xposition < x_FRAME_LEFT) begin
 						Xposition <= x_FRAME_LEFT;
-//						move <= RIGHT;
+						move <= RIGHT;
 						case (random_num[2:0])
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= TOP;
@@ -227,7 +238,7 @@ begin : fsm_sync_proc
 			end
 		if (Xposition > x_FRAME_RIGHT) begin
 						Xposition <= x_FRAME_RIGHT;
-//						move <= LEFT;
+						move <= LEFT;
 						case (random_num[2:0])
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= TOP;
@@ -237,7 +248,7 @@ begin : fsm_sync_proc
 			end
 		if (Yposition < y_FRAME_TOP) begin
 						Yposition <= y_FRAME_TOP;
-//						move <= BOTTOM;
+						move <= BOTTOM;
 						case (random_num[2:0])
 							3'b001 : move <= BOTTOM;
 							3'b010 : move <= BOTTOM;
@@ -248,7 +259,7 @@ begin : fsm_sync_proc
 			end
 		if (Yposition > y_FRAME_BOTTOM) begin
 						Yposition <= y_FRAME_BOTTOM;
-//						move <= TOP;	
+						move <= TOP;	
 						case (random_num[2:0])
 							3'b001 : move <= TOP;
 							3'b010 : move <= TOP;
@@ -274,10 +285,12 @@ end // end fsm_sync
 
 
 //return from FIXED point trunc back to prame size parameters 
-  
-assign 	topLeftX = Xposition / FIXED_POINT_MULTIPLIER ;   // note it must be 2^n 
-assign 	topLeftY = Yposition / FIXED_POINT_MULTIPLIER ;    
-	
+
+
+assign topLeftX = Xposition / FIXED_POINT_MULTIPLIER ;   // note it must be 2^n 
+assign topLeftY = Yposition / FIXED_POINT_MULTIPLIER ;    
+assign direction = move;
+
 
 endmodule	
 //---------------

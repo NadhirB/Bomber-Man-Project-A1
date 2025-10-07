@@ -16,17 +16,19 @@ module enemies_mux (
 	output logic [7:0] enemiesRGB
 );
 
-always_ff@(posedge clk or negedge resetN)
+always_comb
 begin
 	if(!resetN) begin
-			enemiesRGB	<= 8'b0;
+			enemiesRGB	= 8'b0;
 	end
 	
 	else begin
 		if (enemy1DR)
-			enemiesRGB <= enemy1RGB;
+			enemiesRGB = enemy1RGB;
 		else if (enemy2DR)   
-			enemiesRGB <= enemy2RGB;
+			enemiesRGB = enemy2RGB;
+		else
+			enemiesRGB = 8'b0;
 		end
 	end
 	
