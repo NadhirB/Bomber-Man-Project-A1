@@ -3013,7 +3013,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 232 176))
 	)
-	(annotation_block (parameter)(rect -1216 168 -1040 232))
+	(annotation_block (parameter)(rect -1440 152 -1264 216))
 )
 (connector
 	(text "MIF_VGA[7..0]" (rect -3614 376 -3546 393)(font "Intel Clear" ))
