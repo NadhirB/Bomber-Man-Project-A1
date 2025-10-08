@@ -237,6 +237,18 @@ set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[9]
+set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Door and Idol/DoorIdolBitMap.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Door and Idol/door_idol_controller.sv"
+set_global_assignment -name BDF_FILE "RTL/Door and Idol/Door_and_Idol.bdf"
+set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Meta Data/score_counter.sv"
+set_global_assignment -name BDF_FILE "RTL/Meta Data/Score_Block.bdf"
+set_global_assignment -name BDF_FILE "RTL/Meta Data/Lvl_Block.bdf"
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/PowerUps/PowerUpsBitMap.sv
+set_global_assignment -name BDF_FILE RTL/PowerUps/PowerUps.bdf
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/VGA/RGB_mux.sv
 set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Walls and Columns/WallsMatrixBitMap.sv"
 set_global_assignment -name BDF_FILE "RTL/Walls and Columns/WALLS_DISPLAY.bdf"
@@ -330,10 +342,6 @@ set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Game menus/PlusKeyBitMap.sv"
 set_global_assignment -name BDF_FILE "RTL/Game menus/Game_Over_Screen_Block.bdf"
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/Bomb/bomb_counter.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/Bomb/bomb_system.sv
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[8]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[9]
 set_global_assignment -name SIGNALTAP_FILE output_files/stp_blast.stp
 set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Game menus/letter_sequence_mux.sv"
 set_global_assignment -name SIGNALTAP_FILE output_files/stp_wallDR.stp
@@ -341,7 +349,5 @@ set_global_assignment -name SYSTEMVERILOG_FILE RTL/simple_counter.sv
 set_global_assignment -name BDF_FILE "RTL/Game menus/Game_Over_2_Screen_Block.bdf"
 set_global_assignment -name BDF_FILE "RTL/Game menus/Levels_Screen_Block.bdf"
 set_global_assignment -name BDF_FILE "RTL/Game menus/Game_Won_Screen_Block.bdf"
-set_global_assignment -name BDF_FILE "RTL/Power Ups/Door_and_Idol.bdf"
-set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Power Ups/DoorIdolBitMap.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Power Ups/door_idol_controller.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Meta Data/numbers_sequence_mux.sv"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

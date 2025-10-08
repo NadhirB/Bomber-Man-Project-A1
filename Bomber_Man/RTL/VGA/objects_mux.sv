@@ -36,6 +36,10 @@ module	objects_mux	(
 			//Door and Idol
 					input logic Door_Idol_DR,
 					input logic [7:0] Door_Idol_RGB,
+					
+			//Power Ups
+					input logic PowerUp_DR,
+					input logic [7:0] PowerUp_RGB,
 			  
 		  // Output	   
 					output	logic	[7:0] RGBOut
@@ -68,6 +72,8 @@ begin
 				RGBOut <= bombRGB;
 		else if (Door_Idol_DR)
 				RGBOut <= Door_Idol_RGB;
+		else if (PowerUp_DR)
+				RGBOut <= PowerUp_RGB;
 		else RGBOut <= RGB_MIF ;// last priority 
 		end ; 
 	end

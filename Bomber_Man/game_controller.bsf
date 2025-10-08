@@ -102,6 +102,13 @@ agreement for further details.
 		(line (pt 0 192)(pt 16 192)(line_width 1))
 	)
 	(port
+		(pt 0 208)
+		(input)
+		(text "drawing_request_powerUp" (rect 0 0 106 12)(font "Arial" ))
+		(text "drawing_request_powerUp" (rect 21 203 127 215)(font "Arial" ))
+		(line (pt 0 208)(pt 16 208)(line_width 1))
+	)
+	(port
 		(pt 320 32)
 		(output)
 		(text "player_culomn_wall" (rect 0 0 77 12)(font "Arial" ))
@@ -149,6 +156,13 @@ agreement for further details.
 		(text "player_door_idol" (rect 0 0 66 12)(font "Arial" ))
 		(text "player_door_idol" (rect 233 123 299 135)(font "Arial" ))
 		(line (pt 320 128)(pt 304 128)(line_width 1))
+	)
+	(port
+		(pt 320 144)
+		(output)
+		(text "collision_player_powerUp" (rect 0 0 100 12)(font "Arial" ))
+		(text "collision_player_powerUp" (rect 199 139 299 151)(font "Arial" ))
+		(line (pt 320 144)(pt 304 144)(line_width 1))
 	)
 	(drawing
 		(rectangle (rect 16 16 304 224)(line_width 1))

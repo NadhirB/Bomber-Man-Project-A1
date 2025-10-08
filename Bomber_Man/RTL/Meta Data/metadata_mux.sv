@@ -14,6 +14,12 @@ module metadata_mux (
 	//Bombs
 	input	logic	bombsDR,
 	input	logic	[7:0] bombsRGB,
+	//Score
+	input	logic	scoreDR,
+	input	logic	[7:0] scoreRGB,
+	//Level
+	input	logic	lvlDR,
+	input	logic	[7:0] lvlRGB,
 	//Outputs
 	output logic metadataDR,
 	output logic [7:0] metadataRGB
@@ -32,12 +38,16 @@ begin
 			metadataRGB = livesRGB;
 		else if (bombsDR)   
 			metadataRGB = bombsRGB;
+		else if (scoreDR)   
+			metadataRGB = scoreRGB;
+		else if (lvlDR)   
+			metadataRGB = lvlRGB;
 		else 
 			metadataRGB = 8'b0;
 		end
 	end
 	
-assign metadataDR = timerDR || livesDR || bombsDR;
+assign metadataDR = timerDR || livesDR || bombsDR || scoreDR || lvlDR;
 
 endmodule
 
