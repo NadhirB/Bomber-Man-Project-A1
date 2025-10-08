@@ -14,13 +14,15 @@ module	game_controller	(
 			input logic drawing_request_enemy1,
 			input logic drawing_request_enemy2,
 			input logic drawing_request_bomb,
+			input logic drawing_request_doorIdol,
 
 			output logic player_culomn_wall, // active in case of collision player and columns
 			output logic enemy1_column_wall_bomb,
 			output logic enemy2_column_wall_bomb,
 			output logic SingleHitPulse_enemies, // critical code, generating A single pulse in a frame 
 			output logic collision_blast_wall, // active in case of collision between blast and wall
-			output logic SingleHitPulse_player
+			output logic SingleHitPulse_player,
+			output logic player_door_idol
 
 );
 
@@ -30,6 +32,7 @@ assign enemy1_column_wall_bomb = (drawing_request_enemy1 && (drawing_request_col
 assign enemy2_column_wall_bomb = (drawing_request_enemy2 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb));
 
 assign collision_blast_wall = (drawing_request_blast && drawing_request_wall && !drawing_request_columns);
+assign player_door_idol = (drawing_request_doorIdol && drawing_request_player);
 
 
 

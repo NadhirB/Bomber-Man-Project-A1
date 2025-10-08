@@ -31,7 +31,11 @@ module	objects_mux	(
 					input		logic	[7:0] RGB_MIF,
 			//game over title
 					input		logic	game_over_DR, 
-					input		logic	[7:0] game_over_RGB,					
+					input		logic	[7:0] game_over_RGB,	
+	
+			//Door and Idol
+					input logic Door_Idol_DR,
+					input logic [7:0] Door_Idol_RGB,
 			  
 		  // Output	   
 					output	logic	[7:0] RGBOut
@@ -62,6 +66,8 @@ begin
 				RGBOut <= enemyRGB;
 		else if (bombDR)
 				RGBOut <= bombRGB;
+		else if (Door_Idol_DR)
+				RGBOut <= Door_Idol_RGB;
 		else RGBOut <= RGB_MIF ;// last priority 
 		end ; 
 	end
