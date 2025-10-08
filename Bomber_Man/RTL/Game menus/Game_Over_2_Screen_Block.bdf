@@ -102,9 +102,9 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect 1368 184 1569 200)
+	(rect 1368 184 1580 200)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "game_over_time_DR" (rect 90 0 195 12)(font "Arial" ))
+	(text "game_over_screen_DR" (rect 90 0 206 12)(font "Arial" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))
@@ -118,9 +118,9 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect 1368 200 1596 216)
+	(rect 1368 200 1605 216)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "game_over_time_RGB[7..0]" (rect 90 0 222 17)(font "Intel Clear" ))
+	(text "game_over_screen_RGB[7..0]" (rect 90 0 231 17)(font "Intel Clear" ))
 	(pt 0 8)
 	(drawing
 		(line (pt 0 8)(pt 52 8))

@@ -12,16 +12,17 @@ module RGB_mux (
 
 );
 
-always_ff@(posedge clk or negedge resetN)
+always_comb
 begin
 	if(!resetN) begin
-			RGBOut <= 8'b0;
+			RGBOut = 8'b0;
 	end
 	
 	else begin
 		if (game_on)
-			RGBOut <= RGB_object_mux;
-		else RGBOut <= RGB_game_sm;
+			RGBOut = RGB_object_mux;
+		else 
+			RGBOut = RGB_game_sm;
 	end
 end
 	
