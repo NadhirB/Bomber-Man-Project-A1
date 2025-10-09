@@ -11,16 +11,17 @@ module	PowerUpsBitMap	(
 					input logic	[10:0] offsetY,
 					input	logic	InsideRectangle, //input that the pixel is within a bracket 
 					input logic col_player_powerUp,
-//					input logic explosion,
-//					input logic [10:0] enemy_topLeftX,
-//					input logic [10:0] enemy_topLeftY,
+					input logic [3:0] curr_lives,
+					input logic [3:0] curr_bombs,
+					input logic [1:0] curr_speed,
 
-					output	logic	drawingRequest, //output that the pixel should be dispalyed 
-					output	logic	[7:0] RGBout,  //rgb value from the bitmap
-					output logic [1:0] speed_level,
-					output logic [3:0] bombs_left,
-					output logic [3:0] lives
-//					output logic enemy_valid_pos
+					output logic drawingRequest, //output that the pixel should be dispalyed 
+					output logic [7:0] RGBout,  //rgb value from the bitmap
+					output logic inc_speed,
+					output logic inc_bombs,
+					output logic inc_lives,
+					output logic inc_time,
+					output logic inc_score
  ) ;
  
 
@@ -45,7 +46,7 @@ localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
  logic [10:0] offsetY_LSB ; 
  logic [10:0] offsetX_MSB ;
  logic [10:0] offsetY_MSB ;
-// logic blast_flag; 
+
 
  assign offsetX_LSB  = offsetX[(TILE_NUMBER_OF_X_BITS-1):0] ; // get lower bits 
  assign offsetY_LSB  = offsetY[(TILE_NUMBER_OF_Y_BITS-1):0] ; // get lower bits 
@@ -53,25 +54,6 @@ localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
  assign offsetY_MSB  = offsetY[(TILE_NUMBER_OF_Y_BITS + MAZE_NUMBER_OF__Y_BITS -1 ):TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
  
  
- 
- // Enemy Valid Position Calc
- 
- logic [10:0] offsetX_enemy;
- logic [10:0] offsetY_enemy;
- logic [10:0] offsetX_enemy_width;
- logic [10:0] offsetY_enemy_hight;
-// logic maze_object;
-
-// assign offsetX_enemy = enemy_topLeftX - 15;
-// assign offsetY_enemy = enemy_topLeftY - 48;
-// assign offsetX_enemy_width = offsetX_enemy + TILE_WIDTH_X - 1;
-// assign offsetY_enemy_hight = offsetY_enemy + TILE_HEIGHT_Y - 1;
-
-// assign offsetX_enemy_MSB  = offsetX_enemy[(TILE_NUMBER_OF_X_BITS + MAZE_NUMBER_OF__X_BITS -1 ):TILE_NUMBER_OF_X_BITS] ; // get higher bits 
-// assign offsetY_enemy_MSB  = offsetY_enemy[(TILE_NUMBER_OF_Y_BITS + MAZE_NUMBER_OF__Y_BITS -1 ):TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
-// 
-// assign offsetX_enemy_MSB_WIDTH  = offsetX_enemy_MSB + 31;// offsetX_enemy_width[(TILE_NUMBER_OF_X_BITS + MAZE_NUMBER_OF__X_BITS -1 ):TILE_NUMBER_OF_X_BITS] ; // get higher bits 
-// assign offsetY_enemy_MSB_HIGHT  = offsetY_enemy_MSB + 31;// offsetY_enemy_hight[(TILE_NUMBER_OF_Y_BITS + MAZE_NUMBER_OF__Y_BITS -1 ):TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
  
  
 
@@ -86,37 +68,21 @@ localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
 // This is a Test:
 
 logic [2:0] MazeBitMapMask [0:12] [0:18];
-//logic MazeBitMapMask_exploding [0:12] [0:18];
 
 logic [2:0] MazeDefaultBitMapMask [0:12] [0:18] = 
-	'{'{0, 3, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-	  '{0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 1}, //col
-	  '{0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 3, 1, 0, 0, 3, 3, 3, 1},
-	  '{0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1}, //col
-	  '{0, 1, 2, 3, 4, 5, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0},
-	  '{0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 1}, //col
-	  '{0, 0, 1, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 1},
-	  '{0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1}, //col
-	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 1, 0, 0, 0, 0, 0},
-	  '{0, 3, 0, 3, 0, 3, 3, 3, 0, 3, 0, 3, 0, 3, 3, 3, 1, 3, 1}, //col
-	  '{0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
-	  '{2, 3, 2, 3, 0, 3, 3, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 1}, //col
-	  '{0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}};
-
-//logic MazeDefaultBitMapMask_exploding [0:12] [0:18] = 
-//	'{'{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+	'{'{0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
+	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
+	  '{0, 1, 2, 3, 4, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
+	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
+	  '{0, 2, 2, 2, 2, 2, 0, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0},
+	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
+	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
+	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
  
  
 
@@ -297,50 +263,50 @@ logic [0:4] [0:TILE_HEIGHT_Y-1] [0:TILE_WIDTH_X-1] [7:0] object_colors = {
 always_ff@(posedge clk or negedge resetN)
 begin
 	if(!resetN) begin
-		RGBout <=	8'h00;
-		MazeBitMapMask  <=  MazeDefaultBitMapMask ;  //  copy default tabel
-		speed_level <= 2'b00;
-//		bombs_left;
-		lives <= 2'b11;		
-//		MazeBitMapMask_exploding <= MazeDefaultBitMapMask_exploding;
-//		blast_flag <= 0;
-//		maze_object <= 0;
+		RGBout <= 8'h00;
+		MazeBitMapMask <= MazeDefaultBitMapMask ;  //  copy default tabel
+		inc_speed <= 0;
+		inc_bombs <= 0;
+		inc_lives <= 0;
+		inc_time <= 0;
+		inc_score <= 0;
+
 	end
 	else begin
 		RGBout <= TRANSPARENT_ENCODING ; // default
+		inc_speed <= 0;
+		inc_bombs <= 0;
+		inc_lives <= 0;
+		inc_time <= 0;
+		inc_score <= 0;
+		
 		if (col_player_powerUp) begin
-			if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b001) begin
-				MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 0;
-				
-				
-				
-				
-			end
-			else if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b010) begin
-				if (lives < 2'b11) begin
-					lives <= lives + 2'b01;
+			if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b001) begin		//bomb
+				if (curr_bombs < 4'b0011) begin
 					MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 0;
+					inc_bombs <= 1;
 				end
 			end
-			else if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b011) begin
-				MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 0;
-				
-				
-				
-				
+			else if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b010) begin		//lives
+				if (curr_lives < 4'b0011) begin
+					MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 0;
+					inc_lives <= 1;
+				end
 			end
-			else if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b100) begin
-				MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 0;
-				
-				
-								
+			else if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b011) begin		//time
+					MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 0;
+					inc_time <= 1;
 			end
-			else if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b101) begin
+			else if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b100) begin		//speed
+				if (curr_speed < 2'b10) begin
+					MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 0;
+					inc_speed <= 1;
+				end			
+			end
+			else if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b101) begin		//score
 				MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 0;
-				
-				
-				
-				
+				inc_score <= 1;
+
 			end
 		end
 	
@@ -358,12 +324,6 @@ begin
 				default:  RGBout <= TRANSPARENT_ENCODING; 
 				endcase
 				
-				
-//				if (MazeBitMapMask[offsetY_enemy_MSB][offsetX_enemy_MSB] != 0 || MazeBitMapMask[offsetY_enemy_MSB_HIGHT][offsetX_enemy_MSB] != 0 ||
-//					 MazeBitMapMask[offsetY_enemy_MSB][offsetX_enemy_MSB_WIDTH] != 0 || MazeBitMapMask[offsetY_enemy_MSB_HIGHT][offsetX_enemy_MSB_WIDTH] != 0)
-//					maze_object <= 1;
-//				else
-//					maze_object <= 0;
 			end
 		
 
@@ -373,6 +333,6 @@ end
 //==----------------------------------------------------------------------------------------------------------------=
 // decide if to draw the pixel or not 
 assign drawingRequest = (RGBout != TRANSPARENT_ENCODING ) ? 1'b1 : 1'b0 ; // get optional transparent command from the bitmpap 
-//assign enemy_valid_pos = (maze_object == 0) ? 1 : 0;  
+
 endmodule
 

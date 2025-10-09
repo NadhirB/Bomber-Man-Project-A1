@@ -117,6 +117,22 @@ agreement for further details.
 	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
 )
 (pin
+	(input)
+	(rect -64 360 104 376)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "inc_time" (rect 5 0 47 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+)
+(pin
 	(output)
 	(rect 384 312 560 328)
 	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
@@ -999,7 +1015,7 @@ agreement for further details.
 	(annotation_block (parameter)(rect 384 496 584 560))
 )
 (symbol
-	(rect 192 256 368 400)
+	(rect 192 256 376 400)
 	(text "game_timer" (rect 5 0 62 12)(font "Arial" ))
 	(text "inst" (rect 8 128 25 140)(font "Arial" ))
 	(port
@@ -1038,25 +1054,32 @@ agreement for further details.
 		(line (pt 0 96)(pt 16 96))
 	)
 	(port
-		(pt 176 32)
+		(pt 0 112)
+		(input)
+		(text "inc_time" (rect 0 0 41 12)(font "Arial" ))
+		(text "inc_time" (rect 21 107 62 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112))
+	)
+	(port
+		(pt 184 32)
 		(output)
 		(text "countL[3..0]" (rect 0 0 59 12)(font "Arial" ))
-		(text "countL[3..0]" (rect 106 27 165 39)(font "Arial" ))
-		(line (pt 176 32)(pt 160 32)(line_width 3))
+		(text "countL[3..0]" (rect 114 27 173 39)(font "Arial" ))
+		(line (pt 184 32)(pt 168 32)(line_width 3))
 	)
 	(port
-		(pt 176 48)
+		(pt 184 48)
 		(output)
 		(text "countH[3..0]" (rect 0 0 61 12)(font "Arial" ))
-		(text "countH[3..0]" (rect 104 43 165 55)(font "Arial" ))
-		(line (pt 176 48)(pt 160 48)(line_width 3))
+		(text "countH[3..0]" (rect 112 43 173 55)(font "Arial" ))
+		(line (pt 184 48)(pt 168 48)(line_width 3))
 	)
 	(port
-		(pt 176 64)
+		(pt 184 64)
 		(output)
 		(text "tc" (rect 0 0 9 12)(font "Arial" ))
-		(text "tc" (rect 148 59 157 71)(font "Arial" ))
-		(line (pt 176 64)(pt 160 64))
+		(text "tc" (rect 156 59 165 71)(font "Arial" ))
+		(line (pt 184 64)(pt 168 64))
 	)
 	(parameter
 		"datainL"
@@ -1069,9 +1092,9 @@ agreement for further details.
 		""
 		(type "PARAMETER_UNSIGNED_BIN")	)
 	(drawing
-		(rectangle (rect 16 16 160 128))
+		(rectangle (rect 16 16 168 128))
 	)
-	(annotation_block (parameter)(rect 368 192 552 256))
+	(annotation_block (parameter)(rect 376 192 560 256))
 )
 (connector
 	(text "pixelX[10..0]" (rect 74 168 133 185)(font "Intel Clear" ))
@@ -1084,22 +1107,6 @@ agreement for further details.
 	(pt 64 200)
 	(pt 160 200)
 	(bus)
-)
-(connector
-	(text "ones[3..0]" (rect 398 272 444 289)(font "Intel Clear" ))
-	(pt 368 288)
-	(pt 440 288)
-	(bus)
-)
-(connector
-	(text "tens[3..0]" (rect 399 288 442 305)(font "Intel Clear" ))
-	(pt 368 304)
-	(pt 440 304)
-	(bus)
-)
-(connector
-	(pt 368 320)
-	(pt 384 320)
 )
 (connector
 	(text "clk" (rect -248 608 -234 625)(font "Intel Clear" ))
@@ -1482,6 +1489,26 @@ agreement for further details.
 (connector
 	(pt 104 352)
 	(pt 192 352)
+)
+(connector
+	(text "ones[3..0]" (rect 398 272 444 289)(font "Intel Clear" ))
+	(pt 376 288)
+	(pt 440 288)
+	(bus)
+)
+(connector
+	(text "tens[3..0]" (rect 399 288 442 305)(font "Intel Clear" ))
+	(pt 376 304)
+	(pt 440 304)
+	(bus)
+)
+(connector
+	(pt 376 320)
+	(pt 384 320)
+)
+(connector
+	(pt 104 368)
+	(pt 192 368)
 )
 (junction (pt 160 328))
 (text "  " (rect 24 624 31 643)(font "Intel Clear" (font_size 8)))

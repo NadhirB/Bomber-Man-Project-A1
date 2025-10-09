@@ -27,8 +27,8 @@ localparam  int OBJECT_NUMBER_OF_X_BITS = 5;  // 2^6 = 64
 
  logic	[10:0] HitCodeX ;// offset of Hitcode 
  logic	[10:0] HitCodeY ; 
-assign HitCodeX = offsetX >> ( OBJECT_NUMBER_OF_X_BITS - 4 );	// hitedge code MSB of the offset
-assign HitCodeY = offsetY >> ( OBJECT_NUMBER_OF_Y_BITS - 4 );	 	 
+//assign HitCodeX = offsetX >> ( OBJECT_NUMBER_OF_X_BITS - 2 );	// hitedge code MSB of the offset was 4 and not 2
+//assign HitCodeY = offsetY >> ( OBJECT_NUMBER_OF_Y_BITS - 2 );	 	 
 
 // generating a smiley bitmap
 
@@ -140,24 +140,24 @@ logic [0:2] [0:31] [0:31] [7:0] object_colors = {
 //////////--------------------------------------------------------------------------------------------------------------=
 //hit bit map has one encoding per edge:  hit_colors[2:0] =   
 // 
-logic [0:15] [0:15] [2:0] hit_colors = 
-		  {48'o3333333333333333,     
-			48'o1333333333333332,    
-			48'o1133333333333322, 
-			48'o1113333333333222,
-			48'o1111333333332222,
-			48'o1111133333322222,
-			48'o1111113333222222,
-			48'o1111111332222222,
-			48'o1111111002222222,
-			48'o1111110000222222,
-			48'o1111100000022222,
-			48'o1111000000002222,
-			48'o1110000000000222,
-			48'o1100000000000022,
-			48'o1000000000000002,
-			48'o0000000000000000};
-			
+//logic [0:15] [0:15] [2:0] hit_colors = 
+//		  {48'o3333333333333333,     
+//			48'o1333333333333332,    
+//			48'o1133333333333322, 
+//			48'o1113333333333222,
+//			48'o1111333333332222,
+//			48'o1111133333322222,
+//			48'o1111113333222222,
+//			48'o1111111332222222,
+//			48'o1111111002222222,
+//			48'o1111110000222222,
+//			48'o1111100000022222,
+//			48'o1111000000002222,
+//			48'o1110000000000222,
+//			48'o1100000000000022,
+//			48'o1000000000000002,
+//			48'o0000000000000000};
+//			
 //logic [0:15] [0:15] [2:0] hit_colors = 
 //		  {48'o4433333333333344,     
 //			48'o4443333333333444,    
@@ -175,6 +175,13 @@ logic [0:15] [0:15] [2:0] hit_colors =
 //			48'o1444000000004442,
 //			48'o4440000000000444,
 //			48'o4400000000000044};
+
+
+logic [0:3] [0:3] [3:0] hit_colors = 
+			{16'h8442,
+			 16'h8822,
+			 16'h9933,
+			 16'h9113};
 
  
  
@@ -204,7 +211,7 @@ begin
 				RGBout <= object_colors[2][offsetY][offsetX];
 			else
 				RGBout <= object_colors[0][offsetY][offsetX];
-			HitEdgeCode <= hit_colors[HitCodeY][HitCodeX];	//get hitting edge code from the colors table  
+			HitEdgeCode <= hit_colors[offsetY >> 3][offsetX >> 3];	//get hitting edge code from the colors table  
 		
 		end  	
 	end

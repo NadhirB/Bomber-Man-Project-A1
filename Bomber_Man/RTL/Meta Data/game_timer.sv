@@ -9,11 +9,12 @@
 
 module game_timer
 	(
-	input  logic clk, 
-	input  logic resetN, 
-	input  logic loadN, 
-	input  logic enable1, 
-	input  logic enable2, 
+	input logic clk, 
+	input logic resetN, 
+	input logic loadN, 
+	input logic enable1, 
+	input logic enable2, 
+	input logic inc_time,
 	
 	output logic [3:0] countL, 
 	output logic [3:0] countH,
@@ -27,43 +28,51 @@ module game_timer
 	parameter  logic [3:0] datainH = 4'h9 ;
 // -----------------------------------------------------------
 	
-logic  tclow, tchigh;// internal variables terminal count 
-logic start_seen;
+logic  tclow, tchigh; // internal variables terminal count 
+logic [3:0] next_countL, next_countH;
+logic loadN_internal;
 
+assign loadN_internal = loadN & ~inc_time;
 
+    always_comb begin
+        if (inc_time) begin
+            int total;
+            total = (countH * 10) + countL + 10; // add 10 seconds
+            if (total > 99) total = 99;          // saturate at 99
+            next_countH = total / 10;
+            next_countL = total % 10;
+        end
+        else begin
+            // normal load value (when external loadN is used)
+            next_countH = datainH;
+            next_countL = datainL;
+        end
+    end
 	
 // Low counter instantiation
 	down_counter lowc(.clk(clk), 
 							.resetN(resetN),
-							.loadN(loadN),	
+							.loadN(loadN_internal),	
 							.enable1(enable1), 
 							.enable2(enable2),
 							.enable3(1'b1), 	
-							.datain(datainL), 
+							.datain(next_countL), 
 							.count(countL), 
 							.tc(tclow) );
 	
-// High counter instantiation
-//--------------------------------------------------------------------------------------------------------------------
-// &&&&&&&&&&&&&&  fill your code and paste to the report #2 
-//--------------------------------------------------------------------------------------------------------------------			
+// High counter instantiation	
 	
 	down_counter highc(.clk(clk), 
 							.resetN(resetN),
-							.loadN(loadN),	
+							.loadN(loadN_internal),	
 							.enable1(enable1), 
 							.enable2(enable2),
 							.enable3(tclow), 	
-							.datain(datainH), 
+							.datain(next_countH), 
 							.count(countH), 
 							.tc(tchigh) );
 							
-	//assign countH =  4'h0;
 
-//------------------------------------------------------------------------------------------ 
  assign tc = tclow*tchigh ;	//  ## initializing a variable to enable compilation, change if needed 
-//--------------------------------------------------------------------------------------------------------------------
-// &&&&&&&&&&&&&&  end of paste to the report #2
-//--------------------------------------------------------------------------------------------------------------------			
 
 endmodule

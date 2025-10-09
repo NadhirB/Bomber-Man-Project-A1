@@ -3,16 +3,14 @@
 // (c) Technion IIT, Department of Electrical Engineering 2025 
 
 
-module DebugLivesBitMap (
+module DebugPlayerSpeed (
     input logic clk,
     input logic resetN,
     input logic sw_inc,     
     input logic sw_dec,
 	 input logic powerUp_inc,
-	 input logic player_hit,
 		
-	 output logic player_died,
-    output logic [3:0] lives       
+    output logic [1:0] speed_level       
 );
 
 	 logic flag_inc = 0;
@@ -20,18 +18,18 @@ module DebugLivesBitMap (
 
     always_ff @(posedge clk or negedge resetN) begin
         if (!resetN) begin
-            lives <= 2'b11;   
+            speed_level <= 2'b00;   
 				flag_inc <= 0;
 				flag_dec <= 0;
         end
         else begin
 
-            if (sw_inc && lives < 2'b11 && flag_inc == 0) begin
-                lives <= lives + 1;
+            if (sw_inc && speed_level < 2'b10 && flag_inc == 0) begin
+                speed_level <= speed_level + 1;
 					 flag_inc <= 1;
 				end
-            if (sw_dec && lives > 2'b00 && flag_dec == 0) begin
-                lives <= lives - 1;
+            if (sw_dec && speed_level > 2'b00 && flag_dec == 0) begin
+                speed_level <= speed_level - 1;
 					 flag_dec <= 1;
 				end
 				
@@ -40,14 +38,11 @@ module DebugLivesBitMap (
 				if (!sw_dec)
 					flag_dec <= 0;
 					
-				if (powerUp_inc && lives < 2'b11)
-					lives <= lives + 1;
-				if (player_hit && lives > 2'b00)
-					lives <= lives - 1;
+				if (powerUp_inc && speed_level < 2'b10)
+					speed_level <= speed_level + 1;
         end
     end
 	 
-	 assign player_died = (lives == 0) ? 1'b1 : 1'b0;
 
 endmodule
 

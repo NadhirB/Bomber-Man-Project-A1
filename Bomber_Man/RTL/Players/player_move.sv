@@ -17,7 +17,6 @@ module	player_move	(
 					input	logic down_direction_key,  //move Down
 					input	logic left_direction_key,  //move Left
 					input	logic right_direction_key, //move Right
-					input	logic valid_player_pos,    //check if player can move there   
 					input logic column_collision,    //collision if player hits a column or wall?
 					input logic [1:0] speed_level,	//Used to set the different speed levels that will changed with powerup	
 					input logic [3:0] HitEdgeCode,
@@ -25,8 +24,6 @@ module	player_move	(
 					
 					output logic signed [10:0] topLeftX, // output the top left corner 
 					output logic signed [10:0] topLeftY,  // can be negative , if the object is partliy outside 
-					output logic signed [10:0] topLeftX_valid,
-					output logic signed [10:0] topLeftY_valid,
 					output logic [1:0] current_speed_level
 					
 );
@@ -61,15 +58,20 @@ const int	y_FRAME_BOTTOM	=	(464 - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //-
 	//			 404
 	//
  
-const logic [3:0] TOP =		 4'b1000; 
-const logic [3:0] RIGHT =   4'b0100; 
-const logic [3:0] LEFT =	 4'b0010; 
+//const logic [3:0] TOP =		 4'b1000; 
+//const logic [3:0] RIGHT =   4'b0100; 
+//const logic [3:0] LEFT =	 4'b0010; 
+//const logic [3:0] BOTTOM =  4'b0001; 
+
+
+const logic [3:0] TOP =		 4'b0100; 
+const logic [3:0] RIGHT =   4'b0010; 
+const logic [3:0] LEFT =	 4'b1000; 
 const logic [3:0] BOTTOM =  4'b0001; 
 
 
-enum  logic [3:0] {IDLE_ST,         	// initial state
+enum  logic [2:0] {IDLE_ST,         	// initial state
 						 MOVE_ST, 				// moving no colision
-						 VALID_ST,
 						 START_OF_FRAME_ST, 	// startOfFrame activity-after all data collected 
 						 POSITION_CHANGE_ST, // position interpolate 
 						 POSITION_LIMITS_ST  // check if inside the frame  
@@ -80,22 +82,15 @@ int Xmove;		 //Speed changes before position
 int Ymove;
 int Xposition ; //position   
 int Yposition ;
-int prev_Xposition;
-int prev_Yposition;
-int valid_Xposition;
-int valid_Yposition;
 
 logic [7:0] Speed;
 logic [7:0] speed_levels [0:2] = '{64, 112, 160};
 
 
 logic [3:0] hit_reg = 4'b0;
-logic [3:0] last_key = 4'b0;
-logic [3:0] key_on_hit = 4'b0;
 
 
 logic move_flag = 0;
-logic valid_flag = 0;
 logic hit_flag = 0;
  //---------
  
@@ -109,10 +104,7 @@ begin : fsm_sync_proc
 		Xmove <= 0;
 		Ymove <= 0;
 		hit_reg <= 4'b0;
-		last_key <= 4'b0;
-		key_on_hit <= 4'b0;
 		move_flag <= 0;
-		valid_flag <= 0;
 		hit_flag <= 0;
 		Speed <= Speed_default;
 	end 	
@@ -146,75 +138,43 @@ begin : fsm_sync_proc
 				if (up_direction_key && move_flag == 0) begin
 					Ymove <= - Speed;
 					move_flag <= 1;
-					last_key <= TOP;
-//					key_on_hit <= 4'b0;
+//					Xposition[10:0] <= 11'b01111000000;
 					end
 					
 				if (down_direction_key && move_flag == 0) begin
 					Ymove <= Speed;
 					move_flag <= 1;
-					last_key <= BOTTOM;
-//					key_on_hit <= 4'b0;
+//					Xposition[10:0] <= 11'b01111000000;
 					end
 					
 				if (left_direction_key && move_flag == 0) begin
 					Xmove <= - Speed;
 					move_flag <= 1;
-					last_key <= LEFT;
-//					key_on_hit <= 4'b0;
+//					Yposition[10:0] <= 11'b10000000000;
 					end
 					
 				if (right_direction_key && move_flag == 0) begin
 					Xmove <= Speed;
 					move_flag <= 1;
-					last_key <= RIGHT;
-//					key_on_hit <= 4'b0;
+//					Yposition[10:0] <= 11'b10000000000;
 					end
 					
 				
 	
        // collcting collisions 	
 				if (column_collision && hit_flag == 0) begin
-					hit_reg[HitEdgeCode] <= 1'b1;
+					hit_reg <= HitEdgeCode;
 					hit_flag <= 1;
-//					key_on_hit <= last_key;
+
 				end
 
 				if (startOfFrame) begin
 					move_flag <= 0;
-					valid_flag <= 0;
 					SM_Motion <= START_OF_FRAME_ST ; 
 				end
-//				else if (move_flag) begin
-//					SM_Motion <= VALID_ST;
-//					if (!valid_flag) begin
-//						valid_Xposition <= Xposition + Xmove;
-//						valid_Yposition <= Yposition + Ymove;
-//						valid_flag <= 1;
-//					end
-//				end
-					
-				
+						
 		end 
 		
-		//------------
-			VALID_ST:  begin     // moving collecting colisions 
-		//------------
-		
-			if (!valid_player_pos) begin
-				if (last_key == RIGHT || last_key == LEFT) begin
-					Xmove <= 0;
-//					move_flag <= 0;
-				end
-				if (last_key == TOP || last_key == BOTTOM) begin
-					Ymove <= 0;
-//					move_flag <= 0;
-				end
-			end
-			
-				SM_Motion <= MOVE_ST ; 
-		
-		end
 		
 		//------------
 			START_OF_FRAME_ST:  begin      //check if any colisin was detected 
@@ -224,40 +184,52 @@ begin : fsm_sync_proc
 				
 					TOP + LEFT: 	// collision with top left corner
 					begin
-						Ymove <= Speed;
-						Xmove <= Speed;
+//						Ymove <= Speed;
+//						Xmove <= Speed;
+						Xposition[10:0] <= 11'b01111000000;
+						Yposition[10:0] <= 11'b10000000000;
 					end
 					TOP + RIGHT:	// collision with top right corner
 					begin
-						Ymove <= Speed;
-						Xmove <= - Speed;
+//						Ymove <= Speed;
+//						Xmove <= - Speed;
+						Xposition[10:0] <= 11'b01111000000;
+						Yposition[10:0] <= 11'b10000000000;
 					end
 					BOTTOM + LEFT: // collision with bottom left corner
 					begin
-						Ymove <= - Speed;
-						Xmove <= Speed;
+//						Ymove <= - Speed;
+//						Xmove <= Speed;
+						Xposition[10:0] <= 11'b01111000000;
+						Yposition[10:0] <= 11'b10000000000;
 					end
 					BOTTOM + LEFT: // collision with bottom left corner
 					begin
-						Ymove <= - Speed;
-						Xmove <= - Speed;
+//						Ymove <= - Speed;
+//						Xmove <= - Speed;
+						Xposition[10:0] <= 11'b01111000000;
+						Yposition[10:0] <= 11'b10000000000;
 					end
 	
 					TOP:  			// collision with top side
 					begin
-						Ymove <= Speed ;
+//						Ymove <= Speed ;
+						Yposition[10:0] <= 11'b10000000000;
 					end
 					BOTTOM: 			// collision with bottom side
 					begin
-						Ymove <= - Speed;
+//						Ymove <= - Speed;
+						Yposition[10:0] <= 11'b10000000000;
 					end
 					RIGHT:   		// collision with right side
 					begin
-						Xmove <= - Speed;
+//						Xmove <= - Speed;
+						Xposition[10:0] <= 11'b01111000000;
 					end
 					LEFT:				// collision with left side
 					begin
-						Xmove <= Speed;
+//						Xmove <= Speed;
+						Xposition[10:0] <= 11'b01111000000;
 					end
 					
 					default: ; 
@@ -272,8 +244,6 @@ begin : fsm_sync_proc
 		//------------------------
 			POSITION_CHANGE_ST : begin  // position interpolate 
 		//------------------------
-//				prev_Xposition <= Xposition;
-//				prev_Yposition <= Yposition;
 				Xposition <= Xposition + Xmove; 
 				Yposition <= Yposition + Ymove;
 				Xmove <= 0;
@@ -314,9 +284,7 @@ end // end fsm_sync
 //return from FIXED point trunc back to prame size parameters 
   
 assign topLeftX = Xposition / FIXED_POINT_MULTIPLIER ;   // note it must be 2^n 
-assign topLeftY = Yposition / FIXED_POINT_MULTIPLIER ;  
-assign topLeftX_valid = valid_Xposition / FIXED_POINT_MULTIPLIER;
-assign topLeftY_valid = valid_Yposition / FIXED_POINT_MULTIPLIER;
+assign topLeftY = Yposition / FIXED_POINT_MULTIPLIER ; 
 
 	
 endmodule	

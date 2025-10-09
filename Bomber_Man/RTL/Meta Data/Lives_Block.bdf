@@ -515,58 +515,6 @@ agreement for further details.
 	(annotation_block (parameter)(rect 1072 280 1327 356))
 )
 (symbol
-	(rect 528 192 688 272)
-	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
-	(text "inst5" (rect 8 64 30 81)(font "Intel Clear" ))
-	(port
-		(pt 160 32)
-		(output)
-		(text "value[size-1..0]" (rect 0 0 75 12)(font "Arial" ))
-		(text "value[size-1..0]" (rect 76 27 151 39)(font "Arial" ))
-		(line (pt 160 32)(pt 144 32)(line_width 3))
-	)
-	(parameter
-		"size"
-		"11"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"MyValue"
-		"175"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(drawing
-		(rectangle (rect 16 16 144 64))
-	)
-	(annotation_block (parameter)(rect 528 112 697 169))
-)
-(symbol
-	(rect 512 544 672 624)
-	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
-	(text "inst6" (rect 8 64 30 81)(font "Intel Clear" ))
-	(port
-		(pt 160 32)
-		(output)
-		(text "value[size-1..0]" (rect 0 0 75 12)(font "Arial" ))
-		(text "value[size-1..0]" (rect 76 27 151 39)(font "Arial" ))
-		(line (pt 160 32)(pt 144 32)(line_width 3))
-	)
-	(parameter
-		"size"
-		"11"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"MyValue"
-		"223"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(drawing
-		(rectangle (rect 16 16 144 64))
-	)
-	(annotation_block (parameter)(rect 520 464 689 521))
-)
-(symbol
 	(rect 1512 96 1736 240)
 	(text "LivesBitMap" (rect 5 0 65 12)(font "Arial" ))
 	(text "inst" (rect 8 128 25 140)(font "Arial" ))
@@ -622,6 +570,58 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 208 128))
 	)
+)
+(symbol
+	(rect 528 192 688 272)
+	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
+	(text "inst5" (rect 8 64 30 81)(font "Intel Clear" ))
+	(port
+		(pt 160 32)
+		(output)
+		(text "value[size-1..0]" (rect 0 0 75 12)(font "Arial" ))
+		(text "value[size-1..0]" (rect 76 27 151 39)(font "Arial" ))
+		(line (pt 160 32)(pt 144 32)(line_width 3))
+	)
+	(parameter
+		"size"
+		"11"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"MyValue"
+		"159"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 144 64))
+	)
+	(annotation_block (parameter)(rect 528 112 697 169))
+)
+(symbol
+	(rect 512 544 672 624)
+	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
+	(text "inst6" (rect 8 64 30 81)(font "Intel Clear" ))
+	(port
+		(pt 160 32)
+		(output)
+		(text "value[size-1..0]" (rect 0 0 75 12)(font "Arial" ))
+		(text "value[size-1..0]" (rect 76 27 151 39)(font "Arial" ))
+		(line (pt 160 32)(pt 144 32)(line_width 3))
+	)
+	(parameter
+		"size"
+		"11"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"MyValue"
+		"207"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 144 64))
+	)
+	(annotation_block (parameter)(rect 520 464 689 521))
 )
 (connector
 	(pt 1088 240)
