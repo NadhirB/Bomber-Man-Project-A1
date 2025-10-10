@@ -16,6 +16,7 @@ module	game_controller	(
 			input logic drawing_request_bomb,
 			input logic drawing_request_doorIdol,
 			input logic drawing_request_powerUp,
+			input logic player_invulnerable,
 
 			output logic player_culomn_wall, // active in case of collision player and columns
 			output logic enemy1_column_wall_bomb,
@@ -24,7 +25,8 @@ module	game_controller	(
 			output logic collision_blast_wall, // active in case of collision between blast and wall
 			output logic SingleHitPulse_player,
 			output logic player_door_idol,
-			output logic collision_player_powerUp
+			output logic collision_player_powerUp,
+			output logic player_hit
 
 );
 
@@ -37,6 +39,7 @@ assign collision_blast_wall = (drawing_request_blast && drawing_request_wall && 
 assign player_door_idol = (drawing_request_doorIdol && drawing_request_player);
 assign collision_player_powerUp = (drawing_request_player && drawing_request_powerUp);
 
+assign player_hit = (drawing_request_player && (drawing_request_blast || drawing_request_enemy1 || drawing_request_enemy2) && !player_invulnerable);
 
 
 logic flag ; // a semaphore to set the output only once per frame regardless of number of collisions 

@@ -86,7 +86,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect 1056 488 1248 504)
+	(rect 1048 472 1240 488)
 	(text "INPUT" (rect 149 0 177 10)(font "Arial" (font_size 6)))
 	(text "collision_blast_wall" (rect 5 0 97 12)(font "Arial" ))
 	(pt 192 8)
@@ -102,9 +102,41 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect 1080 512 1248 528)
+	(rect 1072 488 1240 504)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
 	(text "explosion" (rect 5 0 51 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 1072 504 1240 520)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "game_on" (rect 5 0 50 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 1072 520 1240 536)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "layout_sel[3..0]" (rect 5 0 80 17)(font "Intel Clear" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -295,9 +327,9 @@ agreement for further details.
 	(annotation_block (parameter)(rect 904 208 1159 284))
 )
 (symbol
-	(rect 1328 296 1552 472)
+	(rect 1328 296 1552 504)
 	(text "WallsMatrixBitMap" (rect 5 0 94 12)(font "Arial" ))
-	(text "inst" (rect 8 160 25 172)(font "Arial" ))
+	(text "inst" (rect 8 192 25 204)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -348,6 +380,20 @@ agreement for further details.
 		(line (pt 0 128)(pt 16 128))
 	)
 	(port
+		(pt 0 144)
+		(input)
+		(text "game_on" (rect 0 0 44 12)(font "Arial" ))
+		(text "game_on" (rect 21 139 65 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "layout_sel[3..0]" (rect 0 0 76 12)(font "Arial" ))
+		(text "layout_sel[3..0]" (rect 21 155 97 167)(font "Arial" ))
+		(line (pt 0 160)(pt 16 160)(line_width 3))
+	)
+	(port
 		(pt 224 32)
 		(output)
 		(text "drawingRequest" (rect 0 0 77 12)(font "Arial" ))
@@ -361,9 +407,15 @@ agreement for further details.
 		(text "RGBout[7..0]" (rect 149 43 213 55)(font "Arial" ))
 		(line (pt 224 48)(pt 208 48)(line_width 3))
 	)
+	(parameter
+		"default_layout"
+		"0"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 208 160))
+		(rectangle (rect 16 16 208 192))
 	)
+	(annotation_block (parameter)(rect 1552 256 1744 296))
 )
 (connector
 	(text "clk" (rect 794 344 808 361)(font "Intel Clear" ))
@@ -408,22 +460,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(pt 1248 496)
-	(pt 1280 496)
-)
-(connector
-	(pt 1296 520)
-	(pt 1248 520)
-)
-(connector
-	(pt 1280 496)
-	(pt 1280 408)
-)
-(connector
-	(pt 1296 520)
-	(pt 1296 424)
-)
-(connector
 	(text "clk" (rect 1266 312 1280 329)(font "Intel Clear" ))
 	(pt 1240 328)
 	(pt 1328 328)
@@ -449,20 +485,63 @@ agreement for further details.
 	(pt 1328 392)
 )
 (connector
-	(pt 1280 408)
-	(pt 1328 408)
-)
-(connector
-	(pt 1296 424)
-	(pt 1328 424)
-)
-(connector
 	(pt 1552 328)
 	(pt 1576 328)
 )
 (connector
 	(pt 1552 344)
 	(pt 1576 344)
+	(bus)
+)
+(connector
+	(pt 1328 408)
+	(pt 1264 408)
+)
+(connector
+	(pt 1264 408)
+	(pt 1264 480)
+)
+(connector
+	(pt 1240 480)
+	(pt 1264 480)
+)
+(connector
+	(pt 1328 424)
+	(pt 1280 424)
+)
+(connector
+	(pt 1280 424)
+	(pt 1280 496)
+)
+(connector
+	(pt 1240 496)
+	(pt 1280 496)
+)
+(connector
+	(pt 1328 440)
+	(pt 1296 440)
+)
+(connector
+	(pt 1296 440)
+	(pt 1296 512)
+)
+(connector
+	(pt 1240 512)
+	(pt 1296 512)
+)
+(connector
+	(pt 1328 456)
+	(pt 1312 456)
+	(bus)
+)
+(connector
+	(pt 1312 456)
+	(pt 1312 528)
+	(bus)
+)
+(connector
+	(pt 1312 528)
+	(pt 1240 528)
 	(bus)
 )
 (text "// (c) Technion IIT, Department of Electrical Engineering 2025" (rect 632 24 991 43)(font "Intel Clear" (font_size 8)))

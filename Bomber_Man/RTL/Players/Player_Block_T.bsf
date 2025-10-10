@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 16 16 304 272)
+	(rect 16 16 304 304)
 	(text "Player_Block_T" (rect 5 0 97 19)(font "Intel Clear" (font_size 8)))
-	(text "inst" (rect 8 235 24 252)(font "Intel Clear" ))
+	(text "inst" (rect 8 267 24 284)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -109,6 +109,20 @@ agreement for further details.
 		(line (pt 0 208)(pt 16 208))
 	)
 	(port
+		(pt 0 224)
+		(input)
+		(text "player_hit" (rect 0 0 60 19)(font "Intel Clear" (font_size 8)))
+		(text "player_hit" (rect 21 219 81 238)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 224)(pt 16 224))
+	)
+	(port
+		(pt 0 240)
+		(input)
+		(text "turbo_pulse" (rect 0 0 70 19)(font "Intel Clear" (font_size 8)))
+		(text "turbo_pulse" (rect 21 235 91 254)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 240)(pt 16 240))
+	)
+	(port
 		(pt 288 32)
 		(output)
 		(text "player_topLeftX[10..0]" (rect 0 0 135 19)(font "Intel Clear" (font_size 8)))
@@ -136,6 +150,13 @@ agreement for further details.
 		(text "playerRGB[7..0]" (rect 173 75 267 94)(font "Intel Clear" (font_size 8)))
 		(line (pt 288 80)(pt 272 80)(line_width 3))
 	)
+	(port
+		(pt 288 96)
+		(output)
+		(text "player_invulnerable" (rect 0 0 118 19)(font "Intel Clear" (font_size 8)))
+		(text "player_invulnerable" (rect 149 91 267 110)(font "Intel Clear" (font_size 8)))
+		(line (pt 288 96)(pt 272 96))
+	)
 	(parameter
 		"initial_x"
 		"280"
@@ -147,7 +168,7 @@ agreement for further details.
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 272 240))
+		(rectangle (rect 16 16 272 272))
 	)
 	(annotation_block (parameter)(rect 304 -64 404 16))
 )
