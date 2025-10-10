@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 16 16 312 176)
+	(rect 16 16 312 208)
 	(text "WALLS_DISPLAY" (rect 5 0 107 19)(font "Intel Clear" (font_size 8)))
-	(text "inst" (rect 8 139 24 156)(font "Intel Clear" ))
+	(text "inst" (rect 8 171 24 188)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -67,6 +67,20 @@ agreement for further details.
 		(line (pt 0 112)(pt 16 112))
 	)
 	(port
+		(pt 0 128)
+		(input)
+		(text "game_on" (rect 0 0 54 19)(font "Intel Clear" (font_size 8)))
+		(text "game_on" (rect 21 123 75 142)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 128)(pt 16 128))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "layout_sel[3..0]" (rect 0 0 90 19)(font "Intel Clear" (font_size 8)))
+		(text "layout_sel[3..0]" (rect 21 139 111 158)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 144)(pt 16 144)(line_width 3))
+	)
+	(port
 		(pt 296 32)
 		(output)
 		(text "WallsDrawingRequest" (rect 0 0 128 19)(font "Intel Clear" (font_size 8)))
@@ -81,6 +95,6 @@ agreement for further details.
 		(line (pt 296 48)(pt 280 48)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 280 144))
+		(rectangle (rect 16 16 280 176))
 	)
 )
