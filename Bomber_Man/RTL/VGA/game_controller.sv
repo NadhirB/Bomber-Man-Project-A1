@@ -36,7 +36,7 @@ assign enemy1_column_wall_bomb = (drawing_request_enemy1 && (drawing_request_col
 assign enemy2_column_wall_bomb = (drawing_request_enemy2 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb));
 
 assign collision_blast_wall = (drawing_request_blast && drawing_request_wall && !drawing_request_columns);
-assign player_door_idol = (drawing_request_doorIdol && drawing_request_player);
+assign player_door_idol = (drawing_request_doorIdol && drawing_request_player && !drawing_request_wall);
 assign collision_player_powerUp = (drawing_request_player && drawing_request_powerUp);
 
 assign player_hit = (drawing_request_player && (drawing_request_blast || drawing_request_enemy1 || drawing_request_enemy2) && !player_invulnerable);

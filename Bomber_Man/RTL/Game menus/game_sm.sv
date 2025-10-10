@@ -33,7 +33,8 @@ module	game_sm	(
 					output logic game_on,
 					output logic mode_sel,
 					output logic game_over_type,
-					output logic [1:0] level_sel
+					output logic [1:0] level_sel,
+					output logic score_reset
 					
 			
 );
@@ -67,6 +68,7 @@ begin: fsm_sync_proc
 		three_sec_counter <= 2'b10;
 		game_over_type <= 0;
 		level_sel <= 1;
+		score_reset <= 0;
 	end
 	
 	else begin
@@ -85,6 +87,7 @@ begin: fsm_sync_proc
 				else if (enter_key_pressed && !flag) begin
 					SM_Game <= MODE_SELECTION;
 					flag <= 1'b1;
+					score_reset <= 1;
 				end
 				
 				level_sel <= 1; // Make sure to start on level One 
@@ -104,6 +107,7 @@ begin: fsm_sync_proc
 				else if (enter_key_pressed && !flag && !mode_sel) begin
 					SM_Game <= CONTROLS_ST;
 					flag <= 1'b1;
+					score_reset <= 0;
 				end
 				
 				if (down_key_pressed && !mode_sel)

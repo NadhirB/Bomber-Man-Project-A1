@@ -241,6 +241,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[3]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[8]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[9]
+set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Game menus/final_score.sv"
 set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Door and Idol/DoorIdolBitMap.sv"
 set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Door and Idol/door_idol_controller.sv"
 set_global_assignment -name BDF_FILE "RTL/Door and Idol/Door_and_Idol.bdf"

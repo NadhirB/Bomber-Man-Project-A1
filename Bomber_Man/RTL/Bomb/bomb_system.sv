@@ -11,6 +11,8 @@ module bomb_system (
     input logic [10:0] pixelX,
     input logic [10:0] pixelY,
 	 input logic [2:0] blast_num,
+	 input logic inc_bomb,
+	 input logic score_reset,
     
     output logic bomb_DR,
     output logic [7:0] bomb_RGB,
@@ -87,6 +89,9 @@ logic explode3;
 				
 			if (!drop_bomb_key)
 				flag <= 0;
+				
+			if (bombs_left < 4'b0011 && inc_bomb)
+				bombs_left <= bombs_left + 1;
 					
          blasts_this_cycle = (bomb1_blast ? 1 : 0)
                               + (bomb2_blast ? 1 : 0)
@@ -99,8 +104,19 @@ logic explode3;
             if (bomb3_blast) bomb_active[2] <= 1'b0;
 				bombs_left <= bombs_left + blasts_this_cycle;
           end
+			 
+			 
+			 if (bombs_left > 4'b0011)
+				bombs_left <= 4'b0011;
 
+				if (score_reset) begin
+					bomb_drop_key_array <= 3'b000;
+					bomb_active <= 3'b000;
+					blasts_this_cycle <= 3'b000;
+					bombs_left <= starting_bombs;
+					flag <= 0;
 					
+				end 
         end
     end
     

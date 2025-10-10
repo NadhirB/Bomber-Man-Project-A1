@@ -10,6 +10,7 @@ module score_counter
     input logic collision_blast_wall,
     input logic explosion,      // stays high during explosion
     input logic game_on,
+	 input logic score_reset,
 
     output logic [15:0] score,
     output logic [3:0] digit_thousands,
@@ -48,9 +49,13 @@ module score_counter
                 wall_scored <= 1'b0;
         end
         else begin
-            score <= 16'd0;
-            prev_wall <= 1'b0;
-            wall_scored <= 1'b0;
+				if (score_reset) 
+					score <= 16'd0;
+				else begin
+					score <= score;
+					prev_wall <= 1'b0;
+					wall_scored <= 1'b0;
+				end
         end
     end
 

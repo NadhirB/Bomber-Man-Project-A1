@@ -10,6 +10,7 @@ module DebugLivesBitMap (
     input logic sw_dec,
 	 input logic powerUp_inc,
 	 input logic player_hit,
+	 input logic score_reset,
 		
 	 output logic player_died,
     output logic [3:0] lives       
@@ -44,6 +45,12 @@ module DebugLivesBitMap (
 					lives <= lives + 1;
 				if (player_hit && lives > 2'b00)
 					lives <= lives - 1;
+					
+				if (score_reset) begin
+					lives <= 2'b11;   
+					flag_inc <= 0;
+					flag_dec <= 0;
+				end
         end
     end
 	 
