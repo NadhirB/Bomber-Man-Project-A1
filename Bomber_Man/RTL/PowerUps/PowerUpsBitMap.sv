@@ -11,10 +11,15 @@ module	PowerUpsBitMap	(
 					input logic	[10:0] offsetY,
 					input	logic	InsideRectangle, //input that the pixel is within a bracket 
 					input logic col_player_powerUp,
+					input logic col_player2_powerUp,
 					input logic [3:0] curr_lives,
 					input logic [3:0] curr_bombs,
 					input logic [1:0] curr_speed,
+					input logic [3:0] curr_lives2,
+					input logic [3:0] curr_bombs2,
+					input logic [1:0] curr_speed2,
 					input logic score_reset,
+					input logic mode_sel,
 //					input logic explosion,
 //					input logic [10:0] enemy_topLeftX,
 //					input logic [10:0] enemy_topLeftY,
@@ -25,7 +30,10 @@ module	PowerUpsBitMap	(
 					output logic inc_bombs,
 					output logic inc_lives,
 					output logic inc_time,
-					output logic inc_score
+					output logic inc_score,
+					output logic inc_speed2,
+					output logic inc_bombs2,
+					output logic inc_lives2					
 //					output logic enemy_valid_pos
  ) ;
  
@@ -310,6 +318,9 @@ begin
 		inc_lives <= 0;
 		inc_time <= 0;
 		inc_score <= 0;
+		inc_bombs2 <= 0;
+		inc_lives2 <= 0;
+		inc_speed2 <= 0;
 		
 //		bombs_left;	
 //		MazeBitMapMask_exploding <= MazeDefaultBitMapMask_exploding;
@@ -324,6 +335,9 @@ begin
 		inc_lives <= 0;
 		inc_time <= 0;
 		inc_score <= 0;
+		inc_bombs2 <= 0;
+		inc_lives2 <= 0;
+		inc_speed2 <= 0;
 		
 		if (col_player_powerUp) begin
 			if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b001) begin		//bomb
@@ -354,6 +368,32 @@ begin
 
 			end
 		end
+		
+		
+		if (mode_sel)
+			if (col_player2_powerUp) begin
+			
+			if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b001) begin		//bomb
+				if (curr_bombs2 < 4'b0011) begin
+					MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 0;
+					inc_bombs2 <= 1;
+				end
+			end
+			else if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b010) begin		//lives
+				if (curr_lives2 < 4'b0011) begin
+					MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 0;
+					inc_lives2 <= 1;
+				end
+			end
+			else if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] == 3'b100) begin		//speed
+				if (curr_speed2 < 2'b10) begin
+					MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= 0;
+					inc_speed2 <= 1;
+				end			
+			end
+			
+			
+			end
 	
 	
 		if (InsideRectangle == 1'b1 )	begin 
@@ -361,9 +401,19 @@ begin
 					 3'b000 : RGBout <= TRANSPARENT_ENCODING ;
 					 3'b001 : RGBout <= object_colors[0][offsetY_LSB][offsetX_LSB];
 					 3'b010 : RGBout <= object_colors[1][offsetY_LSB][offsetX_LSB];
-					 3'b011 : RGBout <= object_colors[2][offsetY_LSB][offsetX_LSB];
+					 3'b011 : begin
+										if (!mode_sel)
+											RGBout <= object_colors[2][offsetY_LSB][offsetX_LSB];
+										else
+											RGBout <= TRANSPARENT_ENCODING ;
+					 			 end
 					 3'b100 : RGBout <= object_colors[3][offsetY_LSB][offsetX_LSB];
-					 3'b101 : RGBout <= object_colors[4][offsetY_LSB][offsetX_LSB]; 
+					 3'b101 : begin
+										if (!mode_sel)
+											RGBout <= object_colors[4][offsetY_LSB][offsetX_LSB];
+										else
+											RGBout <= TRANSPARENT_ENCODING ;
+					 			 end 
 					 3'b110 : RGBout <= TRANSPARENT_ENCODING; 
 					 3'b111 : RGBout <= TRANSPARENT_ENCODING; 
 				default:  RGBout <= TRANSPARENT_ENCODING; 

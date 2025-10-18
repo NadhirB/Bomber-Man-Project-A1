@@ -232,7 +232,7 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to valid
 set_global_assignment -name ENABLE_SIGNALTAP OFF
-set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp_wallDR.stp
+set_global_assignment -name USE_SIGNALTAP_FILE stp_music.stp
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
@@ -241,6 +241,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[3]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[8]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[9]
+set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Meta Data/TwoPlayerMetaDataFilter.sv"
 set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Game menus/final_score.sv"
 set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Door and Idol/DoorIdolBitMap.sv"
 set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Door and Idol/door_idol_controller.sv"
@@ -354,4 +355,17 @@ set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Meta Data/numbers_sequence_m
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/Players/DebugPlayerSpeed.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/Players/player_hit_SM.sv
 set_global_assignment -name SYSTEMVERILOG_FILE RTL/Players/player_invert.sv
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/audio_mux.sv
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/AUDIO/startMelodyKey_mux.sv
+set_global_assignment -name SIGNALTAP_FILE stp_music.stp
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/KEYBOARDX/keyboard_mux.sv
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/Players/player2BitMap.sv
+set_global_assignment -name BDF_FILE RTL/Players/Player2_Block_T.bdf
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/Bomb/bluebombBitMap.sv
+set_global_assignment -name BDF_FILE RTL/Bomb/Blue_Bomb_Block_T.bdf
+set_global_assignment -name SYSTEMVERILOG_FILE RTL/Bomb/blue_bomb_system.sv
+set_global_assignment -name BDF_FILE "RTL/Meta Data/Blue_Bombs_Left_Block.bdf"
+set_global_assignment -name BDF_FILE "RTL/Meta Data/Blue_Lives_Block.bdf"
+set_global_assignment -name BDF_FILE "RTL/Game menus/Game_Over_2Player_Screen_Block.bdf"
+set_global_assignment -name SYSTEMVERILOG_FILE "RTL/Game menus/TwoPlayerWinScreen.sv"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

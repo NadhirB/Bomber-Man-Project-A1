@@ -177,11 +177,15 @@ logic [0:2] [0:31] [0:31] [7:0] object_colors = {
 //			48'o4400000000000044};
 
 
-logic [0:3] [0:3] [3:0] hit_colors = 
-			{16'h8442,
-			 16'h8822,
-			 16'h9933,
-			 16'h9113};
+logic [0:7] [0:7] [3:0] hit_colors = 
+			{32'hc4444446,
+			 32'h8c444462,
+			 32'h88c44622,
+			 32'h888c6222,
+			 32'h88893222,
+			 32'h88911322,
+			 32'h89111132,
+			 32'h91111113};
 
  
  
@@ -211,7 +215,7 @@ begin
 				RGBout <= object_colors[2][offsetY][offsetX];
 			else
 				RGBout <= object_colors[0][offsetY][offsetX];
-			HitEdgeCode <= hit_colors[offsetY >> 3][offsetX >> 3];	//get hitting edge code from the colors table  
+			HitEdgeCode <= hit_colors[offsetY >> 2][offsetX >> 2];	//get hitting edge code from the colors table  
 		
 		end  	
 	end

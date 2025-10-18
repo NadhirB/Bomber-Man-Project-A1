@@ -9,6 +9,7 @@ module DebugPlayerSpeed (
     input logic sw_inc,     
     input logic sw_dec,
 	 input logic powerUp_inc,
+	 input logic score_reset,
 		
     output logic [1:0] speed_level       
 );
@@ -40,6 +41,12 @@ module DebugPlayerSpeed (
 					
 				if (powerUp_inc && speed_level < 2'b10)
 					speed_level <= speed_level + 1;
+					
+				if (score_reset) begin
+					speed_level <= 2'b00;   
+					flag_inc <= 0;
+					flag_dec <= 0;
+				end
         end
     end
 	 

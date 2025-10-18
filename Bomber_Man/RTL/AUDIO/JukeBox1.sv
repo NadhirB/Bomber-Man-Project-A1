@@ -227,7 +227,7 @@ always_comb begin
 			//************************************************************************************************** 
 			// Sheet Music of melody:  Single Note si                                                *
 			//**************************************************************************************************			 
-				  frq[0]  =  si  ;       len[0]  = 2  ;   
+				  frq[0]  =  silence  ;       len[0]  = 1  ;   
 	 			  frq[1] =   do_ ;       len[1]  = 0 ;    // length = 0 means end of melody
       end // case 10
 
@@ -236,8 +236,11 @@ always_comb begin
 			//************************************************************************************************** 
 			// Sheet Music of melody:  Single Note do_H                                                *
 			//**************************************************************************************************			 
-				  frq[0]  =  do_H ;      len[0]  = 2  ;   
-	 			  frq[1] =   do_ ;       len[1]  = 0 ;    // length = 0 means end of melody
+					frq[0]  =  silence  ;   len[0]  = 1 ;
+					frq[1]  =  la  ;   len[1]  = 1 ; 
+					frq[2]  =  fa  ;   len[2]  = 1 ; 	
+					frq[3]  =  re  ;   len[3]  = 1 ;  
+					frq[4]  =  do_  ;   len[4]  = 0 ;    // end of melody
       end // case 11
 
 
@@ -245,10 +248,54 @@ always_comb begin
 			//************************************************************************************************** 
 			// Sheet Music of melody:  Single Note re_H                                                *
 			//**************************************************************************************************			 
-				  frq[0]  =  re_H ;       len[0]  = 2  ;   
-	 			  frq[1] =   do_  ;       len[1]  = 0 ;    // length = 0 means end of melody
+					frq[0]  =  silence  ;   len[0]  = 1 ;
+					frq[1]  =  do_H  ;   len[1]  = 1 ; 
+					frq[2]  =  la  ;   len[2]  = 1 ; 	
+					frq[3]  =  fa  ;   len[3]  = 1 ;
+					frq[4]  =  re  ;   len[4]  = 1 ;
+					frq[5]  =  do_  ;   len[5]  = 2 ;
+					frq[6]  =  sol  ;   len[6]  = 1 ;   	 
+					frq[7]  =  do_  ;   len[7]  = 4 ;    // end of melody
+					frq[8]  =  do_  ;   len[8]  = 0 ;    // end of melody
       end // case 12
 
+		
+		13: begin
+    //************************************************************************************************** 
+    // Sheet Music of melody:  power-up (non-jewl) pickup sound
+    //**************************************************************************************************
+    frq[0]  =  silence  ;   len[0]  = 1 ; 
+	 frq[1]  =  si  ;   len[1]  = 1 ;   
+    frq[2]  =  re_H   ;   len[2]  = 2 ;   
+    frq[3]  =  do_  ;   len[3]  = 0 ;    // end of melody
+end // case 13
+
+
+		14: begin
+    //************************************************************************************************** 
+    // Sheet Music of melody:  Jewl pickup sound 
+    //**************************************************************************************************
+    frq[0]  =  silence  ;   len[0]  = 1 ;
+    frq[1]  =  mi  ;   len[1]  = 1 ; 
+    frq[2]  =  sol  ;   len[2]  = 1 ; 	
+    frq[3]  =  do_H  ;   len[3]  = 2 ;  
+    frq[4]  =  do_  ;   len[4]  = 0 ;    // end of melody
+end // case 14
+
+
+		15: begin
+    //************************************************************************************************** 
+    // Sheet Music of melody:  Jewl pickup sound 
+    //**************************************************************************************************
+    frq[0]  =  silence  ;   len[0]  = 1 ;
+    frq[1]  =  do_  ;   len[1]  = 1 ; 
+    frq[2]  =  mi  ;   len[2]  = 1 ; 	
+    frq[3]  =  sol  ;   len[3]  = 1 ;
+    frq[4]  =  do_H  ;   len[4]  = 2 ;
+    frq[5]  =  sol  ;   len[5]  = 1 ;
+    frq[6]  =  do_H  ;   len[6]  = 2 ;   	 
+    frq[7]  =  do_  ;   len[7]  = 0 ;    // end of melody
+end // case 15
 		
 		default: begin
 				

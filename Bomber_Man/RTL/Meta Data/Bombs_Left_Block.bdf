@@ -589,7 +589,7 @@ agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"MyValue"
-		"255"
+		"111"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
@@ -615,7 +615,7 @@ agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"MyValue"
-		"303"
+		"159"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing

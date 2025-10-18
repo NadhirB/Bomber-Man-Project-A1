@@ -7,6 +7,7 @@ module	DoorIdolBitMap	(
 					input logic	[10:0] offsetY,
 					input	logic	InsideRectangle, //input that the pixel is within a bracket 
 					input logic select,
+					input logic mode_sel,
 
 					output	logic	drawingRequest, //output that the pixel should be dispalyed 
 					output	logic	[7:0] RGBout    //rgb value from the bitmap
@@ -108,8 +109,11 @@ begin
 		RGBout <= TRANSPARENT_ENCODING ; // default
 		
 		
-		if (InsideRectangle == 1'b1 )	begin 
-		   RGBout <= object_colors[select][offsetY][offsetX];
+		if (InsideRectangle == 1'b1 )	begin
+			if (!mode_sel)
+				RGBout <= object_colors[select][offsetY][offsetX];
+			else
+				RGBout <= TRANSPARENT_ENCODING ;
 			end
 		
 

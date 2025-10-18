@@ -8,7 +8,7 @@
 // update the hit and collision algoritm - Eyal MAR 2024
 // good practice code - Dudy MAR 2025
 
-module	player_move	(	
+module	player_move_org	(	
  
 					input	logic clk,
 					input logic resetN,
@@ -51,6 +51,17 @@ const int	x_FRAME_RIGHT	=	(623 - OBJECT_WIDTH_X)* FIXED_POINT_MULTIPLIER;
 const int	y_FRAME_TOP		=	48 * FIXED_POINT_MULTIPLIER;
 const int	y_FRAME_BOTTOM	=	(464 - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //- OBJECT_HIGHT_Y
 
+//edges 
+	//------------
+	//			 434
+	//			 1x2
+	//			 404
+	//
+ 
+//const logic [3:0] TOP =		 4'b1000; 
+//const logic [3:0] RIGHT =   4'b0100; 
+//const logic [3:0] LEFT =	 4'b0010; 
+//const logic [3:0] BOTTOM =  4'b0001; 
 
 
 const logic [3:0] TOP =		 4'b0100; 
@@ -76,18 +87,15 @@ logic [7:0] Speed;
 logic [7:0] speed_levels [0:2] = '{64, 112, 160};
 
 
-logic [3:0] hit_reg_1 = 4'b0;
-logic [3:0] hit_reg_2 = 4'b0;
+logic [3:0] hit_reg = 4'b0;
 
 
 logic move_flag_up = 0;
 logic move_flag_down = 0;
 logic move_flag_left = 0;
 logic move_flag_right = 0;
-logic hit_flag_1 = 0;
+logic hit_flag = 0;
 logic hit_flag_2 = 0;
-
-logic [3:0] move = 4'b0;
  //---------
  
 always_ff @(posedge clk or negedge resetN)
@@ -99,16 +107,13 @@ begin : fsm_sync_proc
 		Yposition <= 0;
 		Xmove <= 0;
 		Ymove <= 0;
-		hit_reg_1 <= 4'b0;
-		hit_reg_2 <= 4'b0;
+		hit_reg <= 4'b0;
 		move_flag_down <= 0;
 		move_flag_up <= 0;
 		move_flag_left <= 0;
 		move_flag_right <= 0;
-		hit_flag_1 <= 0;
-		hit_flag_2 <= 0;
+		hit_flag <= 0;
 		Speed <= Speed_default;
-		move <= 0;
 	end 	
 	
 	else begin
@@ -138,40 +143,35 @@ begin : fsm_sync_proc
 		
 		// keys direction change 
 				if (up_direction_key && move_flag_up == 0) begin
-					move <= TOP;
 					Ymove <= - Speed;
 					move_flag_up <= 1;
+//					Xposition[10:0] <= 11'b01111000000;
 					end
 					
 				if (down_direction_key && move_flag_down == 0) begin
-					move <= BOTTOM;
 					Ymove <= Speed;
 					move_flag_down <= 1;
+//					Xposition[10:0] <= 11'b01111000000;
 					end
 					
 				if (left_direction_key && move_flag_left == 0) begin
-					move <= LEFT;
 					Xmove <= - Speed;
 					move_flag_left <= 1;
+//					Yposition[10:0] <= 11'b10000000000;
 					end
 					
 				if (right_direction_key && move_flag_right == 0) begin
-					move <= RIGHT;
 					Xmove <= Speed;
 					move_flag_right <= 1;
+//					Yposition[10:0] <= 11'b10000000000;
 					end
 					
 				
 	
        // collcting collisions 	
-				if (column_collision && hit_flag_1 == 0) begin
-					hit_reg_1 <= HitEdgeCode;
-					hit_flag_1 <= 1;
-				end
-				
-				if (column_collision && hit_flag_1 && !hit_flag_2 && HitEdgeCode != hit_reg_1) begin
-					hit_reg_2 <= HitEdgeCode;
-					hit_flag_2 <= 1;
+				if (column_collision && hit_flag == 0) begin
+					hit_reg <= HitEdgeCode;
+					hit_flag <= 1;
 				end
 
 				if (startOfFrame) begin
@@ -189,98 +189,64 @@ begin : fsm_sync_proc
 			START_OF_FRAME_ST:  begin      //check if any colisin was detected 
 		//------------
 
-				case (hit_reg_1[3:0])  // test sides
+				case (hit_reg[3:0])  // test sides
 				
 					TOP + LEFT: 	// collision with top left corner
 					begin
+//						Ymove <= Speed;
+//						Xmove <= Speed;
 						Xposition[10:0] <= 11'b01111000000;
 						Yposition[10:0] <= 11'b10000000000;
 					end
 					TOP + RIGHT:	// collision with top right corner
 					begin
+//						Ymove <= Speed;
+//						Xmove <= - Speed;
 						Xposition[10:0] <= 11'b01111000000;
 						Yposition[10:0] <= 11'b10000000000;
 					end
 					BOTTOM + LEFT: // collision with bottom left corner
 					begin
+//						Ymove <= - Speed;
+//						Xmove <= Speed;
 						Xposition[10:0] <= 11'b01111000000;
 						Yposition[10:0] <= 11'b10000000000;
 					end
 					BOTTOM + LEFT: // collision with bottom left corner
 					begin
+//						Ymove <= - Speed;
+//						Xmove <= - Speed;
 						Xposition[10:0] <= 11'b01111000000;
 						Yposition[10:0] <= 11'b10000000000;
 					end
 	
 					TOP:  			// collision with top side
 					begin
-						Yposition[10:0] <= 11'b10000000000;
+						Ymove <= 0;
+//						Yposition[10:0] <= 11'b10000000000;
 					end
 					BOTTOM: 			// collision with bottom side
 					begin
-						Yposition[10:0] <= 11'b10000000000;
+						Ymove <= 0;
+//						Yposition[10:0] <= 11'b10000000000;
 					end
 					RIGHT:   		// collision with right side
 					begin
-						Xposition[10:0] <= 11'b01111000000;
+						Xmove <= 0;
+//						Xposition[10:0] <= 11'b01111000000;
 					end
 					LEFT:				// collision with left side
 					begin
-						Xposition[10:0] <= 11'b01111000000;
+						Xmove <= 0;
+//						Xposition[10:0] <= 11'b01111000000;
 					end
 					
 					default: ; 
 	
 			  endcase
 			  
-			  case (hit_reg_2[3:0])  // test sides
-				
-					TOP + LEFT: 	// collision with top left corner
-					begin
-						Xposition[10:0] <= 11'b01111000000;
-						Yposition[10:0] <= 11'b10000000000;
-					end
-					TOP + RIGHT:	// collision with top right corner
-					begin
-						Xposition[10:0] <= 11'b01111000000;
-						Yposition[10:0] <= 11'b10000000000;
-					end
-					BOTTOM + LEFT: // collision with bottom left corner
-					begin
-						Xposition[10:0] <= 11'b01111000000;
-						Yposition[10:0] <= 11'b10000000000;
-					end
-					BOTTOM + LEFT: // collision with bottom left corner
-					begin
-						Xposition[10:0] <= 11'b01111000000;
-						Yposition[10:0] <= 11'b10000000000;
-					end
-	
-					TOP:  			// collision with top side
-					begin
-						Yposition[10:0] <= 11'b10000000000;
-					end
-					BOTTOM: 			// collision with bottom side
-					begin
-						Yposition[10:0] <= 11'b10000000000;
-					end
-					RIGHT:   		// collision with right side
-					begin
-						Xposition[10:0] <= 11'b01111000000;
-					end
-					LEFT:				// collision with left side
-					begin
-						Xposition[10:0] <= 11'b01111000000;
-					end
-					
-					default: ; 
-	
-			  endcase
-			  
-			hit_reg_1 <= 4'b0;
-			hit_flag_1 <= 0;
-			hit_reg_2 <= 4'b0;
-			hit_flag_2 <= 0;
+			hit_reg <= 4'b0;
+			hit_flag <= 0;
 			SM_Motion <= POSITION_CHANGE_ST ; 
 		end 
 

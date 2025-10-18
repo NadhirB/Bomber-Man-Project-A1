@@ -10,14 +10,15 @@ module DebugLivesBitMap (
     input logic sw_dec,
 	 input logic powerUp_inc,
 	 input logic player_hit,
-	 input logic score_reset,
+	 input logic lives_reset,
 		
 	 output logic player_died,
-    output logic [3:0] lives       
+    output logic [3:0] lives
 );
 
 	 logic flag_inc = 0;
 	 logic flag_dec = 0;
+
 
     always_ff @(posedge clk or negedge resetN) begin
         if (!resetN) begin
@@ -26,7 +27,7 @@ module DebugLivesBitMap (
 				flag_dec <= 0;
         end
         else begin
-
+				
             if (sw_inc && lives < 2'b11 && flag_inc == 0) begin
                 lives <= lives + 1;
 					 flag_inc <= 1;
@@ -43,14 +44,16 @@ module DebugLivesBitMap (
 					
 				if (powerUp_inc && lives < 2'b11)
 					lives <= lives + 1;
+					
 				if (player_hit && lives > 2'b00)
 					lives <= lives - 1;
 					
-				if (score_reset) begin
+				if (lives_reset) begin
 					lives <= 2'b11;   
 					flag_inc <= 0;
 					flag_dec <= 0;
 				end
+				
         end
     end
 	 

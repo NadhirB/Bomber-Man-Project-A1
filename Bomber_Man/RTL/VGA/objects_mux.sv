@@ -9,13 +9,24 @@ module	objects_mux	(
 		   // player 
 					input		logic	playerDR, // two set of inputs per unit
 					input		logic	[7:0] playerRGB, 
+					
+			// player 2
+					input		logic	player2DR, // two set of inputs per unit
+					input		logic	[7:0] player2RGB, 	
 					     
 		  // bomb
 					input		logic	bombDR, // two set of inputs per unit
 					input		logic	[7:0] bombRGB,  
-		  //blast
+					
+		  // bomb2
+					input		logic	bomb2DR, // two set of inputs per unit
+					input		logic	[7:0] bomb2RGB,  
+		  // blast
 					input logic blastDR,
-					input logic [7:0] blastRGB,		
+					input logic [7:0] blastRGB,	
+			//blast2
+					input logic blast2DR,
+					input logic [7:0] blast2RGB,		
 			// enemy
 					input logic enemyDR,
 					input logic [7:0] enemyRGB,
@@ -64,12 +75,18 @@ begin
 				RGBOut <= bordersRGB;
 		else if (blastDR) 
 			RGBOut <= blastRGB;
+		else if (blast2DR) 
+			RGBOut <= blast2RGB;
 		else if (playerDR)   
 			RGBOut <= playerRGB;
+		else if (player2DR)   
+			RGBOut <= player2RGB;
 		else if (enemyDR)
 				RGBOut <= enemyRGB;
 		else if (bombDR)
 				RGBOut <= bombRGB;
+		else if (bomb2DR)
+				RGBOut <= bomb2RGB;
 		else if (Door_Idol_DR)
 				RGBOut <= Door_Idol_RGB;
 		else if (PowerUp_DR)

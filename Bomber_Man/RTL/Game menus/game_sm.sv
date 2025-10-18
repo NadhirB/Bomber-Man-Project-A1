@@ -27,6 +27,8 @@ module	game_sm	(
 					input	logic	[7:0] game_won_RGB,
 					input logic level_DR,
 					input	logic	[7:0] level_RGB,
+					input logic game_over_2player_DR,
+					input logic [7:0] game_over_2player_RGB,
 					input logic [7:0] RGB_MIF,
 			     
 					output logic [7:0] RGBOut,
@@ -34,7 +36,8 @@ module	game_sm	(
 					output logic mode_sel,
 					output logic game_over_type,
 					output logic [1:0] level_sel,
-					output logic score_reset
+					output logic score_reset,
+					output logic lives_reset
 					
 			
 );
@@ -45,7 +48,8 @@ enum  logic [3:0] {MAIN_MENU_ST,         	// initial state
 						 GAMEPLAY_ST,
 						 GAMEOVER_ST,
 						 GAMEOVER_TIME_ST, 	// startOfFrame activity-after all data collected 
-						 GAMEOVER_LIVES_ST, // position interpolate  
+						 GAMEOVER_LIVES_ST,
+						 GAMEOVER_2PLAYER_ST, // position interpolate  
 						 LEVEL_DSP_ST,
 						 GAME_WON_ST
 						}  SM_Game;
@@ -69,6 +73,7 @@ begin: fsm_sync_proc
 		game_over_type <= 0;
 		level_sel <= 1;
 		score_reset <= 0;
+		lives_reset <= 0;
 	end
 	
 	else begin
@@ -88,9 +93,12 @@ begin: fsm_sync_proc
 					SM_Game <= MODE_SELECTION;
 					flag <= 1'b1;
 					score_reset <= 1;
+					lives_reset <= 0;
 				end
 				
-				level_sel <= 1; // Make sure to start on level One 
+				level_sel <= 1; // Make sure to start on level One
+				mode_sel <= 0;
+				
 
 			end
 			
@@ -104,7 +112,7 @@ begin: fsm_sync_proc
 				if (!enter_key_pressed)
 					flag <= 1'b0;
 					
-				else if (enter_key_pressed && !flag && !mode_sel) begin
+				else if (enter_key_pressed && !flag) begin
 					SM_Game <= CONTROLS_ST;
 					flag <= 1'b1;
 					score_reset <= 0;
@@ -127,9 +135,16 @@ begin: fsm_sync_proc
 				if (!enter_key_pressed)
 					flag <= 1'b0;
 					
-				else if (enter_key_pressed && !flag) begin
+				else if (enter_key_pressed && !flag && !mode_sel) begin
 					SM_Game <= LEVEL_DSP_ST;
 					flag <= 1'b1;
+				end
+				
+				else if (enter_key_pressed && !flag && mode_sel) begin
+					SM_Game <= GAMEPLAY_ST;
+					game_on <= 1;
+					three_sec_counter <= 2'b10;
+					
 				end
 				
 			end
@@ -188,6 +203,7 @@ begin: fsm_sync_proc
 					SM_Game <= MAIN_MENU_ST;
 					flag <= 1'b1;
 					three_sec_counter <= 2'b10;
+					lives_reset <= 1;
 				end
 				
 			end
@@ -196,7 +212,12 @@ begin: fsm_sync_proc
 		//---------
 				
 				if (three_sec_counter == 2'b00) begin
-					if (player_died) begin
+					if (mode_sel) begin
+						SM_Game <= GAMEOVER_2PLAYER_ST;
+						game_on <= 0;
+					end
+					
+					else if (player_died) begin
 						SM_Game <= GAMEOVER_LIVES_ST;
 						game_over_type <= 1;
 						game_on <= 0;
@@ -221,6 +242,7 @@ begin: fsm_sync_proc
 				else RGBOut <= RGB_MIF;
 				if (enter_key_pressed) begin
 					SM_Game <= MAIN_MENU_ST;
+					lives_reset <= 1;
 					flag <= 1'b1;
 					timer_flag <= 1'b0;
 					three_sec_counter <= 2'b10;
@@ -236,11 +258,31 @@ begin: fsm_sync_proc
 				else RGBOut <= RGB_MIF;
 				if (enter_key_pressed) begin
 					SM_Game <= MAIN_MENU_ST;
+					lives_reset <= 1;
 					flag <= 1'b1;
+					timer_flag <= 1'b0; ////maybe delete
 					three_sec_counter <= 2'b10;
 				end
 				
-			end	
+			end
+			
+		//---------
+		GAMEOVER_2PLAYER_ST: begin
+		//---------
+				if (game_over_2player_DR)
+					RGBOut <= game_over_2player_RGB;
+				else RGBOut <= RGB_MIF;
+				if (enter_key_pressed) begin
+					SM_Game <= MAIN_MENU_ST;
+					lives_reset <= 1;
+					flag <= 1'b1;
+					timer_flag <= 1'b0;////maybe delete
+					three_sec_counter <= 2'b10;
+				end
+		
+		end
+	
+	
 		endcase
 	
 	end 
