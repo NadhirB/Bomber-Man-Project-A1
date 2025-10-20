@@ -1,10 +1,8 @@
-module	player_invert	(	
-					
+module	player_invert	(		
+					input logic	[7:0] RGBin,// offset from top left  position
 					input logic invert_player,
-					input logic	[7:0] RGBin,// offset from top left  position 
 					
 					output logic	[7:0] RGBout  //rgb value from the bitmap 
-
  ) ;
 
 

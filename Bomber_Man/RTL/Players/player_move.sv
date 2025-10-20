@@ -73,7 +73,7 @@ int Xposition ; //position
 int Yposition ;
 
 logic [7:0] Speed;
-logic [7:0] speed_levels [0:2] = '{64, 112, 160};
+logic [7:0] speed_levels [0:2] = '{64, 96, 128};
 
 
 logic [3:0] hit_reg_1 = 4'b0;
