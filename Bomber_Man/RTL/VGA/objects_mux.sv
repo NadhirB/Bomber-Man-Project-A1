@@ -51,6 +51,10 @@ module	objects_mux	(
 			//Power Ups
 					input logic PowerUp_DR,
 					input logic [7:0] PowerUp_RGB,
+					
+			//Spikes
+					input logic spikes_DR,
+					input logic [7:0] spikes_RGB,
 			  
 		  // Output	   
 					output	logic	[7:0] RGBOut
@@ -91,6 +95,8 @@ begin
 				RGBOut <= Door_Idol_RGB;
 		else if (PowerUp_DR)
 				RGBOut <= PowerUp_RGB;
+		else if (spikes_DR)
+				RGBOut <= spikes_RGB;
 		else RGBOut <= RGB_MIF ;// last priority 
 		end ; 
 	end

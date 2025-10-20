@@ -125,7 +125,7 @@ always_comb begin
 				  frq[28] =  do_ ;      len[28] = 1  ; 
 				  frq[29] =  do_ ;      len[29] = 5  ; 
 				  
-   				 frq[30] = do_ ;     len[30] = 0 ;    // length = 0 means end of melody
+				  frq[30] = do_ ;     len[30] = 0 ;    // length = 0 means end of melody
 				
       end // case 1
 	
@@ -225,10 +225,45 @@ always_comb begin
 
       10:   begin		
 			//************************************************************************************************** 
-			// Sheet Music of melody:  Single Note si                                                *
+			// Sheet Music of melody:  Main Menu Music                                                 *
 			//**************************************************************************************************			 
-				  frq[0]  =  silence  ;       len[0]  = 1  ;   
-	 			  frq[1] =   do_ ;       len[1]  = 0 ;    // length = 0 means end of melody
+				  frq[0]  =  do_ ;      len[0]  = 2  ;   
+				  frq[1]  =  do_ ;      len[1]  = 2  ;   
+				  frq[2]  =  reD ;      len[2]  = 2  ;   
+				  frq[3]  =  do_ ;      len[3]  = 2  ;
+				  frq[4]  =  silence ;  len[4]  = 2  ;
+				  
+				  frq[5]  =  do_ ;      len[5]  = 2  ;  
+				  frq[6]  =  reD ;      len[6]  = 4  ;
+				  
+				  frq[7]  =  sol ;      len[7]  = 2  ;   
+				  frq[8]  =  fa  ;      len[8]  = 2  ;   
+				  frq[9]  =  reD ;      len[9]  = 2  ;   
+				  frq[10] =  reD ;      len[10] = 2  ;   
+				  frq[11] =  reD ;      len[11] = 2  ;  
+				  frq[12] =  reD ;      len[12] = 2  ;  
+				  frq[13] =  do_ ;      len[13] = 2  ; 
+				  frq[14] =  silence ;  len[14] = 2  ;
+				  
+				  frq[15] =  sol ;      len[15] = 2  ;   
+				  frq[16] =  fa  ;      len[16] = 2  ;   
+				  frq[17] =  reD ;      len[17] = 2  ;   
+				  frq[18] =  reD ;      len[18] = 2  ;   
+				  frq[19] =  reD ;      len[19] = 2  ;  
+				  frq[20] =  reD ;      len[20] = 2  ;  
+				  frq[21] =  do_ ;      len[21] = 2  ;
+				  frq[22] =  silence ;  len[22] = 2  ;
+				  
+				  frq[23] =  sol ;      len[23] = 2  ;   
+				  frq[24] =  fa  ;      len[24] = 2  ;   
+				  frq[25] =  reD ;      len[25] = 2  ;   
+				  frq[26] =  reD ;      len[26] = 2  ;   
+				  frq[27] =  reD ;      len[27] = 2  ;  
+				  frq[28] =  fa  ;      len[28] = 2  ;  
+				  frq[29] =  sol ;      len[29] = 4  ;
+				  frq[30] =  silence ;  len[30] = 6  ; 
+				  
+				  frq[31] = do_ ;     len[31] = 0 ;    // length = 0 means end of melody
       end // case 10
 
 

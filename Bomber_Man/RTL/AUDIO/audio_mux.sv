@@ -15,6 +15,7 @@ module audio_mux (
 	input logic melodyEnded,
 	input logic game_on,
 	input logic score_reset,
+	input logic main_menu,
 	
 	output logic startMelodyKey,
 	output logic [3:0] melody_select
@@ -69,6 +70,13 @@ always_ff @(posedge clk or negedge resetN) begin
 					startMelodyKey <= 1'b1;
 					flag <= 1'b0;
 				end
+				
+				else if (main_menu) begin
+					SM_playNotes <= s_play;
+					melody_select <= 4'd10;
+					startMelodyKey <= 1'b1;
+				end
+				
 			end
 
 			//=================================================

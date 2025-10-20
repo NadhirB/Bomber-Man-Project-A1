@@ -15,17 +15,20 @@ module	game_controller	(
 			input	logic	drawing_request_blast2,
 			input logic drawing_request_enemy1,
 			input logic drawing_request_enemy2,
+			input logic drawing_request_enemy3,
 			input logic drawing_request_bomb,
 			input logic drawing_request_bomb2,
 			input logic drawing_request_doorIdol,
 			input logic drawing_request_powerUp,
 			input logic player_invulnerable,
 			input logic player2_invulnerable,
+			input logic drawing_request_spikes,
 
 			output logic player_culomn_wall, // active in case of collision player and columns
 			output logic player2_culomn_wall,
 			output logic enemy1_column_wall_bomb,
 			output logic enemy2_column_wall_bomb,
+			output logic enemy3_column_wall_bomb,
 			output logic SingleHitPulse_enemies, // critical code, generating A single pulse in a frame 
 			output logic collision_blast_wall, // active in case of collision between blast and wall
 			output logic SingleHitPulse_player,
@@ -33,25 +36,35 @@ module	game_controller	(
 			output logic collision_player_powerUp,
 			output logic player_hit,
 			output logic collision_player2_powerUp,
-			output logic player2_hit
+			output logic player2_hit,
+			output logic enemy1_kill,
+			output logic enemy2_kill,
+			output logic enemy3_kill
 			
 
 );
 
 
-assign player_culomn_wall = (drawing_request_player && (drawing_request_columns || drawing_request_wall));// any collision --> comment after updating with #4 or #5 
-assign player2_culomn_wall = (drawing_request_player2 && (drawing_request_columns || drawing_request_wall));
+assign player_culomn_wall = (drawing_request_player && (drawing_request_columns || drawing_request_wall || drawing_request_bomb2));// any collision --> comment after updating with #4 or #5 
+assign player2_culomn_wall = (drawing_request_player2 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb));
+
 assign enemy1_column_wall_bomb = (drawing_request_enemy1 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb || drawing_request_bomb2));
 assign enemy2_column_wall_bomb = (drawing_request_enemy2 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb || drawing_request_bomb2));
+assign enemy3_column_wall_bomb = (drawing_request_enemy3 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb || drawing_request_bomb2));
 
-//assign collision_blast_wall = (drawing_request_blast && drawing_request_wall && !drawing_request_columns);
+
 assign collision_blast_wall = ((drawing_request_blast || drawing_request_blast2) && drawing_request_wall && !drawing_request_columns);
 assign player_door_idol = (drawing_request_doorIdol && drawing_request_player && !drawing_request_wall);
+
 assign collision_player_powerUp = (drawing_request_player && drawing_request_powerUp);
 assign collision_player2_powerUp = (drawing_request_player2 && drawing_request_powerUp);
 
-assign player_hit = (drawing_request_player && (drawing_request_blast || drawing_request_blast2 || drawing_request_enemy1 || drawing_request_enemy2) && !player_invulnerable);
-assign player2_hit = (drawing_request_player2 && (drawing_request_blast || drawing_request_blast2 || drawing_request_enemy1 || drawing_request_enemy2) && !player2_invulnerable);
+assign player_hit = (drawing_request_player && (drawing_request_blast || drawing_request_blast2 || drawing_request_enemy1 || drawing_request_enemy2 || drawing_request_enemy3 || drawing_request_spikes) && !player_invulnerable);
+assign player2_hit = (drawing_request_player2 && (drawing_request_blast || drawing_request_blast2 || drawing_request_enemy1 || drawing_request_enemy2 || drawing_request_enemy3 ||  drawing_request_spikes) && !player2_invulnerable);
+
+assign enemy1_kill = (drawing_request_blast && drawing_request_enemy1);
+assign enemy2_kill = (drawing_request_blast && drawing_request_enemy2);
+assign enemy3_kill = (drawing_request_blast && drawing_request_enemy3);
 
 
 logic flag ; // a semaphore to set the output only once per frame regardless of number of collisions 
