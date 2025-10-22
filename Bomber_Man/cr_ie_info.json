@@ -1,0 +1,22 @@
+{
+	"system" : {
+		"platform" : "windows64",
+		"os_name" : "Windows 10",
+		"os_version" : "10.0"
+	},
+	"error" : {
+		"executable" : "quartus_eda",
+		"comment" : "not_applicable",
+		"error_message" : "bus_port->has_type()",
+		"source_file" : "/quartus/neto/tbo/tbo_common_vec_writer.cpp",
+		"line" : "281",
+		"stack_trace" : "\t0x7fff1898872c: NETO_TBO + 0x872c (?get_port_type@TBO_COMMON_VEC_WRITER@@IEAAPEAVHDB_TYPE@@PEAVHDB_INSTANCE_NAME@@@Z + 0x6c)\n\t0x7fff189a3840: NETO_TBO + 0x23840 (?write_registers@TBO_VLG_VEC_WRITER@@UEAAXXZ + 0x700)\n\t0x7fff1899d48e: NETO_TBO + 0x1d48e (?write_module@TBO_VLG_TPT_WRITER@@QEAAXXZ + 0x2e)\n\t0x7fff1899d0d8: NETO_TBO + 0x1d0d8 (?write_file@TBO_VLG_TPT_WRITER@@UEAA_NXZ + 0x1b8)\n\t0x7fff18985958: NETO_TBO + 0x5958 (?write_file@TBO_WRITER@@QEAA_NPEBVVDB_DATA@@PEAVHDB_NAMESPACE@@W4TBO_DATA_TYPE@@AEBVBIG_TIME@@@Z + 0x248)\n\t0x7fff18984a2f: NETO_TBO + 0x4a2f (?write_testbench_file@TBO_BUILDER@@QEAA?AW4TBO_WRITE_STATUS@@XZ + 0x1af)\n\t0x7ff6f0cf8dc3: quartus_eda + 0x28dc3 (qneto_generate_testbench + 0xb73)\n\t0x7ff6f0cf809f: quartus_eda + 0x2809f (?qneto_execute@@YA_NPEAVCMP_FACADE@@PEBD_N2V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@332AEBVQEDAU_UTIL@@@Z + 0xaf)\n\t0x7ff6f0cd9b88: quartus_eda + 0x9b88 (?execute@QNETO_FRAMEWORK@@UEAA_NXZ + 0x288)\n\t0x7fff72a512bc: comp_qexe + 0x112bc (qexe_do_normal + 0x1ec)\n\t0x7fff72a56142: comp_qexe + 0x16142 (qexe_run + 0x432)\n\t0x7fff72a56e51: comp_qexe + 0x16e51 (?qexe_standard_main@@YAHPEAVQEXE_FRAMEWORK@@PEAPEBUQEXE_OPTION_DEFINITION@@HPEAPEBD@Z + 0xc1)\n\t0x7ff6f0cdfaad: quartus_eda + 0xfaad (?qneto_main@@YAHHPEAPEBD@Z + 0x9d)\n\t0x7fff787f2d68: CCL_MSG + 0x12d68 (?msg_main_thread@@YAPEAXPEAX@Z + 0x18)\n\t0x7fff787f454e: CCL_MSG + 0x1454e (?msg_thread_wrapper@@YAPEAXP6APEAXPEAX@Z0@Z + 0x6e)\n\t0x7fff788f5b00: ccl_mem + 0x15b00 (?mem_thread_wrapper@@YAPEAXP6APEAXPEAX@Z0@Z + 0x70)\n\t0x7fff787f2631: CCL_MSG + 0x12631 (?msg_exe_main@@YAHHPEAPEBDP6AHH0@Z@Z + 0xa1)\n\t0x7ff6f0cf9b32: quartus_eda + 0x29b32 (__tmainCRTStartup + 0x10e)\n\t0x7fff957c176b: KERNEL32 + 0xf176b (GetProcAddress + 0xeac0b)\n\t0x7fff957415e7: KERNEL32 + 0x715e7 (GetProcAddress + 0x6aa87)\n\t0x7fff963ec11f: ntdll + 0x21c11f\n",
+		"subsystem" : "TBO"
+	},
+	"quartus" : {
+		"quartus_bits" : "64",
+		"version" : "17.0.0",
+		"build" : "595",
+		"edition" : "Lite Edition"
+	}
+}
