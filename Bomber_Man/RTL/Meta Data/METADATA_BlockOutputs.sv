@@ -17,6 +17,12 @@ module	METADATA_BlockOutputs	(
 					input logic [7:0] RGB_4,
 					input logic DR_5,
 					input logic [7:0] RGB_5,
+					input logic DR_6,
+					input logic [7:0] RGB_6,
+					input logic DR_7,
+					input logic [7:0] RGB_7,
+					input logic DR_8,
+					input logic [7:0] RGB_8,
 					
 					
 					output	logic	drawingRequest, //output that the pixel should be dispalyed 
@@ -24,7 +30,7 @@ module	METADATA_BlockOutputs	(
  ) ;
  
  
- assign drawingRequest = DR_1 || DR_2 || DR_3 || DR_4 || DR_5;
+ assign drawingRequest = DR_1 || DR_2 || DR_3 || DR_4 || DR_5 || DR_6 || DR_7 || DR_8;
 // pipeline (ff) to get the pixel color from the array 	 
 
 //////////--------------------------------------------------------------------------------------------------------------=
@@ -45,6 +51,12 @@ begin
 			RGBout = RGB_4;
 		else if (DR_5)
 			RGBout = RGB_5;
+		else if (DR_6)
+			RGBout = RGB_6;
+		else if (DR_7)
+			RGBout = RGB_7;
+		else if (DR_8)
+			RGBout = RGB_8;
 		else
 			RGBout = 8'h00;
 	end

@@ -218,8 +218,8 @@ always_comb begin
 			//************************************************************************************************** 
 			// Sheet Music of melody:  Single Note la                                                *
 			//**************************************************************************************************			 
-				  frq[0]  =  la  ;       len[0]  = 2  ;   
-	 			  frq[1] =   do_ ;       len[1]  = 0 ;    // length = 0 means end of melody
+				  frq[0]  =  la  ;       len[0]  = 0  ;   
+//	 			  frq[1] =   do_ ;       len[1]  = 0 ;    // length = 0 means end of melody
       end // case 9
 
 

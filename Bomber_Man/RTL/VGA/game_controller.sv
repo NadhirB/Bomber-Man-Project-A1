@@ -56,15 +56,15 @@ assign enemy3_column_wall_bomb = (drawing_request_enemy3 && (drawing_request_col
 assign collision_blast_wall = ((drawing_request_blast || drawing_request_blast2) && drawing_request_wall && !drawing_request_columns);
 assign player_door_idol = (drawing_request_doorIdol && drawing_request_player && !drawing_request_wall);
 
-assign collision_player_powerUp = (drawing_request_player && drawing_request_powerUp);
-assign collision_player2_powerUp = (drawing_request_player2 && drawing_request_powerUp);
+assign collision_player_powerUp = (drawing_request_player && drawing_request_powerUp && !drawing_request_wall);
+assign collision_player2_powerUp = (drawing_request_player2 && drawing_request_powerUp && !drawing_request_wall);
 
 assign player_hit = (drawing_request_player && (drawing_request_blast || drawing_request_blast2 || drawing_request_enemy1 || drawing_request_enemy2 || drawing_request_enemy3 || drawing_request_spikes) && !player_invulnerable);
 assign player2_hit = (drawing_request_player2 && (drawing_request_blast || drawing_request_blast2 || drawing_request_enemy1 || drawing_request_enemy2 || drawing_request_enemy3 ||  drawing_request_spikes) && !player2_invulnerable);
 
-assign enemy1_kill = (drawing_request_blast && drawing_request_enemy1);
-assign enemy2_kill = (drawing_request_blast && drawing_request_enemy2);
-assign enemy3_kill = (drawing_request_blast && drawing_request_enemy3);
+assign enemy1_kill = ((drawing_request_blast || drawing_request_blast2) && drawing_request_enemy1);
+assign enemy2_kill = ((drawing_request_blast || drawing_request_blast2) && drawing_request_enemy2);
+assign enemy3_kill = ((drawing_request_blast || drawing_request_blast2) && drawing_request_enemy3);
 
 
 logic flag ; // a semaphore to set the output only once per frame regardless of number of collisions 

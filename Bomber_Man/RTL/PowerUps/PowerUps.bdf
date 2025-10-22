@@ -168,7 +168,7 @@ agreement for further details.
 	(input)
 	(rect 1144 416 1344 432)
 	(text "INPUT" (rect 157 0 185 10)(font "Arial" (font_size 6)))
-	(text "col_player2_powerUp" (rect 5 0 111 17)(font "Intel Clear" ))
+	(text "col_player2_powerUp" (rect 5 0 110 17)(font "Intel Clear" ))
 	(pt 200 8)
 	(drawing
 		(line (pt 116 12)(pt 141 12))
@@ -200,7 +200,7 @@ agreement for further details.
 	(input)
 	(rect 1160 496 1344 512)
 	(text "INPUT" (rect 141 0 169 10)(font "Arial" (font_size 6)))
-	(text "curr_bombs2[3..0]" (rect 5 0 90 17)(font "Intel Clear" ))
+	(text "curr_bombs2[3..0]" (rect 5 0 89 17)(font "Intel Clear" ))
 	(pt 184 8)
 	(drawing
 		(line (pt 100 12)(pt 125 12))
@@ -216,7 +216,7 @@ agreement for further details.
 	(input)
 	(rect 1168 512 1344 528)
 	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
-	(text "curr_speed2[1..0]" (rect 5 0 87 17)(font "Intel Clear" ))
+	(text "curr_speed2[1..0]" (rect 5 0 86 17)(font "Intel Clear" ))
 	(pt 176 8)
 	(drawing
 		(line (pt 92 12)(pt 117 12))
@@ -232,7 +232,39 @@ agreement for further details.
 	(input)
 	(rect 1176 544 1344 560)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "mode_sel" (rect 5 0 53 12)(font "Arial" ))
+	(text "mode_sel" (rect 5 0 52 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 1168 560 1344 576)
+	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
+	(text "layout_sel[3..0]" (rect 5 0 82 12)(font "Arial" ))
+	(pt 176 8)
+	(drawing
+		(line (pt 92 12)(pt 117 12))
+		(line (pt 92 4)(pt 117 4))
+		(line (pt 121 8)(pt 176 8))
+		(line (pt 92 12)(pt 92 4))
+		(line (pt 117 4)(pt 121 8))
+		(line (pt 117 12)(pt 121 8))
+	)
+	(text "VCC" (rect 136 7 156 17)(font "Arial" (font_size 6)))
+)
+(pin
+	(input)
+	(rect 1176 576 1344 592)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "game_on" (rect 5 0 50 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -551,9 +583,9 @@ agreement for further details.
 	(annotation_block (parameter)(rect 904 208 1159 284))
 )
 (symbol
-	(rect 1344 296 1600 600)
+	(rect 1344 296 1600 632)
 	(text "PowerUpsBitMap" (rect 5 0 87 12)(font "Arial" ))
-	(text "inst" (rect 8 288 25 300)(font "Arial" ))
+	(text "inst" (rect 8 320 25 332)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -660,6 +692,20 @@ agreement for further details.
 		(line (pt 0 256)(pt 16 256))
 	)
 	(port
+		(pt 0 272)
+		(input)
+		(text "layout_sel[3..0]" (rect 0 0 76 12)(font "Arial" ))
+		(text "layout_sel[3..0]" (rect 21 267 97 279)(font "Arial" ))
+		(line (pt 0 272)(pt 16 272)(line_width 3))
+	)
+	(port
+		(pt 0 288)
+		(input)
+		(text "game_on" (rect 0 0 44 12)(font "Arial" ))
+		(text "game_on" (rect 21 283 65 295)(font "Arial" ))
+		(line (pt 0 288)(pt 16 288))
+	)
+	(port
 		(pt 256 32)
 		(output)
 		(text "drawingRequest" (rect 0 0 77 12)(font "Arial" ))
@@ -730,7 +776,7 @@ agreement for further details.
 		(line (pt 256 176)(pt 240 176))
 	)
 	(drawing
-		(rectangle (rect 16 16 240 288))
+		(rectangle (rect 16 16 240 320))
 	)
 )
 (connector

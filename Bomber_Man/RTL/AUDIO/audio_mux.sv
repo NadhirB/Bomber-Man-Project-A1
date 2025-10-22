@@ -22,7 +22,7 @@ module audio_mux (
 	
 );
 
-enum logic [1:0] {s_idle, s_play, s_reset} SM_playNotes;
+enum logic [2:0] {s_idle, s_play, s_reset, s_main_menu} SM_playNotes;
 
 logic flag;
 
@@ -72,7 +72,7 @@ always_ff @(posedge clk or negedge resetN) begin
 				end
 				
 				else if (main_menu) begin
-					SM_playNotes <= s_play;
+					SM_playNotes <= s_main_menu;
 					melody_select <= 4'd10;
 					startMelodyKey <= 1'b1;
 				end
@@ -88,6 +88,7 @@ always_ff @(posedge clk or negedge resetN) begin
 
 				if (melodyEnded)
 					SM_playNotes <= s_idle;
+				
 			end
 			//=================================================
 			
@@ -98,6 +99,15 @@ always_ff @(posedge clk or negedge resetN) begin
 				end
 			end
 			//=================================================
+			
+			s_main_menu: begin
+				startMelodyKey <= 1'b0;
+				
+				if (!main_menu || melodyEnded) begin
+					melody_select <= 4'd9;
+					SM_playNotes <= s_idle;
+				end
+			end
 			
 		endcase
 	end
