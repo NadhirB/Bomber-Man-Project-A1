@@ -136,7 +136,7 @@ agreement for further details.
 	(input)
 	(rect 200 456 368 472)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "game_on" (rect 5 0 50 12)(font "Arial" ))
+	(text "reset" (rect 5 0 29 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -466,7 +466,7 @@ agreement for further details.
 (symbol
 	(rect 416 336 656 512)
 	(text "door_idol_controller" (rect 5 0 99 12)(font "Arial" ))
-	(text "inst4" (rect 8 160 30 177)(font "Intel Clear" ))
+	(text "inst12" (rect 8 160 37 172)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -512,8 +512,8 @@ agreement for further details.
 	(port
 		(pt 0 128)
 		(input)
-		(text "game_on" (rect 0 0 44 12)(font "Arial" ))
-		(text "game_on" (rect 21 123 65 135)(font "Arial" ))
+		(text "reset" (rect 0 0 24 12)(font "Arial" ))
+		(text "reset" (rect 21 123 45 135)(font "Arial" ))
 		(line (pt 0 128)(pt 16 128))
 	)
 	(port
@@ -596,24 +596,6 @@ agreement for further details.
 	(pt 936 352)
 	(pt 848 352)
 	(bus)
-)
-(connector
-	(pt 936 368)
-	(pt 656 368)
-	(bus)
-)
-(connector
-	(pt 936 384)
-	(pt 656 384)
-	(bus)
-)
-(connector
-	(pt 656 400)
-	(pt 896 400)
-)
-(connector
-	(pt 896 400)
-	(pt 896 432)
 )
 (connector
 	(pt 368 416)
@@ -716,6 +698,24 @@ agreement for further details.
 (connector
 	(pt 368 464)
 	(pt 416 464)
+)
+(connector
+	(pt 896 432)
+	(pt 896 400)
+)
+(connector
+	(pt 656 368)
+	(pt 936 368)
+	(bus)
+)
+(connector
+	(pt 656 384)
+	(pt 936 384)
+	(bus)
+)
+(connector
+	(pt 656 400)
+	(pt 896 400)
 )
 (text "// (c) Technion IIT, Department of Electrical Engineering 2025" (rect 632 24 991 43)(font "Intel Clear" (font_size 8)))
 (rectangle (rect 168 184 1824 664)(color 0 0 0)(line_width 3))

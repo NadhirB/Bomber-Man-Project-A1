@@ -8,7 +8,7 @@ module	door_idol_controller	(
 					input logic [1:0] level_select,
 					input	logic	[4:0] random_num1,
 					input	logic	[4:0] random_num2,
-					input logic game_on,
+					input logic reset,
 			
 		  // Output	   
 					output logic [10:0] topLeftX,
@@ -112,7 +112,7 @@ begin
 				if(!enter_is_presed) //to not jump
 					flag <= 0;
 	
-				if(enter_is_presed && !game_on && !flag) begin
+				if(enter_is_presed && reset && !flag) begin
 					SM_Controller <= IDLE_ST;
 					flag <= 1;
 				end

@@ -76,8 +76,8 @@ agreement for further details.
 	(port
 		(pt 0 144)
 		(input)
-		(text "game_on" (rect 0 0 54 19)(font "Intel Clear" (font_size 8)))
-		(text "game_on" (rect 21 139 75 158)(font "Intel Clear" (font_size 8)))
+		(text "reset" (rect 0 0 29 19)(font "Intel Clear" (font_size 8)))
+		(text "reset" (rect 21 139 50 158)(font "Intel Clear" (font_size 8)))
 		(line (pt 0 144)(pt 16 144))
 	)
 	(port

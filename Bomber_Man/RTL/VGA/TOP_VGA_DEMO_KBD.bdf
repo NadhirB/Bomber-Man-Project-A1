@@ -5475,8 +5475,8 @@ agreement for further details.
 	(port
 		(pt 0 144)
 		(input)
-		(text "game_on" (rect 0 0 54 19)(font "Intel Clear" (font_size 8)))
-		(text "game_on" (rect 21 139 75 158)(font "Intel Clear" (font_size 8)))
+		(text "reset" (rect 0 0 29 19)(font "Intel Clear" (font_size 8)))
+		(text "reset" (rect 21 139 50 158)(font "Intel Clear" (font_size 8)))
 		(line (pt 0 144)(pt 16 144))
 	)
 	(port
@@ -8678,15 +8678,15 @@ agreement for further details.
 	(pt -1104 -264)
 )
 (connector
-	(text "game_on" (rect -1240 680 -1196 697)(font "Intel Clear" ))
-	(pt -1144 696)
-	(pt -1248 696)
-)
-(connector
 	(text "level_sel[3..0]" (rect -2806 352 -2738 369)(font "Intel Clear" ))
 	(pt -2800 368)
 	(pt -2728 368)
 	(bus)
+)
+(connector
+	(text "lives_reset" (rect -1240 680 -1189 697)(font "Intel Clear" ))
+	(pt -1144 696)
+	(pt -1248 696)
 )
 (junction (pt -2664 176))
 (text "The keyboard interface" (rect -3880 -272 -3432 -225)(font "Intel Clear" (font_size 26)(bold)))
