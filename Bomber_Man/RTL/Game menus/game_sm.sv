@@ -1,5 +1,5 @@
 
-// (c) Technion IIT, Department of Electrical Engineering 2025 
+// This module is the game state machine. Responsible for determing the current state of the game.
 
 
 module	game_sm	(	
@@ -36,28 +36,28 @@ module	game_sm	(
 					output logic mode_sel,
 					output logic game_over_type,
 					output logic [1:0] level_sel,
-					output logic score_reset,
-					output logic lives_reset,
+					output logic score_reset,		// used to reset most modules that require reset on the main menu
+					output logic lives_reset,		// used to reset the lives count because it determines the outcome of the 2-Player mode (delicate)
 					output logic play_menu_music
 					
 			
 );
 
 enum  logic [3:0] {MAIN_MENU_ST,         	// initial state
-						 MODE_SELECTION,				 // moving no colision
+						 MODE_SELECTION,				 
 						 CONTROLS_ST,
 						 GAMEPLAY_ST,
 						 GAMEOVER_ST,
-						 GAMEOVER_TIME_ST, 	// startOfFrame activity-after all data collected 
+						 GAMEOVER_TIME_ST, 	
 						 GAMEOVER_LIVES_ST,
-						 GAMEOVER_2PLAYER_ST, // position interpolate  
+						 GAMEOVER_2PLAYER_ST,   
 						 LEVEL_DSP_ST,
 						 GAME_WON_ST
 						}  SM_Game;
 						
 						
-logic flag;
-logic timer_flag;
+logic flag; 		// flag to prevent holding Enter key
+logic timer_flag;	// flag to enter game_over_time only once
 logic [0:1] three_sec_counter;
 
 always_ff@(posedge clk or negedge resetN)
@@ -261,7 +261,7 @@ begin: fsm_sync_proc
 					SM_Game <= MAIN_MENU_ST;
 					lives_reset <= 1;
 					flag <= 1'b1;
-					timer_flag <= 1'b0; ////maybe delete
+					timer_flag <= 1'b0; 
 					three_sec_counter <= 2'b10;
 				end
 				
@@ -277,7 +277,7 @@ begin: fsm_sync_proc
 					SM_Game <= MAIN_MENU_ST;
 					lives_reset <= 1;
 					flag <= 1'b1;
-					timer_flag <= 1'b0;////maybe delete
+					timer_flag <= 1'b0;
 					three_sec_counter <= 2'b10;
 				end
 		

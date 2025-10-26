@@ -1,8 +1,5 @@
-// System-Verilog 'written by Alex Grinshpun May 2018
-// New bitmap dudy February 2025
-// (c) Technion IIT, Department of Electrical Engineering 2025 
 
-
+// This module has the bitmap of the dynamite 32x32
 
 module	bombBitMap	(	
 					input	logic	clk,
@@ -19,9 +16,6 @@ module	bombBitMap	(
 localparam  int OBJECT_NUMBER_OF_Y_BITS = 5;  // 2^5 = 32 
 localparam  int OBJECT_NUMBER_OF_X_BITS = 5;  // 2^6 = 64 
 
-
-
-// generating a smiley bitmap
 
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'hff;// RGB value in the bitmap representing a transparent pixel 
 

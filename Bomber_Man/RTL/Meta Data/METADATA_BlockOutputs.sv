@@ -1,6 +1,6 @@
-// System-Verilog 'written by Alex Grinshpun May 2018
-// New bitmap dudy February 2025
-// (c) Technion IIT, Department of Electrical Engineering 2025 
+
+// This is a general module used as a mux to convert multiple letter sequences, drawing requests and RGB inputs in a single output,
+// used in higher hierarchy
 
 
 

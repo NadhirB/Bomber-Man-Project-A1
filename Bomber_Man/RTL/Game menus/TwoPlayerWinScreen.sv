@@ -1,7 +1,5 @@
-// System-Verilog 'written by Alex Grinshpun May 2018
-// New bitmap dudy February 2025
-// (c) Technion IIT, Department of Electrical Engineering 2025 
 
+// This module is to determine the winner of the 2-Player mode, based on the lives left.
 
 module TwoPlayerWinScreen (
     input logic clk,

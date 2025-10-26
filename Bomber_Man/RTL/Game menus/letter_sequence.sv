@@ -1,4 +1,7 @@
 
+// This module is used to generate a letter sequence (a sentence in the same Y coordinates)
+// Using a conversion table and 16 letters as parameters we can efficiently use fewer modules to generate more letters
+
 module	letter_sequence	(	
 					input	logic	clk,
 					input	logic	resetN,

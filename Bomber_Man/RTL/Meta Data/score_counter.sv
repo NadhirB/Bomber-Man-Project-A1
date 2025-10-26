@@ -1,4 +1,5 @@
 
+// This module is responsible for counting the score of the player
 
 module score_counter
 (
@@ -30,7 +31,9 @@ module score_counter
             prev_wall <= 1'b0;
             wall_scored <= 1'b0;
         end
-        else if (game_on) begin
+        else if (game_on) begin			// score can't change when game_on == 0
+		  
+				// in order to prevent score rising up quick when blast hits unbroken wodden boxes
 
             wall_rising <= collision_blast_wall & ~prev_wall;
             prev_wall <= collision_blast_wall;
@@ -49,7 +52,7 @@ module score_counter
                 wall_scored <= 1'b0;
         end
         else begin
-				if (score_reset) 
+				if (score_reset) 		// reset score on main menu (was added because we wanted to display score on the last screen)
 					score <= 16'd0;
 				else begin
 					score <= score;
@@ -60,6 +63,8 @@ module score_counter
     end
 
 
+	 // using "unefficient" method of deviding by 10 instead of multiples of 2, because other method did not work (we are honest)
+	 
     always_comb begin
         int tmp;
         tmp = score;

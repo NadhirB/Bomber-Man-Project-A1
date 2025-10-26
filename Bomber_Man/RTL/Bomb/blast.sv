@@ -33,16 +33,15 @@ always_ff @(posedge clk or negedge resetN)
 		explode <= 0;
 		end 
 
-	else begin case (SMblast) // logically defining what is the next state, and the ouptput
-		
-			//Note: the implementation of the idle state is already given you as an example
+	else begin case (SMblast) // logically defining what is the next state, and the ouptput	
+			
 //      ======		
 			s_idle: begin
 //      ======
 					topLeftX <= 640;
 					topLeftY <= 480;
 				if (blast) begin
-					topLeftX <= bomb_topLeftX - 64;
+					topLeftX <= bomb_topLeftX - 64;			// used because of how the bit map of the blast is calculated 
 					topLeftY <= bomb_topLeftY - 64;
 //					radius <= blastRadius;
 					SMblast <= s_explode;

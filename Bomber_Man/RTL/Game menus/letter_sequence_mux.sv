@@ -1,3 +1,6 @@
+
+// This module is used for efficiency purpose, takes 4 sequences of letters and creates a single 2-d arrat of letters, that FancyLetters takes as an input
+
 module letter_sequence_mux (	
 	
 	input	logic	clk,

@@ -7,6 +7,10 @@
 // by instantiating two one bit down-counters
 
 
+
+// We use the same game_timer we made at the start of the semester.
+
+
 module game_timer
 	(
 	input logic clk, 
@@ -14,7 +18,7 @@ module game_timer
 	input logic loadN, 
 	input logic enable1, 
 	input logic enable2, 
-	input logic inc_time,
+	input logic inc_time,		// When clock powerUp is collected this signal pulses high
 	
 	output logic [3:0] countL, 
 	output logic [3:0] countH,
@@ -38,7 +42,7 @@ assign loadN_internal = loadN & ~inc_time;
         if (inc_time) begin
             int total;
             total = (countH * 10) + countL + 10; // add 10 seconds
-            if (total > 99) total = 99;          // saturate at 99
+            if (total > 99) total = 99;          // stay at 99
             next_countH = total / 10;
             next_countL = total % 10;
         end

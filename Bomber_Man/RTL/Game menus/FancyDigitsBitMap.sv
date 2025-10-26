@@ -1,6 +1,5 @@
-// System-Verilog 'written by Alex Grinshpun May 2018
-// New bitmap dudy February 2025
-// (c) Technion IIT, Department of Electrical Engineering 2025 
+
+// This module holds all the 10 digits' bitmaps, which are 16x16. uses a simple case logic
 
 
 
