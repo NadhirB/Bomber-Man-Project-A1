@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 16 16 280 176)
+	(rect 16 16 280 208)
 	(text "Door_and_Idol" (rect 5 0 92 19)(font "Intel Clear" (font_size 8)))
-	(text "inst" (rect 8 139 24 156)(font "Intel Clear" ))
+	(text "inst" (rect 8 171 24 188)(font "Intel Clear" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -67,6 +67,20 @@ agreement for further details.
 		(line (pt 0 112)(pt 16 112)(line_width 3))
 	)
 	(port
+		(pt 0 128)
+		(input)
+		(text "mode_sel" (rect 0 0 57 19)(font "Intel Clear" (font_size 8)))
+		(text "mode_sel" (rect 21 123 78 142)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 128)(pt 16 128))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "game_on" (rect 0 0 54 19)(font "Intel Clear" (font_size 8)))
+		(text "game_on" (rect 21 139 75 158)(font "Intel Clear" (font_size 8)))
+		(line (pt 0 144)(pt 16 144))
+	)
+	(port
 		(pt 264 32)
 		(output)
 		(text "DoorIdolDR" (rect 0 0 68 19)(font "Intel Clear" (font_size 8)))
@@ -81,6 +95,6 @@ agreement for further details.
 		(line (pt 264 48)(pt 248 48)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 248 144))
+		(rectangle (rect 16 16 248 176))
 	)
 )
