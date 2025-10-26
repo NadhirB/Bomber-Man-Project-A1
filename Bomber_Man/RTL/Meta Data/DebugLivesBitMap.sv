@@ -1,7 +1,6 @@
-// System-Verilog 'written by Alex Grinshpun May 2018
-// New bitmap dudy February 2025
-// (c) Technion IIT, Department of Electrical Engineering 2025 
 
+// This module is used to control and calcualte the player's lives.
+// It takes both powerUp increases, player_hit and switch increase/decrease for debugging purposes. 
 
 module DebugLivesBitMap (
     input logic clk,

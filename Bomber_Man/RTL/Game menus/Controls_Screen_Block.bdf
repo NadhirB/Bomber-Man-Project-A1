@@ -5844,12 +5844,12 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "DR_red_blue" (rect 4848 -16 4910 1)(font "Intel Clear" ))
+	(text "DR_red_blue" (rect 4808 -16 4870 1)(font "Intel Clear" ))
 	(pt 4840 0)
 	(pt 4872 0)
 )
 (connector
-	(text "RGB_red_blue[7..0]" (rect 4853 0 4946 17)(font "Intel Clear" ))
+	(text "RGB_red_blue[7..0]" (rect 4813 0 4906 17)(font "Intel Clear" ))
 	(pt 4840 16)
 	(pt 4872 16)
 	(bus)

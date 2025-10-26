@@ -1,7 +1,6 @@
-// HartsMatrixBitMap File 
-// A two level bitmap. dosplaying harts on the screen Feb 2025 
-//(c) Technion IIT, Department of Electrical Engineering 2025 
 
+// This module holds the bitmaps of all the powerUps, but also responsible for calculating whether or not should the player pick them up.
+// On 2-player mode, clocks and jewels are not displayed. 
 
 
 module	PowerUpsBitMap	(	
@@ -22,9 +21,6 @@ module	PowerUpsBitMap	(
 					input logic mode_sel,
 					input logic [3:0] layout_sel,
 					input logic game_on,
-//					input logic explosion,
-//					input logic [10:0] enemy_topLeftX,
-//					input logic [10:0] enemy_topLeftY,
 
 					output logic drawingRequest, //output that the pixel should be dispalyed 
 					output logic [7:0] RGBout,  //rgb value from the bitmap
@@ -36,7 +32,7 @@ module	PowerUpsBitMap	(
 					output logic inc_speed2,
 					output logic inc_bombs2,
 					output logic inc_lives2					
-//					output logic enemy_valid_pos
+
  ) ;
  
 
@@ -61,48 +57,15 @@ localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
  logic [10:0] offsetY_LSB ; 
  logic [10:0] offsetX_MSB ;
  logic [10:0] offsetY_MSB ;
-// logic blast_flag; 
 
  assign offsetX_LSB  = offsetX[(TILE_NUMBER_OF_X_BITS-1):0] ; // get lower bits 
  assign offsetY_LSB  = offsetY[(TILE_NUMBER_OF_Y_BITS-1):0] ; // get lower bits 
  assign offsetX_MSB  = offsetX[(TILE_NUMBER_OF_X_BITS + MAZE_NUMBER_OF__X_BITS -1 ):TILE_NUMBER_OF_X_BITS] ; // get higher bits 
  assign offsetY_MSB  = offsetY[(TILE_NUMBER_OF_Y_BITS + MAZE_NUMBER_OF__Y_BITS -1 ):TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
- 
- 
- 
- // Enemy Valid Position Calc
- 
-// logic [10:0] offsetX_enemy;
-// logic [10:0] offsetY_enemy;
-// logic [10:0] offsetX_enemy_width;
-// logic [10:0] offsetY_enemy_hight;
-// logic maze_object;
 
-// assign offsetX_enemy = enemy_topLeftX - 15;
-// assign offsetY_enemy = enemy_topLeftY - 48;
-// assign offsetX_enemy_width = offsetX_enemy + TILE_WIDTH_X - 1;
-// assign offsetY_enemy_hight = offsetY_enemy + TILE_HEIGHT_Y - 1;
-
-// assign offsetX_enemy_MSB  = offsetX_enemy[(TILE_NUMBER_OF_X_BITS + MAZE_NUMBER_OF__X_BITS -1 ):TILE_NUMBER_OF_X_BITS] ; // get higher bits 
-// assign offsetY_enemy_MSB  = offsetY_enemy[(TILE_NUMBER_OF_Y_BITS + MAZE_NUMBER_OF__Y_BITS -1 ):TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
-// 
-// assign offsetX_enemy_MSB_WIDTH  = offsetX_enemy_MSB + 31;// offsetX_enemy_width[(TILE_NUMBER_OF_X_BITS + MAZE_NUMBER_OF__X_BITS -1 ):TILE_NUMBER_OF_X_BITS] ; // get higher bits 
-// assign offsetY_enemy_MSB_HIGHT  = offsetY_enemy_MSB + 31;// offsetY_enemy_hight[(TILE_NUMBER_OF_Y_BITS + MAZE_NUMBER_OF__Y_BITS -1 ):TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
- 
- 
-
- 
-// the screen is 640*480  or  20 * 15 squares of 32*32  bits ,  we wiil round up to 8 *16 
-// this is the bitmap  of the maze , if there is a specific value  the  whole 32*32 rectange will be drawn on the screen
-// there are  16 options of differents kinds of 32*32 squares 
-// all numbers here are hard coded to simplify the understanding 
-
-
-
-// This is a Test:
 
 logic [2:0] MazeBitMapMask [0:12] [0:18];
-//logic MazeBitMapMask_exploding [0:12] [0:18];
+
 
 logic [2:0] MazeDefaultBitMapMask [0:4] [0:12] [0:18] = 
 	'{'{'{0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0},
@@ -181,23 +144,7 @@ logic [2:0] MazeDefaultBitMapMask [0:4] [0:12] [0:18] =
 	  
 	  };
 
-//logic MazeDefaultBitMapMask_exploding [0:12] [0:18] = 
-//	'{'{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
  
- 
-
 
 logic [0:4] [0:TILE_HEIGHT_Y-1] [0:TILE_WIDTH_X-1] [7:0] object_colors = {
 	{{8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'he0,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc,8'hbc},
@@ -385,12 +332,7 @@ begin
 		inc_bombs2 <= 0;
 		inc_lives2 <= 0;
 		inc_speed2 <= 0;
-		
-//		bombs_left;	
-//		MazeBitMapMask_exploding <= MazeDefaultBitMapMask_exploding;
-//		blast_flag <= 0;
-//		maze_object <= 0;
-
+	
 	end
 	else begin
 		RGBout <= TRANSPARENT_ENCODING ; // default
@@ -486,13 +428,7 @@ begin
 					 3'b111 : RGBout <= TRANSPARENT_ENCODING; 
 				default:  RGBout <= TRANSPARENT_ENCODING; 
 				endcase
-				
-				
-//				if (MazeBitMapMask[offsetY_enemy_MSB][offsetX_enemy_MSB] != 0 || MazeBitMapMask[offsetY_enemy_MSB_HIGHT][offsetX_enemy_MSB] != 0 ||
-//					 MazeBitMapMask[offsetY_enemy_MSB][offsetX_enemy_MSB_WIDTH] != 0 || MazeBitMapMask[offsetY_enemy_MSB_HIGHT][offsetX_enemy_MSB_WIDTH] != 0)
-//					maze_object <= 1;
-//				else
-//					maze_object <= 0;
+
 			end
 		
 
@@ -502,6 +438,6 @@ end
 //==----------------------------------------------------------------------------------------------------------------=
 // decide if to draw the pixel or not 
 assign drawingRequest = (RGBout != TRANSPARENT_ENCODING ) ? 1'b1 : 1'b0 ; // get optional transparent command from the bitmpap 
-//assign enemy_valid_pos = (maze_object == 0) ? 1 : 0;  
+ 
 endmodule
 

@@ -23,15 +23,15 @@ module bomb_system (
 	 output logic explosion
 );
 
-logic [2:0] bomb_drop_key_array;
+logic [2:0] bomb_drop_key_array;		// used to transfer drop bomb key signal to the bottom hierarchy (bomb_block_t) 
 
 parameter  logic [3:0] starting_bombs = 4'b0010 ; 
 
-logic flag;
+logic flag;		// drop_bomb_key flag
 
-logic [2:0] bomb_active;
+logic [2:0] bomb_active;		// keeps track which bomb is currently deployed on screen
 
-logic [2:0] blasts_this_cycle;
+logic [2:0] blasts_this_cycle;		// counts the blasts in the last cycle to update back to the metadata
 
 logic bomb1_blast;  
 logic bomb2_blast;  
@@ -72,6 +72,7 @@ logic explode3;
         if (drop_bomb_key && bombs_left && !flag) begin
             flag <= 1;
             
+// Uses first match of bomb if available
             
 			if (!bomb_active[0]) begin
 				bomb_drop_key_array[0] <= 1'b1;
@@ -84,20 +85,20 @@ logic explode3;
 			   bomb_active[2] <= 1'b1;
 			end
 							 
-            bombs_left <= bombs_left - 1;  
+            bombs_left <= bombs_left - 1;  	// after bomb is deployed, decrease bombs_left by 1
         end
 				
 			if (!drop_bomb_key)
 				flag <= 0;
 				
-			if (bombs_left < 4'b0011 && inc_bomb)
+			if (bombs_left < 4'b0011 && inc_bomb)		// if powerUp collected, increase bombs_leftg by 1
 				bombs_left <= bombs_left + 1;
 					
          blasts_this_cycle = (bomb1_blast ? 1 : 0)
                               + (bomb2_blast ? 1 : 0)
                               + (bomb3_blast ? 1 : 0);
 
-          if (blasts_this_cycle > 0) begin
+          if (blasts_this_cycle > 0) begin		// reset the bomb_active array
                 
             if (bomb1_blast) bomb_active[0] <= 1'b0;
             if (bomb2_blast) bomb_active[1] <= 1'b0;
@@ -109,7 +110,7 @@ logic explode3;
 			 if (bombs_left > 4'b0011)
 				bombs_left <= 4'b0011;
 
-				if (score_reset) begin
+				if (score_reset) begin				// reset status on main menu using score_reset signal
 					bomb_drop_key_array <= 3'b000;
 					bomb_active <= 3'b000;
 					blasts_this_cycle <= 3'b000;
@@ -132,7 +133,6 @@ Bomb_Block_T Bomb_Block_T_inst1
 	.startOfFrame(startOfFrame) ,	// input  startOfFrame_sig
 	.player_topLeftX(player_topLeftX) ,	// input [10:0] player_topLeftX_sig
 	.player_topLeftY(player_topLeftY) ,	// input [10:0] player_topLeftY_sig
-	.blastRadius() ,	// input [1:0] blastRadius_sig
 	.blast_num(blast_num) ,	// input [2:0] blast_num_sig
 	.bombRGB(bomb1_RGB) ,	// output [7:0] bombRGB_sig
 	.bombDR(bomb1_DR) ,	// output  bombDR_sig
@@ -153,7 +153,6 @@ Bomb_Block_T Bomb_Block_T_inst2
 	.startOfFrame(startOfFrame) ,	// input  startOfFrame_sig
 	.player_topLeftX(player_topLeftX) ,	// input [10:0] player_topLeftX_sig
 	.player_topLeftY(player_topLeftY) ,	// input [10:0] player_topLeftY_sig
-	.blastRadius() ,	// input [1:0] blastRadius_sig
 	.blast_num(blast_num) ,	// input [2:0] blast_num_sig
 	.bombRGB(bomb2_RGB) ,	// output [7:0] bombRGB_sig
 	.bombDR(bomb2_DR) ,	// output  bombDR_sig
@@ -174,7 +173,6 @@ Bomb_Block_T Bomb_Block_T_inst3
 	.startOfFrame(startOfFrame) ,	// input  startOfFrame_sig
 	.player_topLeftX(player_topLeftX) ,	// input [10:0] player_topLeftX_sig
 	.player_topLeftY(player_topLeftY) ,	// input [10:0] player_topLeftY_sig
-	.blastRadius() ,	// input [1:0] blastRadius_sig
 	.blast_num(blast_num) ,	// input [2:0] blast_num_sig
 	.bombRGB(bomb3_RGB) ,	// output [7:0] bombRGB_sig
 	.bombDR(bomb3_DR) ,	// output  bombDR_sig
@@ -185,7 +183,8 @@ Bomb_Block_T Bomb_Block_T_inst3
 );
     
     
-    // Multiplex outputs - priority to lower numbered bombs
+    // collect the DR and RGB outputs from the lower hierarchy (bomb_block_t) 
+	 
 always_comb begin
     if (bomb1_DR) begin
         bomb_DR = 1'b1;
@@ -226,6 +225,7 @@ always_comb begin
 end
     
     // Combine blast signals
+	 
     assign blast = bomb1_blast || bomb2_blast || bomb3_blast;
 	 assign explosion = explode1 || explode2 || explode3 ;
 

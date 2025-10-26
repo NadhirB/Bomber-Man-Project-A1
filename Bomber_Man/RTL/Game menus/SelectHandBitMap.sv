@@ -1,8 +1,6 @@
-// System-Verilog 'written by Alex Grinshpun May 2018
-// New bitmap dudy February 2025
-// (c) Technion IIT, Department of Electrical Engineering 2025 
 
-
+// This module has the 16x32 selection hand in the mode selection screen.
+// The square object attached to it uses mux logic to determine its position based on the game_sm outputs
 
 module	SelectHandBitMap	(	
 					input	logic	clk,

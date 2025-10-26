@@ -1,3 +1,6 @@
+
+// This module is used for efficiency purpose, takes 4 sequences of numbers and creates a single array digits[3:0], that FancyDigits takes as an input
+
 module numbers_sequence_mux (	
 	
 	input	logic	clk,

@@ -1,7 +1,7 @@
-// System-Verilog 'written by Alex Grinshpun May 2018
-// New bitmap dudy February 2025
-// (c) Technion IIT, Department of Electrical Engineering 2025 
 
+// This module holds all the 26 letters in the English alphabet, as well as an exclamation mark,
+// a question mark, a transparent bitmap used for spacing, and an extra J for memes.
+// All bitmaps are 16x16.
 
 
 module	FancyLettersBitMap	(	
@@ -10,7 +10,7 @@ module	FancyLettersBitMap	(
 					input logic	[10:0] offsetX,// offset from top left  position 
 					input logic	[10:0] offsetY,
 					input	logic	InsideRectangle, //input that the pixel is within a bracket
-					input logic [4:0] letters [15:0],
+					input logic [4:0] letters [15:0], 		// An array of letters as an input to form a senctence (must be in the same line)
 
 					output	logic	drawingRequest, //output that the pixel should be dispalyed 
 					output	logic	[7:0] RGBout  //rgb value from the bitmap 
@@ -18,7 +18,7 @@ module	FancyLettersBitMap	(
 
  
 parameter int num_of_letters = 16;
-parameter int letters_size = 0;
+parameter int letters_size = 0;	// 0 = 16x16, 1 = 32x32, 2 = 64x64
  
 // this is the devider used to acess the right pixel 
 
@@ -56,6 +56,10 @@ logic [4:0] MazeDefaultBitMapMask [0:num_of_letters - 1] =
  
 
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'h11;// RGB value in the bitmap representing a transparent pixel 
+
+
+// Note - we used object_colors1,2,3 because for some reason combining them did not work
+
 
 logic [0:9] [0:TILE_WIDTH_Y - 1] [0:TILE_WIDTH_X - 1] [7:0] object_colors1 = {
 	{{8'h11,8'h11,8'h11,8'h11,8'h11,8'h11,8'h11,8'h11,8'h11,8'h11,8'h11,8'h11,8'h11,8'h11,8'h11,8'h11},
@@ -594,6 +598,8 @@ begin
 
 		if (InsideRectangle == 1'b1 ) 
 		begin // inside an external bracket 
+		
+				// the >> letter_size used to scale the bitmaps efficiently
 		
 				case (MazeBitMapMask[offsetX_MSB >> letters_size])
 					 32'd0 : RGBout <= object_colors1[0][offsetY_LSB >> letters_size][offsetX_LSB >> letters_size];

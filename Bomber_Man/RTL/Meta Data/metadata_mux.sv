@@ -1,4 +1,6 @@
 
+// This module is the top hierarchy for the metadata. simple mux logi to combine all drawing requests and RGB inputs
+
 
 module metadata_mux (	
 	

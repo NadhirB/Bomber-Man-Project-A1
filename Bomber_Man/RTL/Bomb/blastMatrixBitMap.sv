@@ -62,19 +62,19 @@ logic [1:0] MazeBitMapMask [0:2] [0:4] [0:4];
 logic [1:0] MazeDefaultBitMapMask [0:2] [0:4] [0:4] = '{
 	'{'{1'b0, 1'b0, 1'b0, 1'b0, 1'b0},
 	  '{1'b0, 1'b0, 1'b1, 1'b0, 1'b0},
-	  '{1'b0, 1'b1, 1'b1, 1'b1, 1'b0},
+	  '{1'b0, 1'b1, 1'b1, 1'b1, 1'b0},			// Regular blast
 	  '{1'b0, 1'b0, 1'b1, 1'b0, 1'b0},
 	  '{1'b0, 1'b0, 1'b0, 1'b0, 1'b0}},
 	  
 	'{'{1'b0, 1'b0, 1'b0, 1'b0, 1'b0},
 	  '{1'b0, 1'b0, 1'b1, 1'b0, 1'b0},
-	  '{1'b0, 1'b0, 1'b1, 1'b0, 1'b0},
+	  '{1'b0, 1'b0, 1'b1, 1'b0, 1'b0},			// Vertical blast
 	  '{1'b0, 1'b0, 1'b1, 1'b0, 1'b0},
 	  '{1'b0, 1'b0, 1'b0, 1'b0, 1'b0}},
 	  
 	'{'{1'b0, 1'b0, 1'b0, 1'b0, 1'b0},
 	  '{1'b0, 1'b0, 1'b0, 1'b0, 1'b0},
-	  '{1'b0, 1'b1, 1'b1, 1'b1, 1'b0},
+	  '{1'b0, 1'b1, 1'b1, 1'b1, 1'b0},			// Horizontal blast
 	  '{1'b0, 1'b0, 1'b0, 1'b0, 1'b0},
 	  '{1'b0, 1'b0, 1'b0, 1'b0, 1'b0}}};
  
@@ -129,7 +129,7 @@ begin
 		RGBout <= TRANSPARENT_ENCODING ; // default 
 		
 		if (!blast)
-			blast_num_D <= blast_num;
+			blast_num_D <= blast_num;		// Charges the last input from the random module
 			
 		if (InsideRectangle == 1'b1 )	
 			begin 

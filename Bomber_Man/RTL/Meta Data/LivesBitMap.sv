@@ -1,14 +1,5 @@
-// System-Verilog 'written by Alex Grinshpun May 2018
-// New bitmap dudy February 2025
-// (c) Technion IIT, Department of Electrical Engineering 2025 
 
-
-
-// HartsMatrixBitMap File 
-// A two level bitmap. dosplaying harts on the screen Feb 2025 
-//(c) Technion IIT, Department of Electrical Engineering 2025 
-
-
+// This module has the heart bitmap 32x32
 
 module	LivesBitMap	(	
 					input	logic	clk,

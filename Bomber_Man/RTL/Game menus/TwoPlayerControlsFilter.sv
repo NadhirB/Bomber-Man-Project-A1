@@ -1,4 +1,6 @@
 
+// This module is a filter module that takes the drawing request from the controls screen of the 1-Player mode and 2-Player mode and selects the
+// correct outputs based on the mode_sel input
 
 module TwoPlayerControlsFilter (	
 	

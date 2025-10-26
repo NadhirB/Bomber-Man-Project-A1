@@ -1,4 +1,5 @@
 
+// Simple filter module to filter certain metadata features that are unnecessary in 2-Player mode
 
 module TwoPlayerMetaDataFilter (	
 	

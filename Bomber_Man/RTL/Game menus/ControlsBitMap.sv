@@ -1,12 +1,5 @@
-// System-Verilog 'written by Alex Grinshpun May 2018
-// New bitmap dudy February 2025
-// (c) Technion IIT, Department of Electrical Engineering 2025 
 
-
-
-// HartsMatrixBitMap File 
-// A two level bitmap. dosplaying harts on the screen Feb 2025 
-//(c) Technion IIT, Department of Electrical Engineering 2025 
+// This module holds all the bitmaps used for drawing the movment keys of the controls screen, both 1 and 2-player modes.
 
 
 
@@ -22,24 +15,15 @@ module	ControlsBitMap	(
  ) ;
  
 
- parameter int layout = 0;
+ parameter int layout = 0;		// parameter to determind which key to display: 0 = 1-player, 1 = red player, 2 = blue player
  
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'h00 ;// RGB value in the bitmap representing a transparent pixel 
-
 
 localparam  int TILE_NUMBER_OF_X_BITS = 5;  // 2^4 = 16  everu object 
 localparam  int TILE_NUMBER_OF_Y_BITS = 5;  // 2^4 = 16 
 
-//localparam  int MAZE_NUMBER_OF__X_BITS = 4;  // 2^4 = 16 / /the maze of the objects 
-//localparam  int MAZE_NUMBER_OF__Y_BITS = 3;  // 2^3 = 8 
-//
-////-----
-
 localparam  int TILE_WIDTH_X = 1 << TILE_NUMBER_OF_X_BITS ;
 localparam  int TILE_HEIGHT_Y = 1 <<  TILE_NUMBER_OF_Y_BITS ;
-//localparam  int MAZE_WIDTH_X = 1 << MAZE_NUMBER_OF__X_BITS ;
-//localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
-
 
  logic [10:0] offsetX_LSB  ;
  logic [10:0] offsetY_LSB  ; 
@@ -50,27 +34,6 @@ localparam  int TILE_HEIGHT_Y = 1 <<  TILE_NUMBER_OF_Y_BITS ;
  assign offsetY_LSB  = offsetY[(TILE_NUMBER_OF_Y_BITS-1):0] ; // get lower bits 
  assign offsetX_MSB  = offsetX[10:TILE_NUMBER_OF_X_BITS] ; // get higher bits 
  assign offsetY_MSB  = offsetY[10:TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
- 
- 
-// the screen is 640*480  or  20 * 15 squares of 32*32  bits ,  we wiil round up to 8 *16 
-// this is the bitmap  of the maze , if there is a specific value  the  whole 32*32 rectange will be drawn on the screen
-// there are  16 options of di00erents kinds of 32*32 squares 
-// all numbers here are hard coded to simplify the understanding 
-
-
-//logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [3:0]  MazeBitMapMask ;  
-//
-//logic [0:(MAZE_HEIGHT_Y-1)][0:(MAZE_WIDTH_X-1)] [3:0]   MazeDefaultBitMapMask= // defult table to load on reset 
-//{{64'h00001110000000000},
-// {64'h00000000000000000},
-// {64'h00000000000000000},
-// {64'h00000000000000000},
-// {64'h00000000000000000},
-// {64'h00000000000000000},
-// {64'h00000000000000000},
-// {64'h00000000000000000}};
-
-
  
 
  logic [0:10] [0:(TILE_HEIGHT_Y-1)][0:(TILE_WIDTH_X-1)] [7:0]  object_colors  = {

@@ -1,4 +1,8 @@
 
+// a simple module that takes as an input the score and calculates the digits again.
+
+// Note - why not use the digits as input from the score_block in the metadata section? because there was a thought of adding score based on level reached
+// so we decided to take the score calcualted at the end of the game and perhaps adding to it. The idea never saw the light of day, but the preperation was present.
 
 module final_score
 (
