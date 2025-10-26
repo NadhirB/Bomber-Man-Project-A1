@@ -370,6 +370,82 @@ agreement for further details.
 	)
 )
 (symbol
+	(rect 1600 464 1632 480)
+	(text "VCC" (rect 5 6 25 16)(font "Arial" (font_size 6)))
+	(text "inst4" (rect 7 -6 29 11)(font "Intel Clear" )(invisible))
+	(port
+		(pt 16 0)
+		(output)
+		(text "1" (rect 19 7 24 19)(font "Courier New" (bold))(invisible))
+		(text "1" (rect 8 -3 13 9)(font "Courier New" (bold))(invisible))
+		(line (pt 16 0)(pt 16 8))
+	)
+	(drawing
+		(line (pt 24 8)(pt 8 8))
+	)
+	(rotate180)
+)
+(symbol
+	(rect 1640 384 1840 464)
+	(text "color_changer" (rect 5 0 73 12)(font "Arial" ))
+	(text "inst2" (rect 8 64 30 81)(font "Intel Clear" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "RGBin[7..0]" (rect 0 0 57 12)(font "Arial" ))
+		(text "RGBin[7..0]" (rect 21 27 78 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 3))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "enable" (rect 0 0 31 12)(font "Arial" ))
+		(text "enable" (rect 21 43 52 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 200 32)
+		(output)
+		(text "RGBout[7..0]" (rect 0 0 64 12)(font "Arial" ))
+		(text "RGBout[7..0]" (rect 125 27 189 39)(font "Arial" ))
+		(line (pt 200 32)(pt 184 32)(line_width 3))
+	)
+	(parameter
+		"CHANGE_FROM1"
+		"49"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"CHANGE_TO1"
+		"224"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"CHANGE_FROM2"
+		"00000000"
+		""
+		(type "PARAMETER_UNSIGNED_BIN")	)
+	(parameter
+		"CHANGE_TO2"
+		"00000000"
+		""
+		(type "PARAMETER_UNSIGNED_BIN")	)
+	(parameter
+		"CHANGE_FROM3"
+		"00000000"
+		""
+		(type "PARAMETER_UNSIGNED_BIN")	)
+	(parameter
+		"CHANGE_TO3"
+		"00000000"
+		""
+		(type "PARAMETER_UNSIGNED_BIN")	)
+	(drawing
+		(rectangle (rect 16 16 184 64))
+	)
+	(annotation_block (parameter)(rect 1648 480 1889 613))
+)
+(symbol
 	(rect 536 440 768 616)
 	(text "enemy" (rect 5 0 39 12)(font "Arial" ))
 	(text "inst" (rect 8 160 25 172)(font "Arial" ))
@@ -452,7 +528,7 @@ agreement for further details.
 	)
 	(parameter
 		"INITIAL_X"
-		"207"
+		"271"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
@@ -474,82 +550,6 @@ agreement for further details.
 		(rectangle (rect 16 16 216 160))
 	)
 	(annotation_block (parameter)(rect 560 312 772 407))
-)
-(symbol
-	(rect 1600 464 1632 480)
-	(text "VCC" (rect 5 6 25 16)(font "Arial" (font_size 6)))
-	(text "inst4" (rect 7 -6 29 11)(font "Intel Clear" )(invisible))
-	(port
-		(pt 16 0)
-		(output)
-		(text "1" (rect 19 7 24 19)(font "Courier New" (bold))(invisible))
-		(text "1" (rect 8 -3 13 9)(font "Courier New" (bold))(invisible))
-		(line (pt 16 0)(pt 16 8))
-	)
-	(drawing
-		(line (pt 24 8)(pt 8 8))
-	)
-	(rotate180)
-)
-(symbol
-	(rect 1640 384 1840 464)
-	(text "color_changer" (rect 5 0 73 12)(font "Arial" ))
-	(text "inst2" (rect 8 64 30 81)(font "Intel Clear" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "RGBin[7..0]" (rect 0 0 57 12)(font "Arial" ))
-		(text "RGBin[7..0]" (rect 21 27 78 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32)(line_width 3))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "enable" (rect 0 0 31 12)(font "Arial" ))
-		(text "enable" (rect 21 43 52 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 200 32)
-		(output)
-		(text "RGBout[7..0]" (rect 0 0 64 12)(font "Arial" ))
-		(text "RGBout[7..0]" (rect 125 27 189 39)(font "Arial" ))
-		(line (pt 200 32)(pt 184 32)(line_width 3))
-	)
-	(parameter
-		"CHANGE_FROM1"
-		"49"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"CHANGE_TO1"
-		"224"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"CHANGE_FROM2"
-		"00000000"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"CHANGE_TO2"
-		"00000000"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"CHANGE_FROM3"
-		"00000000"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(parameter
-		"CHANGE_TO3"
-		"00000000"
-		""
-		(type "PARAMETER_UNSIGNED_BIN")	)
-	(drawing
-		(rectangle (rect 16 16 184 64))
-	)
-	(annotation_block (parameter)(rect 1648 480 1889 613))
 )
 (connector
 	(text "pixelY[10..0]" (rect 402 392 461 409)(font "Intel Clear" ))

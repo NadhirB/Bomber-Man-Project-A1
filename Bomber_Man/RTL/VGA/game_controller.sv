@@ -31,7 +31,6 @@ module	game_controller	(
 			output logic enemy3_column_wall_bomb,
 			output logic SingleHitPulse_enemies, // critical code, generating A single pulse in a frame 
 			output logic collision_blast_wall, // active in case of collision between blast and wall
-			output logic SingleHitPulse_player,
 			output logic player_door_idol,
 			output logic collision_player_powerUp,
 			output logic player_hit,
@@ -44,10 +43,11 @@ module	game_controller	(
 
 );
 
-
+// Collisions during the game, based on condition and no need to diffrentiate on how many hits per farme.
 assign player_culomn_wall = (drawing_request_player && (drawing_request_columns || drawing_request_wall || drawing_request_bomb2));// any collision --> comment after updating with #4 or #5 
 assign player2_culomn_wall = (drawing_request_player2 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb));
 
+//enemy collision
 assign enemy1_column_wall_bomb = (drawing_request_enemy1 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb || drawing_request_bomb2));
 assign enemy2_column_wall_bomb = (drawing_request_enemy2 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb || drawing_request_bomb2));
 assign enemy3_column_wall_bomb = (drawing_request_enemy3 && (drawing_request_columns || drawing_request_wall || drawing_request_bomb || drawing_request_bomb2));
@@ -56,20 +56,21 @@ assign enemy3_column_wall_bomb = (drawing_request_enemy3 && (drawing_request_col
 assign collision_blast_wall = ((drawing_request_blast || drawing_request_blast2) && drawing_request_wall && !drawing_request_columns);
 assign player_door_idol = (drawing_request_doorIdol && drawing_request_player && !drawing_request_wall);
 
+//player and powerup collisions
 assign collision_player_powerUp = (drawing_request_player && drawing_request_powerUp && !drawing_request_wall);
 assign collision_player2_powerUp = (drawing_request_player2 && drawing_request_powerUp && !drawing_request_wall);
 
+//player hits
 assign player_hit = (drawing_request_player && (drawing_request_blast || drawing_request_blast2 || drawing_request_enemy1 || drawing_request_enemy2 || drawing_request_enemy3 || drawing_request_spikes) && !player_invulnerable);
 assign player2_hit = (drawing_request_player2 && (drawing_request_blast || drawing_request_blast2 || drawing_request_enemy1 || drawing_request_enemy2 || drawing_request_enemy3 ||  drawing_request_spikes) && !player2_invulnerable);
 
+//enemy kill.
 assign enemy1_kill = ((drawing_request_blast || drawing_request_blast2) && drawing_request_enemy1);
 assign enemy2_kill = ((drawing_request_blast || drawing_request_blast2) && drawing_request_enemy2);
 assign enemy3_kill = ((drawing_request_blast || drawing_request_blast2) && drawing_request_enemy3);
 
 
 logic flag ; // a semaphore to set the output only once per frame regardless of number of collisions 
-logic collision_player_column;
-logic collision_player2_column; // collision between Smiley and number - is not output
 logic collision_enemy_column;
 
 
@@ -79,38 +80,22 @@ begin
 	begin 
 		flag	<= 1'b0;
 		SingleHitPulse_enemies <= 1'b0;
-		SingleHitPulse_player <= 1'b0;	
-		
 	end 
 	else begin 
-
-		collision_player_column <= 1'b0;
-		collision_player2_column <= 1'b0;	// default
+	
+		SingleHitPulse_enemies <= 1'b0 ; // default
 		collision_enemy_column <= 1'b0;
 		
-		if (drawing_request_player && drawing_request_columns)
-			collision_player_column <= 1'b1;
-			
-		if (drawing_request_player2 && drawing_request_columns)
-			collision_player2_column <= 1'b1;
-		
-		if ((drawing_request_enemy1 || drawing_request_enemy2) && (drawing_request_columns || drawing_request_wall || drawing_request_bomb || drawing_request_bomb2))
+		//if collision detected on frame 
+		if ((drawing_request_enemy1 || drawing_request_enemy2 || drawing_request_enemy3) && (drawing_request_columns || drawing_request_wall || drawing_request_bomb || drawing_request_bomb2))
 			collision_enemy_column <= 1'b1;
 		
-		SingleHitPulse_enemies <= 1'b0 ; // default
-		SingleHitPulse_player <= 1'b0;
 		if(startOfFrame) 
 				flag <= 1'b0 ; // reset for next time 
 				
-//	---#7 - change the condition below to collision between Smiley and number ---------
-
-//if ( collision_player_column  && (flag == 1'b0)) begin 
-//			flag	<= 1'b1; // to enter only once 
-//			SingleHitPulse_player <= 1'b1 ; 
-//		end ; 
-if ( collision_blast_wall  && (flag == 1'b0)) begin 
+if ( collision_enemy_column && (flag == 1'b0)) begin 
 			flag	<= 1'b1; // to enter only once 
-			SingleHitPulse_player <= 1'b1 ; 
+			SingleHitPulse_enemies <= 1'b1 ; 
 		end ; 
  
 	end 

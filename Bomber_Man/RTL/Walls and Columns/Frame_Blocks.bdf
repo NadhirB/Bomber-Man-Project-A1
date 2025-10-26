@@ -261,7 +261,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 808 72 968 152)
+	(rect 800 48 960 128)
 	(text "MyConstant" (rect 5 0 65 12)(font "Arial" ))
 	(text "inst" (rect 8 64 25 76)(font "Arial" ))
 	(port
@@ -284,7 +284,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 144 64))
 	)
-	(annotation_block (parameter)(rect 800 0 969 57))
+	(annotation_block (parameter)(rect 792 -24 961 33))
 )
 (symbol
 	(rect 472 112 696 256)
@@ -701,12 +701,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "pixelY[10..0]" (rect 401 416 460 433)(font "Intel Clear" ))
-	(pt 400 432)
-	(pt 472 432)
-	(bus)
-)
-(connector
 	(text "clk" (rect 232 136 246 153)(font "Intel Clear" ))
 	(pt 208 152)
 	(pt 296 152)
@@ -764,11 +758,6 @@ agreement for further details.
 	(pt 1088 144)
 )
 (connector
-	(text "resetN" (rect 1020 144 1050 161)(font "Intel Clear" ))
-	(pt 1016 160)
-	(pt 1088 160)
-)
-(connector
 	(text "pixelX[10..0]" (rect 1021 160 1080 177)(font "Intel Clear" ))
 	(pt 1016 176)
 	(pt 1088 176)
@@ -789,18 +778,6 @@ agreement for further details.
 	(text "resetN" (rect 1020 384 1050 401)(font "Intel Clear" ))
 	(pt 1016 400)
 	(pt 1088 400)
-)
-(connector
-	(text "pixelX[10..0]" (rect 1021 400 1080 417)(font "Intel Clear" ))
-	(pt 1016 416)
-	(pt 1088 416)
-	(bus)
-)
-(connector
-	(text "pixelY[10..0]" (rect 1017 416 1076 433)(font "Intel Clear" ))
-	(pt 1016 432)
-	(pt 1088 432)
-	(bus)
 )
 (connector
 	(pt 1792 168)
@@ -912,12 +889,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "right_X[10..0]" (rect 973 88 1036 105)(font "Intel Clear" ))
-	(pt 968 104)
-	(pt 1032 104)
-	(bus)
-)
-(connector
 	(text "right_X[10..0]" (rect 1021 192 1084 209)(font "Intel Clear" ))
 	(pt 1016 208)
 	(pt 1088 208)
@@ -945,20 +916,37 @@ agreement for further details.
 	(pt 1792 184)
 	(pt 1840 184)
 )
-(text "clk" (rect 408 128 422 145)(font "Intel Clear" ))
-(text "resetN" (rect 404 144 434 161)(font "Intel Clear" ))
-(text "pixelX[10..0]" (rect 405 160 464 177)(font "Intel Clear" ))
-(text "pixelY[10..0]" (rect 401 176 460 193)(font "Intel Clear" ))
-(text "clk" (rect 408 368 422 385)(font "Intel Clear" ))
-(text "resetN" (rect 404 384 434 401)(font "Intel Clear" ))
-(text "pixelX[10..0]" (rect 405 400 464 417)(font "Intel Clear" ))
-(text "pixelY[10..0]" (rect 401 416 460 433)(font "Intel Clear" ))
-(text "clk" (rect 1024 368 1038 385)(font "Intel Clear" ))
-(text "resetN" (rect 1020 384 1050 401)(font "Intel Clear" ))
-(text "pixelX[10..0]" (rect 1021 400 1080 417)(font "Intel Clear" ))
-(text "pixelY[10..0]" (rect 1017 416 1076 433)(font "Intel Clear" ))
-(text "clk" (rect 1024 128 1038 145)(font "Intel Clear" ))
-(text "resetN" (rect 1020 144 1050 161)(font "Intel Clear" ))
-(text "pixelX[10..0]" (rect 1021 160 1080 177)(font "Intel Clear" ))
-(text "pixelY[10..0]" (rect 1017 176 1076 193)(font "Intel Clear" ))
+(connector
+	(text "pixelY[10..0]" (rect 401 416 460 433)(font "Intel Clear" ))
+	(pt 472 432)
+	(pt 400 432)
+	(bus)
+)
+(connector
+	(text "pixelX[10..0]" (rect 1021 400 1080 417)(font "Intel Clear" ))
+	(pt 1088 416)
+	(pt 1016 416)
+	(bus)
+)
+(connector
+	(text "pixelY[10..0]" (rect 1017 416 1076 433)(font "Intel Clear" ))
+	(pt 1088 432)
+	(pt 1016 432)
+	(bus)
+)
+(connector
+	(text "resetN" (rect 1020 144 1050 161)(font "Intel Clear" ))
+	(pt 1088 160)
+	(pt 1016 160)
+)
+(connector
+	(text "right_X[10..0]" (rect 965 64 1028 81)(font "Intel Clear" ))
+	(pt 960 80)
+	(pt 1024 80)
+	(bus)
+)
 (text "clk" (rect 1496 152 1510 169)(font "Intel Clear" ))
+(text "Top Border" (rect 360 88 440 108)(font "Intel Clear" (font_size 10)))
+(text "Left Border" (rect 360 336 439 356)(font "Intel Clear" (font_size 10)))
+(text "Bottom Border" (rect 984 336 1089 356)(font "Intel Clear" (font_size 10)))
+(text "Right Border" (rect 984 96 1072 116)(font "Intel Clear" (font_size 10)))

@@ -19,6 +19,7 @@ begin
 	end
 	
 	else begin
+		//Chooses between game screens and the Game board
 		if (game_on)
 			RGBOut = RGB_object_mux;
 		else 

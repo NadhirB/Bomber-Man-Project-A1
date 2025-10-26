@@ -452,12 +452,12 @@ agreement for further details.
 	)
 	(parameter
 		"INITIAL_X"
-		"207"
+		"143"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"INITIAL_Y"
-		"144"
+		"432"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
@@ -467,7 +467,7 @@ agreement for further details.
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"default_start_dir"
-		"0001"
+		"0010"
 		""
 		(type "PARAMETER_UNSIGNED_BIN")	)
 	(drawing

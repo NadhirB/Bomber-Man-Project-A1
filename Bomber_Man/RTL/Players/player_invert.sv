@@ -12,7 +12,7 @@ parameter logic [7:0] TRANSPARENT_ENCODING = 8'h00;// RGB value in the bitmap re
 
 always_comb 
 begin
-	
+	//make the plyer white when the module says so
 	if (RGBout != TRANSPARENT_ENCODING && invert_player)
 		RGBout = 8'hff;
 	else

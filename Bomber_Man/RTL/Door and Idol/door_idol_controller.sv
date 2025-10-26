@@ -17,7 +17,7 @@ module	door_idol_controller	(
 			
 );
 
-
+// Logic to hold the numbers that were generated
 logic [10:0] topLeftX_1;
 logic [10:0] topLeftY_1;
 logic [10:0] topLeftX_2;
@@ -37,7 +37,7 @@ begin
 	end
 	
 	else begin
-		if(!enter_is_presed)
+		if(!enter_is_presed) //to not jump
 			flag <= 0;
 	
 		// Choosing 1st coordinates
@@ -54,6 +54,7 @@ begin
 			topLeftY_2 <= randum_num2*64 + 48;
 			end
 		
+		//chooses the coordinates based on the level 
 		if(level_select == 1) begin
 			bitMap_sel <= 0;
 			topLeftX <= topLeftX_1;

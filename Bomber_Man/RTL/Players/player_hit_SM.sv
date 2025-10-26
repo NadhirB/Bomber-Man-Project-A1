@@ -34,6 +34,7 @@ begin
 		//------------
 			IDLE_ST: begin
 		//------------
+				//stay here until player gets hit 
 				if (player_hit) begin
 					SM_Player_Hit <= INVERTED_ST;
 					player_invert <= 1;
@@ -47,28 +48,25 @@ begin
 			if (turbo_pulse) begin
 				SM_Player_Hit <= REGULAR_ST;
 				player_invert <= 0;
-				end
-
-						
-		end 
+				end	
+			end 
 		
 		
 		//------------
 			REGULAR_ST:  begin 
 		//------------
-				if (count == 10) begin
+				if (count == 10) begin				//Reset after two seconds 
 					SM_Player_Hit <= IDLE_ST;
 					player_invert <= 0;
 					player_invulnerable <= 0;
 					count <= 0;
 					end
-				else if (turbo_pulse) begin
+				else if (turbo_pulse) begin		// Alternate between the REGULAR and INVERTED states for two seconds
 					SM_Player_Hit <= INVERTED_ST;
 					player_invert <= 1;
 					count <= count + 1;
-					end
-				
-		end
+					end	
+			end
 		
 		endcase
  

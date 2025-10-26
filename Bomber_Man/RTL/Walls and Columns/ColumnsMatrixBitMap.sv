@@ -1,6 +1,3 @@
-// HartsMatrixBitMap File 
-// A two level bitmap. dosplaying harts on the screen Feb 2025 
-//(c) Technion IIT, Department of Electrical Engineering 2025 
 
 
 
@@ -19,11 +16,11 @@ module	ColumnsMatrixBitMap	(
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'hff ;// RGB value in the bitmap representing a transparent pixel 
 
 
-localparam  int TILE_NUMBER_OF_X_BITS = 5;  // 2^5 = 32  everu object 
+localparam  int TILE_NUMBER_OF_X_BITS = 5;  // 2^5 = 32  every object 
 localparam  int TILE_NUMBER_OF_Y_BITS = 5;  // 2^5 = 32 
 
-localparam  int MAZE_NUMBER_OF__X_BITS = 5;  // 2^4 = 16 / /the maze of the objects 
-localparam  int MAZE_NUMBER_OF__Y_BITS = 4;  // 2^3 = 8 
+localparam  int MAZE_NUMBER_OF__X_BITS = 5;  // 2^5 = 32 / /the maze of the objects 
+localparam  int MAZE_NUMBER_OF__Y_BITS = 4;  // 2^4 = 16 
 
 //-----
 
@@ -44,15 +41,6 @@ localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
  assign offsetY_MSB  = offsetY[(TILE_NUMBER_OF_Y_BITS + MAZE_NUMBER_OF__Y_BITS -1 ):TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
  
 
- 
-// the screen is 640*480  or  20 * 15 squares of 32*32  bits ,  we wiil round up to 8 *16 
-// this is the bitmap  of the maze , if there is a specific value  the  whole 32*32 rectange will be drawn on the screen
-// there are  16 options of differents kinds of 32*32 squares 
-// all numbers here are hard coded to simplify the understanding 
-
-
-
-// This is a Test:
 
 logic [1:0] MazeBitMapMask [0:10] [0:16];
 

@@ -1,7 +1,3 @@
-// HartsMatrixBitMap File 
-// A two level bitmap. dosplaying harts on the screen Feb 2025 
-//(c) Technion IIT, Department of Electrical Engineering 2025 
-
 
 
 module	SpikesMatrixBitMap	(	
@@ -23,11 +19,11 @@ parameter int default_layout = 0;
 localparam logic [7:0] TRANSPARENT_ENCODING = 8'hff ;// RGB value in the bitmap representing a transparent pixel 
 
 
-localparam  int TILE_NUMBER_OF_X_BITS = 5;  // 2^5 = 32  everu object 
+localparam  int TILE_NUMBER_OF_X_BITS = 5;  // 2^5 = 32  every object 
 localparam  int TILE_NUMBER_OF_Y_BITS = 5;  // 2^5 = 32 
 
-localparam  int MAZE_NUMBER_OF__X_BITS = 5;  // 2^4 = 16 / /the maze of the objects 
-localparam  int MAZE_NUMBER_OF__Y_BITS = 4;  // 2^3 = 8 
+localparam  int MAZE_NUMBER_OF__X_BITS = 5;  // 2^5 = 32 / /the maze of the objects 
+localparam  int MAZE_NUMBER_OF__Y_BITS = 4;  // 2^4 = 16
 
 //-----
 
@@ -48,19 +44,11 @@ localparam  int MAZE_HEIGHT_Y = 1 << MAZE_NUMBER_OF__Y_BITS ;
  assign offsetY_MSB  = offsetY[(TILE_NUMBER_OF_Y_BITS + MAZE_NUMBER_OF__Y_BITS -1 ):TILE_NUMBER_OF_Y_BITS] ; // get higher bits 
 
 
- 
-// the screen is 640*480  or  20 * 15 squares of 32*32  bits ,  we wiil round up to 8 *16 
-// this is the bitmap  of the maze , if there is a specific value  the  whole 32*32 rectange will be drawn on the screen
-// there are  16 options of differents kinds of 32*32 squares 
-// all numbers here are hard coded to simplify the understanding 
-
-
-
-// This is a Test:
 
 logic [1:0] MazeBitMapMask [0:12] [0:18];
-//logic MazeBitMapMask_exploding [0:12] [0:18];
 
+
+// Five different layouts for sudo randomnes.
 logic [1:0] MazeDefaultBitMapMask [0:4] [0:12] [0:18] = 
 		'{'{'{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
@@ -134,22 +122,6 @@ logic [1:0] MazeDefaultBitMapMask [0:4] [0:12] [0:18] =
 		'{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 	  
 	  };
-//
-//logic MazeDefaultBitMapMask_exploding [0:12] [0:18] = 
-//	'{'{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //col
-//	  '{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
- 
  
 
 
@@ -198,7 +170,6 @@ begin
 	if(!resetN) begin
 		RGBout <=	8'h00;
 		MazeBitMapMask  <=  MazeDefaultBitMapMask[default_layout] ;  //  copy default tabel
-//		MazeBitMapMask_exploding <= MazeDefaultBitMapMask_exploding;
 	end
 	else begin
 		RGBout <= TRANSPARENT_ENCODING ; // default
@@ -206,29 +177,11 @@ begin
 			MazeBitMapMask <= MazeDefaultBitMapMask[layout_sel];
 			end
 		
-//		if (col_blast_wall) begin
-//			if (MazeBitMapMask[offsetY_MSB][offsetX_MSB] > 0 && MazeBitMapMask_exploding[offsetY_MSB][offsetX_MSB] != 1) begin
-//				MazeBitMapMask[offsetY_MSB][offsetX_MSB] <= MazeBitMapMask[offsetY_MSB][offsetX_MSB] - 1;
-//				MazeBitMapMask_exploding[offsetY_MSB][offsetX_MSB] <= 1;
-//			end
-//		end
-		
-//		if (!explosion)
-//			MazeBitMapMask_exploding <= MazeDefaultBitMapMask_exploding;
-		
 		if (InsideRectangle == 1'b1 )	begin 
 			if (MazeBitMapMask[offsetY_MSB][offsetX_MSB])
 				RGBout <= object_colors[offsetY_LSB][offsetX_LSB];
 			else
 				RGBout <= TRANSPARENT_ENCODING ; 
-//		   	case (MazeBitMapMask[offsetY_MSB][offsetX_MSB])
-//					 2'b00 : RGBout <= TRANSPARENT_ENCODING ;
-//					 2'b01 : RGBout <= object_colors[2][offsetY_LSB][offsetX_LSB];
-//					 2'b10 : RGBout <= object_colors[1][offsetY_LSB][offsetX_LSB];
-//					 2'b11 : RGBout <= object_colors[0][offsetY_LSB][offsetX_LSB];
-//				default:  RGBout <= TRANSPARENT_ENCODING ; 
-//				endcase
-				
 			end
 		
 

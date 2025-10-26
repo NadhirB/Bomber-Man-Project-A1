@@ -23,8 +23,7 @@ module	player_move	(
 					input logic game_on,
 					
 					output logic signed [10:0] topLeftX, // output the top left corner 
-					output logic signed [10:0] topLeftY,  // can be negative , if the object is partliy outside 
-					output logic [1:0] current_speed_level
+					output logic signed [10:0] topLeftY  // can be negative , if the object is partliy outside 
 					
 );
 
@@ -52,7 +51,7 @@ const int	y_FRAME_TOP		=	48 * FIXED_POINT_MULTIPLIER;
 const int	y_FRAME_BOTTOM	=	(464 - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //- OBJECT_HIGHT_Y
 
 
-
+// Constants for better clarity
 const logic [3:0] TOP =		 4'b0100; 
 const logic [3:0] RIGHT =   4'b0010; 
 const logic [3:0] LEFT =	 4'b1000; 
@@ -72,6 +71,7 @@ int Ymove;
 int Xposition ; //position   
 int Yposition ;
 
+// Speed controls how fast the player moves 
 logic [7:0] Speed;
 logic [7:0] speed_levels [0:2] = '{64, 96, 128};
 
@@ -87,7 +87,6 @@ logic move_flag_right = 0;
 logic hit_flag_1 = 0;
 logic hit_flag_2 = 0;
 
-logic [3:0] move = 4'b0;
  //---------
  
 always_ff @(posedge clk or negedge resetN)
@@ -108,7 +107,6 @@ begin : fsm_sync_proc
 		hit_flag_1 <= 0;
 		hit_flag_2 <= 0;
 		Speed <= Speed_default;
-		move <= 0;
 	end 	
 	
 	else begin
@@ -138,25 +136,21 @@ begin : fsm_sync_proc
 		
 		// keys direction change 
 				if (up_direction_key && move_flag_up == 0) begin
-					move <= TOP;
 					Ymove <= - Speed;
 					move_flag_up <= 1;
 					end
 					
 				if (down_direction_key && move_flag_down == 0) begin
-					move <= BOTTOM;
 					Ymove <= Speed;
 					move_flag_down <= 1;
 					end
 					
 				if (left_direction_key && move_flag_left == 0) begin
-					move <= LEFT;
 					Xmove <= - Speed;
 					move_flag_left <= 1;
 					end
 					
 				if (right_direction_key && move_flag_right == 0) begin
-					move <= RIGHT;
 					Xmove <= Speed;
 					move_flag_right <= 1;
 					end
@@ -164,12 +158,12 @@ begin : fsm_sync_proc
 				
 	
        // collcting collisions 	
-				if (column_collision && hit_flag_1 == 0) begin
+				if (column_collision && hit_flag_1 == 0) begin //First collision
 					hit_reg_1 <= HitEdgeCode;
 					hit_flag_1 <= 1;
 				end
 				
-				if (column_collision && hit_flag_1 && !hit_flag_2 && HitEdgeCode != hit_reg_1) begin
+				if (column_collision && hit_flag_1 && !hit_flag_2 && HitEdgeCode != hit_reg_1 && HitEdgeCode != 0) begin // Second collision if detected
 					hit_reg_2 <= HitEdgeCode;
 					hit_flag_2 <= 1;
 				end
@@ -188,7 +182,8 @@ begin : fsm_sync_proc
 		//------------
 			START_OF_FRAME_ST:  begin      //check if any colisin was detected 
 		//------------
-
+				
+				//Case for the FIRST hit register
 				case (hit_reg_1[3:0])  // test sides
 				
 					TOP + LEFT: 	// collision with top left corner
@@ -233,6 +228,8 @@ begin : fsm_sync_proc
 	
 			  endcase
 			  
+			  
+			  //Case for the SECOND hit register
 			  case (hit_reg_2[3:0])  // test sides
 				
 					TOP + LEFT: 	// collision with top left corner
@@ -276,7 +273,8 @@ begin : fsm_sync_proc
 					default: ; 
 	
 			  endcase
-			  
+			
+			//reseting the values
 			hit_reg_1 <= 4'b0;
 			hit_flag_1 <= 0;
 			hit_reg_2 <= 4'b0;
@@ -287,11 +285,13 @@ begin : fsm_sync_proc
 		//------------------------
 			POSITION_CHANGE_ST : begin  // position interpolate 
 		//------------------------
+				//Updating position
 				Xposition <= Xposition + Xmove; 
 				Yposition <= Yposition + Ymove;
 				Xmove <= 0;
 				Ymove <= 0;
-
+				
+				//Updating speed level
 				Speed <= speed_levels[speed_level];
 				
 				SM_Motion <= POSITION_LIMITS_ST ; 
@@ -309,6 +309,7 @@ begin : fsm_sync_proc
 		if (Yposition > y_FRAME_BOTTOM) 
 						Yposition <= y_FRAME_BOTTOM ; 
 				
+					//going to idle state if game isn't on
 					if (!game_on)
 						SM_Motion <= IDLE_ST;
 					else

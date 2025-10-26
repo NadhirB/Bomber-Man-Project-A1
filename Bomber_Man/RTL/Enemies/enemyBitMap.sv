@@ -10,11 +10,11 @@ module	enemyBitMap	(
 					input logic	[10:0] offsetX,// offset from top left  position 
 					input logic	[10:0] offsetY,
 					input	logic	InsideRectangle, //input that the pixel is within a bracket 
-					input logic [3:0] direction,
+					input logic [3:0] direction, //get the direction the enemy moves from the enemy.sv block
 
 					output logic drawingRequest, //output that the pixel should be dispalyed 
 					output logic [7:0] RGBout,  //rgb value from the bitmap 
-				   output logic [3:0] HitEdgeCode 
+				   output logic [3:0] HitEdgeCode // the edge that is bieng drawn now for collision detection
  ) ;
 
 // this is the devider used to acess the right pixel 
@@ -26,10 +26,7 @@ const logic [3:0] TOP =		 4'b0100;
 const logic [3:0] RIGHT =   4'b0010; 
 const logic [3:0] LEFT =	 4'b1000; 
 const logic [3:0] BOTTOM =  4'b0001; 
-
-
-logic	[10:0] HitCodeX ;// offset of Hitcode 
-logic	[10:0] HitCodeY ;  
+ 
 
 // generating a enemy bitmap
 
@@ -99,6 +96,8 @@ begin
 
 		if (InsideRectangle == 1'b1 ) 
 		begin // inside an external bracket
+		
+			//flip or cjange bitmap based on the direction the enemy is going in
 			case(direction)
 				LEFT  : RGBout <= object_colors[offsetY][offsetX];
 				RIGHT : RGBout <= object_colors[offsetY][31 - offsetX];

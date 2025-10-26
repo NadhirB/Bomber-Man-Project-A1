@@ -49,12 +49,6 @@ const int	x_FRAME_RIGHT	=	(623 - OBJECT_WIDTH_X)* FIXED_POINT_MULTIPLIER;
 const int	y_FRAME_TOP		=	48 * FIXED_POINT_MULTIPLIER;
 const int	y_FRAME_BOTTOM	=	(464 - OBJECT_HIGHT_Y ) * FIXED_POINT_MULTIPLIER; //- OBJECT_HIGHT_Y
 
-//edges 
-	//------------
-	//			 434
-	//			 1x2
-	//			 404
-	//
  
 const logic [3:0] TOP =		 4'b0100; 
 const logic [3:0] RIGHT =   4'b0010; 
@@ -64,7 +58,7 @@ const logic [3:0] BOTTOM =  4'b0001;
 
 enum  logic [2:0] {IDLE_ST,         	// initial state
 						 MOVE_ST, 				// moving no colision 
-						 START_OF_FRAME_ST, 	          // startOfFrame activity-after all data collected 
+						 START_OF_FRAME_ST, 	// startOfFrame activity-after all data collected 
 						 POSITION_CHANGE_ST, // position interpolate 
 						 POSITION_LIMITS_ST  // check if inside the frame  
 						}  SM_Motion ;
@@ -85,8 +79,8 @@ begin : fsm_sync_proc
 
 	if (resetN == 1'b0) begin 
 		SM_Motion <= IDLE_ST ; 
-		Xspeed <= Speed_default   ; 
-		Yspeed <= 0  ; 
+		Xspeed <= 0; 
+		Yspeed <= 0; 
 		Xposition <= 0  ; 
 		Yposition <= 0  ; 
 		hit_reg <= 4'b0 ;
@@ -105,7 +99,7 @@ begin : fsm_sync_proc
 				Xposition <= INITIAL_X*FIXED_POINT_MULTIPLIER; 
 				Yposition <= INITIAL_Y*FIXED_POINT_MULTIPLIER; 
 
-				if (game_on) 
+				if (game_on) 				// can only start moving if the game is on
 					SM_Motion <= MOVE_ST ;
  	
 			end
@@ -144,7 +138,7 @@ begin : fsm_sync_proc
        // collcting collisions 	
 				if (collision && hit_flag == 0 && HitEdgeCode != 0) begin
 					hit_reg <= HitEdgeCode;
-					hit_flag <= 1;
+					hit_flag <= 1; // only one hit per frame
 				end
 				
 				
@@ -269,7 +263,7 @@ begin : fsm_sync_proc
 						
 			end
 
-				if (!game_on)
+				if (!game_on)					// if game not on return to Idle state
 						SM_Motion <= IDLE_ST;
 					else
 						SM_Motion <= MOVE_ST; 

@@ -110,7 +110,7 @@ begin
 		
 		
 		if (InsideRectangle == 1'b1 )	begin
-			if (!mode_sel)
+			if (!mode_sel) // to disable in VS mode
 				RGBout <= object_colors[select][offsetY][offsetX];
 			else
 				RGBout <= TRANSPARENT_ENCODING ;

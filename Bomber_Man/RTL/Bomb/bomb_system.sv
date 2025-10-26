@@ -132,7 +132,6 @@ Bomb_Block_T Bomb_Block_T_inst1
 	.startOfFrame(startOfFrame) ,	// input  startOfFrame_sig
 	.player_topLeftX(player_topLeftX) ,	// input [10:0] player_topLeftX_sig
 	.player_topLeftY(player_topLeftY) ,	// input [10:0] player_topLeftY_sig
-	.blastRadius() ,	// input [1:0] blastRadius_sig
 	.blast_num(blast_num) ,	// input [2:0] blast_num_sig
 	.bombRGB(bomb1_RGB) ,	// output [7:0] bombRGB_sig
 	.bombDR(bomb1_DR) ,	// output  bombDR_sig
@@ -153,7 +152,6 @@ Bomb_Block_T Bomb_Block_T_inst2
 	.startOfFrame(startOfFrame) ,	// input  startOfFrame_sig
 	.player_topLeftX(player_topLeftX) ,	// input [10:0] player_topLeftX_sig
 	.player_topLeftY(player_topLeftY) ,	// input [10:0] player_topLeftY_sig
-	.blastRadius() ,	// input [1:0] blastRadius_sig
 	.blast_num(blast_num) ,	// input [2:0] blast_num_sig
 	.bombRGB(bomb2_RGB) ,	// output [7:0] bombRGB_sig
 	.bombDR(bomb2_DR) ,	// output  bombDR_sig
@@ -174,7 +172,6 @@ Bomb_Block_T Bomb_Block_T_inst3
 	.startOfFrame(startOfFrame) ,	// input  startOfFrame_sig
 	.player_topLeftX(player_topLeftX) ,	// input [10:0] player_topLeftX_sig
 	.player_topLeftY(player_topLeftY) ,	// input [10:0] player_topLeftY_sig
-	.blastRadius() ,	// input [1:0] blastRadius_sig
 	.blast_num(blast_num) ,	// input [2:0] blast_num_sig
 	.bombRGB(bomb3_RGB) ,	// output [7:0] bombRGB_sig
 	.bombDR(bomb3_DR) ,	// output  bombDR_sig

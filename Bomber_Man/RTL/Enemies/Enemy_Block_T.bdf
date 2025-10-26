@@ -445,12 +445,12 @@ agreement for further details.
 	)
 	(parameter
 		"INITIAL_X"
-		"463"
+		"527"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
 		"INITIAL_Y"
-		"48"
+		"144"
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter

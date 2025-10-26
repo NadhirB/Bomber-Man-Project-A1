@@ -30,6 +30,8 @@ logic draw_enemy3;
 
 logic flag;
 
+
+// synchronic logic for enemy killikng and enabeling.
 always_ff @(posedge clk or negedge resetN)
 begin
 	if(!resetN) begin
@@ -40,7 +42,8 @@ begin
 	end
 
 	else begin
-		if (game_on && flag) begin
+		// resets on the start of every level
+		if (game_on && flag) begin 
 			draw_enemy1 <= 1;
 			draw_enemy2 <= 1;
 			draw_enemy3 <= 1;
@@ -63,6 +66,7 @@ begin
 end
 
 
+//combinatorical logic for RGB and DR
 always_comb
 begin
 	if(!resetN) begin

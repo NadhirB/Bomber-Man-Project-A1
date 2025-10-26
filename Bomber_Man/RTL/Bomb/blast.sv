@@ -7,12 +7,12 @@ module blast
 	input logic OneSecPulse, 
 	input logic startOfFrame,
 	input logic blast,
-	input logic [1:0] blastRadius,
+//	input logic [1:0] blastRadius,
 	input logic [10:0] bomb_topLeftX,
 	input logic [10:0] bomb_topLeftY,
 	output logic signed 	[10:0] topLeftX, // output the top left corner 
 	output logic signed	[10:0] topLeftY,  // can be negative , if the object is partliy outside 
-	output logic [1:0] radius,
+//	output logic [1:0] radius,
 	output logic explode
    );
 
@@ -27,7 +27,7 @@ always_ff @(posedge clk or negedge resetN)
 	   
    if ( !resetN ) begin // Asynchronic reset
 		SMblast <= s_idle;
-		radius <= 2'b1;
+//		radius <= 2'b1;
 		topLeftX <= 640;
 		topLeftY <= 480;
 		explode <= 0;
@@ -44,7 +44,7 @@ always_ff @(posedge clk or negedge resetN)
 				if (blast) begin
 					topLeftX <= bomb_topLeftX - 64;
 					topLeftY <= bomb_topLeftY - 64;
-					radius <= blastRadius;
+//					radius <= blastRadius;
 					SMblast <= s_explode;
 					explode <= 1;
 				end

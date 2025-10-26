@@ -24,7 +24,7 @@ module DebugPlayerSpeed (
 				flag_dec <= 0;
         end
         else begin
-
+				//Used for debuging with the physical switches during work on the project
             if (sw_inc && speed_level < 2'b10 && flag_inc == 0) begin
                 speed_level <= speed_level + 1;
 					 flag_inc <= 1;
@@ -38,10 +38,12 @@ module DebugPlayerSpeed (
 					flag_inc <= 0;
 				if (!sw_dec)
 					flag_dec <= 0;
-					
+				
+				//Increases Speed level if collected the right power up 
 				if (powerUp_inc && speed_level < 2'b10)
 					speed_level <= speed_level + 1;
 					
+				//resets the speed level only when finished the game so the speed level is saved between levels
 				if (score_reset) begin
 					speed_level <= 2'b00;   
 					flag_inc <= 0;
