@@ -1,5 +1,8 @@
 # 🎮 BomberMan FPGA Game
 
+🎥 **Watch the Demo Video:**  
+[![BomberMan FPGA Demo](https://img.youtube.com/vi/Na9_m63Pu98/0.jpg)](https://www.youtube.com/watch?v=Na9_m63Pu98)
+
 A fully functional version of the classic **BomberMan** game, implemented in **SystemVerilog** and deployed on the **DE10-Standard Altera FPGA Board**.  
 Created by **Yoav Yihyie** and **Nadhir Busheri** during the **Summer of 2025** as part of the **A1 Laboratory** course at the Technion.
 
